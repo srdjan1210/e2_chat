@@ -1,0 +1,6 @@
+let Main = {
+    init: function(){
+
+    }
+}
+
