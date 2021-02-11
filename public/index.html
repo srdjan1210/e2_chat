@@ -16,9 +16,10 @@
                     <div class="clearfix"></div>
                 </nav>
                 <h2>Log In</h2>
-                <form action="">
-                    
-                    
+                <form action="" class="grid-container">
+                    <input maxlength="15" id="log-username" type="text" placeholder="username" class="item1">
+                    <input maxlength="20" id="log-password" type="password" placeholder="password" class="item2">
+                    <input id="log-btn" type="button" value="LOG IN" class="item3">
                 </form>
             </div>
             <!-- LOGIN END -->
@@ -33,22 +34,22 @@
                 </nav>
                 <h2>Sign Up For Free</h2>
                 <form action="" class="grid-container">
-                    
-                    <input id="reg-firstname" type="text" placeholder="first name *" class="item1">
-                    <input id="reg-lastname" type="text" placeholder="last name *" class="item2">
-                    <input id="reg-username" type="text" placeholder="username *" class="item3">
-                    <input id="reg-email" type="email" placeholder="email *" class="item4">
-                    <input id="reg-password" type="password" placeholder="password *" class="item5">
-                    <!--<button>GET STARTED</button>-->
+                    <span></span>
+                    <input maxlength="20" id="reg-firstname" type="text" placeholder="first name" class="item1">
+                    <input maxlength="20" id="reg-lastname" type="text" placeholder="last name" class="item2">
+                    <input maxlength="15" id="reg-username" type="text" placeholder="username *" class="item3 required">
+                    <input maxlength="35" id="reg-email" type="email" placeholder="email *" class="item4 required">
+                    <input minlength="8" maxlength="20" id="reg-password" type="password" placeholder="password *" class="item5 required">
                     <input id="reg-btn" type="button" value="GET STARTED" class="item6">
                 </form>
             </div>
             <!-- REGISTER END -->
         </section>
         <section id="chat">chat</section>
-
+        <script src="js/utility.js"></script>
         <script src="js/main.js"></script>
         <script src="js/sections.js"></script>
+        <script src="js/login.js"></script>
         <script src="js/register.js"></script>
     </body>
 </html>

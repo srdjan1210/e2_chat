@@ -1,9 +1,3 @@
-section#register .grid-container{
-    display: grid;
-    grid-gap: 20px;
-    grid-row-gap:36px;
-}
-
 section#register .item1{
     grid-column: 1;
     grid-row:1;

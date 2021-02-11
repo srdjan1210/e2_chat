@@ -66,6 +66,13 @@ section#register nav{
     margin-top: 40px;
 }
 
+section#login .grid-container,
+section#register .grid-container{
+    display: grid;
+    grid-gap: 20px;
+    grid-row-gap:36px;
+}
+
 section#login input,
 section#register input{
     line-height: 40px;
@@ -94,4 +101,9 @@ section#register input[type=button]{
 section#login input[type=button]:hover,
 section#register input[type=button]:hover{
     opacity: 1.0;
+}
+
+section#login input.invalid,
+section#register input.invalid{
+    border: 2px solid #e3242b;
 }
