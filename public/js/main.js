@@ -1,6 +1,7 @@
 let Main = {
     init: function(){
         Main.Sections.init();
+        Main.Register.init();
     }
 }
 
