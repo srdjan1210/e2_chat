@@ -43,24 +43,24 @@ Main.Register = {
         if(!(Utility.checkEmail(this.Data.email))){
             let emailInput = document.getElementById("reg-email");
             emailInput.classList.add("invalid");
-            emailInput.addEventListener("focus", this.clearErrorEvent);
+            emailInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         if(this.Data.username.length < 4){
             let usernameInput = document.getElementById("reg-username");
             usernameInput.classList.add("invalid");
-            usernameInput.addEventListener("focus", this.clearErrorEvent);
+            usernameInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         if(this.Data.password.length < 8){
             let passwordInput = document.getElementById("reg-password");
             passwordInput.classList.add("invalid");
-            passwordInput.addEventListener("focus", this.clearErrorEvent);
+            passwordInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         return valid;
     },
-    clearErrorEvent: function(e){
+    clearError: function(e){
         e.target.classList.remove("invalid");
     }
 }
