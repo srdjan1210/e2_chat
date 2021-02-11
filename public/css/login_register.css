@@ -1,0 +1,97 @@
+section#login .sheet,
+section#register .sheet{
+    display: block;
+    position: absolute;
+    width: 550px;
+    height: 560px;
+    background-color: #24323d;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    margin:auto;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.9);
+}
+
+section#login h2,
+section#register h2{
+    color:#fff;
+    text-align: center;
+    font-weight: normal;
+    margin: 40px 0px;
+    display: block;
+    position: relative;
+}
+
+section#login form,
+section#register form{
+    display: block;
+    line-height: 30px;
+    font-size:20px;
+    color:#c0bdba;
+    font-weight: bold;
+    width: 480px;
+    margin:auto;
+}
+
+section#login a,
+section#register a{
+    width: 240px;
+    line-height: 53px;
+    float:left;
+    color:#fff;
+    background-color: #435259;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0.85;
+    font-size: 22px;
+}
+
+section#login a:visited,
+section#register a:visited{
+    text-decoration: none;
+    color:#fff;
+}
+
+section#login a:hover,
+section#register a:hover{
+    background-color:#1ab188;
+}
+
+section#login nav,
+section#register nav{
+    display: block;
+    margin:auto;
+    width: 480px;
+    margin-top: 40px;
+}
+
+section#login input,
+section#register input{
+    line-height: 40px;
+    border:2px solid #777;
+    font-size: 22px;
+    display: block;
+    position: relative;
+    background-color: #24323d;
+    padding:0px 10px;
+    color:#fff;
+}
+
+section#login input[type=button],
+section#register input[type=button]{
+    border:none;
+    cursor: pointer;
+    background-color:#1ab188;
+    width: 100%;
+    display: block;
+    height: 72px;
+    letter-spacing:1px;
+    font-size: 24px;
+    opacity: 0.8;
+}
+
+section#login input[type=button]:hover,
+section#register input[type=button]:hover{
+    opacity: 1.0;
+}

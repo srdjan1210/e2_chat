@@ -2,24 +2,48 @@
     <head>
         <title>e2 chat</title>
         <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="css/login_register.css" type="text/css">
+        <link rel="stylesheet" href="css/register.css" type="text/css">
         <link rel="stylesheet" href="css/login.css" type="text/css">
     </head>
     <body>
         <section id="login">
             <!-- LOGIN -->
             <div class="sheet">
-                <div id="person_logo"></div>
+                <nav>
+                    <a href="#/register" style="color:#aaa;">Sign Up</a>
+                    <a href="#/login" style="background-color:#1ab188;opacity: 1.0;">Log In</a>
+                    <div class="clearfix"></div>
+                </nav>
+                <h2>Log In</h2>
                 <form action="">
-                    <input type="text" placeholder="username">
-                    <div class="clearfix"></div>
-                    <input type="password" placeholder="password">
-                    <div class="clearfix"></div>
-                    <!-- <input type="button" value="login"> -->
+                    
+                    
                 </form>
             </div>
             <!-- LOGIN END -->
         </section>
-        <section id="register">register</section>
+        <section id="register">
+            <!-- REGISTER -->
+            <div class="sheet">
+                <nav>
+                    <a href="#/register" style="background-color:#1ab188;opacity: 1.0;">Sign Up</a>
+                    <a href="#/login" style="color:#aaa;">Log In</a>
+                    <div class="clearfix"></div>
+                </nav>
+                <h2>Sign Up For Free</h2>
+                <form action="" class="grid-container">
+                    
+                    <input type="text" placeholder="first name *" class="item1">
+                    <input type="text" placeholder="last name *" class="item2">
+                    <input type="text" placeholder="username *" class="item3">
+                    <input type="password" placeholder="password *" class="item4">
+                    <!--<button>GET STARTED</button>-->
+                    <input type="button" value="GET STARTED" class="item5">
+                </form>
+            </div>
+            <!-- REGISTER END -->
+        </section>
         <section id="chat">chat</section>
 
         <script src="js/main.js"></script>
