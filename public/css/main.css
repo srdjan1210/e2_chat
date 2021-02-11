@@ -4,4 +4,36 @@ body{
     margin:0px;
     font-family: "Consolas";
     font-size: 16px;
+    background-color: #fdf1d6;
 }
+
+section {
+    display: none;
+}
+
+.active{
+    display:block;
+}
+
+.clearfix{
+    clear: both;
+    float: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #91091e;
+    opacity: 0.5; /* Firefox */
+    font-style: italic;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #91091e;
+    opacity: 0.5;
+    font-style: italic;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #91091e;
+    opacity: 0.5;
+    font-style: italic;
+  }

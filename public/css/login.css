@@ -1,0 +1,64 @@
+section#login .sheet{
+    display: block;
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    background-color: #c39e5c;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+    margin:auto;
+}
+
+section#login #person_logo{
+    position: absolute;
+    background-image:url("../img/person_logo.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    top: -75px;
+    left:0px;
+    right:0px;
+    margin:auto;
+}
+
+section#login form{
+    display: block;
+    margin-top:100px;
+    padding:20px 70px 70px 70px;
+    line-height: 30px;
+    font-size:20px;
+    color:#91091e;
+    font-weight: bold;
+}
+
+section#login input[type=text],
+section#login input[type=password]{
+    border:none;
+    border-bottom: 1px solid #91091e;
+    background-color: #c39e5c;
+    line-height: 30px;
+    font-size:20px;
+    color:#91091e;
+    font-weight: bold;
+    display:block;
+    position: relative;
+    padding: 0px 20px;
+    width: 100%;
+    margin: 0px auto 30px auto;
+    text-align: center;
+}
+
+section#login input[type=button]{
+    display: block;
+    position: relative;
+    width: 200px;
+    margin:auto;
+}
+
+section#login input:focus{
+    outline:none;
+}
