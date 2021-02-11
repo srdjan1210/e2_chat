@@ -8,13 +8,18 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 //Routers
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
+const { Mongoose } = require("mongoose");
 // Constants
 const PORT = process.env.PORT;
 
-
+//Database
+mongoose.connect('mongodb://localhost:27017/e2_chat',{useNewUrlParser: true, useUnifiedTopology: true,}).catch((err) => {
+    console.log(err);
+});
 //Request settings
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
