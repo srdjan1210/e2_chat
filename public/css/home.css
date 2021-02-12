@@ -1,0 +1,12 @@
+section#home .sidebar{
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    background-color:#24323d;
+    top:0px;
+    z-index: 2;
+}
+
+section#home .content {
+    height: 2000px;
+}
