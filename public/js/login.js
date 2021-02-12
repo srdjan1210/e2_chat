@@ -4,9 +4,9 @@ Main.Login = {
         password:""
     },
     init: function(){
-        document.getElementById("log-btn").addEventListener("click", this.formClickEvent);
+        document.getElementById("log-form").addEventListener("submit", this.formSubmitEvent);
     },
-    formClickEvent: function(e){
+    formSubmitEvent: function(e){
         e.preventDefault();
         Main.Login.readForm();
         console.log(Main.Login.Data);

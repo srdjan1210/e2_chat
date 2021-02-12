@@ -8,7 +8,7 @@ Main.Register = {
         Image: undefined
     },
     init: function(){
-        document.getElementById("reg-form").addEventListener("submit", this.formClickEvent);
+        document.getElementById("reg-form").addEventListener("submit", this.formSubmitEvent);
         document.getElementById("reg-file").addEventListener("change", this.fileInfoEvent);
     },
     fileInfoEvent: function(e){
@@ -17,7 +17,7 @@ Main.Register = {
         infoElement.classList.remove("invalid");
         infoElement.innerHTML = fileName;
     },
-    formClickEvent: function(e){
+    formSubmitEvent: function(e){
         e.preventDefault();
         Main.Register.readForm();
         console.log(Main.Register.Data);
