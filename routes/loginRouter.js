@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { loginUser } = require('../controllers/loginController');
+const { checkTokenValidity } = require('../middleware/webtoken');
 
-
-router.post('/', (req, res) => {
-    res.json({
-        err: null
-    }).status(200);
-});
+router.post('/', checkTokenValidity, loginUser);
 
 module.exports = router;

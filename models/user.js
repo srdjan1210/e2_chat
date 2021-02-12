@@ -40,11 +40,14 @@ checkIfUserExists = async (user) => {
 }
 
 saveUserToDatabase = async (user) => {
-    console.log(user);
     const usr = new userModel(user);
     return await usr.save();
     
 }
 
+findUserByUsername = async ({ username }) => {
+    const user = await userModel.findOne({username});
+    return user;
+}
 
-module.exports = { checkIfUserExists, saveUserToDatabase }
+module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername }

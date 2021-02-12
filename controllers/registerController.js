@@ -1,5 +1,7 @@
 const express = require('express');
 const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
 const { validateUserData } = require('./validationController');
 const { checkIfUserExists, saveUserToDatabase } = require('../models/user');
 const { hashPassword } = require('../middleware/hash');
@@ -11,9 +13,7 @@ registerUser = async (req, res) => {
     trimUserData(user);
     const validated = validateUserData(user);  
     if(validated.error) {
-        res.json({
-            err: validated.error.details[0].message
-        }).status(400);
+        res.json({err: validated.error.details[0].message}).status(400);
         return;
     }
     
@@ -30,6 +30,10 @@ registerUser = async (req, res) => {
         created: Date.now(),
         lastActiveAt: null,
         img: null
+        // img: {
+        //     data: fs.readFileSync(path.join(__dirname, '../public/uploads/imgs/' + req.file.filename)), 
+        //     contentType: 'image/png'
+        // }
     });
 
     if(saved) {
@@ -49,7 +53,6 @@ trimUserData = (user) => {
     user.username = user.username.trim();
 }
 
-hashPassword
 
 
 
