@@ -10,5 +10,10 @@ section#home .sidebar{
 section#home .content {
     height: 2000px;
     padding: 0px 300px;
-    
+    background-color: #435259;    
+}
+
+#section#home .content.grid-container{
+    display: grid;
+    grid-gap: 20px;
 }

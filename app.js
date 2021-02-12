@@ -17,7 +17,7 @@ const { Mongoose } = require("mongoose");
 const PORT = process.env.PORT;
 
 //Database
-mongoose.connect('mongodb://localhost:27017/e2_chat',{useNewUrlParser: true, useUnifiedTopology: true,}).catch((err) => {
+mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser: true, useUnifiedTopology: true,}).catch((err) => {
     console.log(err);
 });
 //Request settings
