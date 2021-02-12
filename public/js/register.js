@@ -1,14 +1,14 @@
 Main.Register = {
     Data: {
-        firstname:"",
-        lastname:"",
-        username:"",
-        email:"",
-        password:"",
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        password: "",
         Image: undefined
     },
     init: function(){
-        document.getElementById("reg-btn").addEventListener("click", this.formClickEvent);
+        document.getElementById("reg-form").addEventListener("submit", this.formClickEvent);
         document.getElementById("reg-file").addEventListener("change", this.fileInfoEvent);
     },
     fileInfoEvent: function(e){
@@ -25,7 +25,7 @@ Main.Register = {
             Main.Register.sendData();
         }
     },
-    readForm: function(){
+    readForm: function(){        
         this.Data.firstname = document.getElementById("reg-firstname").value;
         this.Data.lastname = document.getElementById("reg-lastname").value;
         this.Data.username = document.getElementById("reg-username").value;
@@ -34,16 +34,19 @@ Main.Register = {
         this.Data.Image = document.getElementById("reg-file").files[0];
     },
     sendData: function(){
+        let formData = new FormData();
+        formData.append("firstname", this.Data.firstname);
+        formData.append("lastname", this.Data.lastname);
+        formData.append("username", this.Data.username);
+        formData.append("email", this.Data.email);
+        formData.append("password", this.Data.password);
+        formData.append("Image", this.Data.Image);
+
+        console.log(Array.from(formData));
         fetch('http://localhost:3000/register', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(Main.Register.Data)
+            body: formData
         }).then(function (response) {
-            return response.json();
-        }).then(function (response){
             console.log(response);
         });
     },

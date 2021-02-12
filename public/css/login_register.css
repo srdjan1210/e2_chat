@@ -85,8 +85,8 @@ section#register input{
     color:#fff;
 }
 
-section#login input[type=button],
-section#register input[type=button]{
+section#login input[type=submit],
+section#register input[type=submit]{
     border:none;
     cursor: pointer;
     background-color:#1ab188;
@@ -98,8 +98,8 @@ section#register input[type=button]{
     opacity: 0.8;
 }
 
-section#login input[type=button]:hover,
-section#register input[type=button]:hover{
+section#login input[type=submit]:hover,
+section#register input[type=submit]:hover{
     opacity: 1.0;
 }
 
