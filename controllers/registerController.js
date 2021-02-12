@@ -13,13 +13,13 @@ registerUser = async (req, res) => {
     trimUserData(user);
     const validated = validateUserData(user);  
     if(validated.error) {
-        res.json({err: validated.error.details[0].message}).status(400);
+        res.status(400).send({err: validated.error.details[0].message});
         return;
     }
     
     const registered = await checkIfUserExists(user);
     if(registered != null) {
-        res.json({err: "User alredy exists"}).status(400);
+        res.status(400).send({err: "User alredy exists"});
         return;
     }
 
@@ -37,11 +37,11 @@ registerUser = async (req, res) => {
     });
 
     if(saved) {
-        res.json(_.pick(saved,['_id', 'username', 'email']));
+        res.send(_.pick(saved,['_id', 'username', 'email']));
         return;
     }
 
-    res.json({err: "Something went wrong with saving user to database!"}).status(501);
+    res.status(501).send({err: "Something went wrong with saving user to database!"});
    
 
 }
