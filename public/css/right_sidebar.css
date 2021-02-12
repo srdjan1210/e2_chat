@@ -1,0 +1,4 @@
+section#home .sidebar.right{
+    box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.5);
+    right: 0px;
+}

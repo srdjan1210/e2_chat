@@ -5,6 +5,9 @@
         <link rel="stylesheet" href="css/login_register.css" type="text/css">
         <link rel="stylesheet" href="css/register.css" type="text/css">
         <link rel="stylesheet" href="css/login.css" type="text/css">
+        <link rel="stylesheet" href="css/home.css" type="text/css">
+        <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
+        <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
     </head>
     <body>
         <section id="login">
@@ -40,13 +43,30 @@
                     <input maxlength="15" id="reg-username" type="text" placeholder="username *" class="item3 required">
                     <input maxlength="35" id="reg-email" type="email" placeholder="email *" class="item4 required">
                     <input minlength="8" maxlength="20" id="reg-password" type="password" placeholder="password *" class="item5 required">
-                    <input id="reg-btn" type="button" value="GET STARTED" class="item6">
+                    <label class="item6">
+                        <input id="reg-file" type="file"/>
+                        <div id="reg-file-btn">Choose Image</div>
+                    </label>
+                    <div id="reg-file-info" class="item7">not chosen *</div>
+                    <input id="reg-btn" type="button" value="GET STARTED" class="item8">
                 </form>
             </div>
             <!-- REGISTER END -->
         </section>
         <section id="home">
-            
+            <!-- HOME -->
+            <div class="container">
+                <div class="sidebar left">
+                    <div id="logo">e2</div>
+                </div>
+                <div class="content">
+
+                </div>
+                <div class="sidebar right">
+
+                </div>
+            </div>
+            <!-- HOME END-->
         </section>
         <script src="js/utility.js"></script>
         <script src="js/main.js"></script>
