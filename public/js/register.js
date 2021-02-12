@@ -46,8 +46,8 @@ Main.Register = {
         fetch('http://localhost:3000/register', {
             method: 'POST',
             body: formData
-        }).then(function (response) {
-            console.log(response);
+        }).then(this.responseHandle).catch(function(error){
+            console.error(error);
         });
     },
     checkData: function(){
@@ -78,5 +78,8 @@ Main.Register = {
     },
     clearError: function(e){
         e.target.classList.remove("invalid");
+    },
+    responseHandle: function(response){
+
     }
 }
