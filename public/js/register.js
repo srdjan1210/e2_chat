@@ -4,10 +4,18 @@ Main.Register = {
         lastname:"",
         username:"",
         email:"",
-        password:""
+        password:"",
+        Image: undefined
     },
     init: function(){
         document.getElementById("reg-btn").addEventListener("click", this.formClickEvent);
+        document.getElementById("reg-file").addEventListener("change", this.fileInfoEvent);
+    },
+    fileInfoEvent: function(e){
+        let infoElement = document.getElementById("reg-file-info");
+        let fileName = document.getElementById("reg-file").files[0].name;
+        infoElement.classList.remove("invalid");
+        infoElement.innerHTML = fileName;
     },
     formClickEvent: function(e){
         e.preventDefault();
@@ -23,6 +31,7 @@ Main.Register = {
         this.Data.username = document.getElementById("reg-username").value;
         this.Data.email = document.getElementById("reg-email").value;
         this.Data.password = document.getElementById("reg-password").value;
+        this.Data.Image = document.getElementById("reg-file").files[0];
     },
     sendData: function(){
         fetch('http://localhost:3000/register', {
@@ -56,6 +65,10 @@ Main.Register = {
             let passwordInput = document.getElementById("reg-password");
             passwordInput.classList.add("invalid");
             passwordInput.addEventListener("focus", this.clearError);
+            valid = false;
+        }
+        if(!(this.Data.Image)){
+            document.getElementById("reg-file-info").classList.add("invalid");
             valid = false;
         }
         return valid;

@@ -3,7 +3,7 @@ section#register .sheet{
     display: block;
     position: absolute;
     width: 550px;
-    height: 635px;
+    height: 685px;
     background-color: #24323d;
     top:0px;
     right:0px;
@@ -18,7 +18,7 @@ section#register h2{
     color:#fff;
     text-align: center;
     font-weight: normal;
-    margin: 40px 0px;
+    margin: 25px 0px;
     display: block;
     position: relative;
 }
@@ -28,7 +28,7 @@ section#register form{
     display: block;
     line-height: 30px;
     font-size:20px;
-    color:#c0bdba;
+    color:#fff;
     font-weight: bold;
     width: 480px;
     margin:auto;
@@ -93,7 +93,7 @@ section#register input[type=button]{
     width: 100%;
     display: block;
     height: 72px;
-    letter-spacing:1px;
+    letter-spacing:0px;
     font-size: 24px;
     opacity: 0.8;
 }
@@ -103,7 +103,7 @@ section#register input[type=button]:hover{
     opacity: 1.0;
 }
 
-section#login input.invalid,
-section#register input.invalid{
-    border: 2px solid #e3242b;
+section#login .invalid,
+section#register .invalid{
+    border: 2px solid #e3242b !important;
 }
