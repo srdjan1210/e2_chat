@@ -19,10 +19,8 @@ const UserSchema = mongoose.Schema({
     },
     last_active_at: Date,
     created: Date,
-    
-
     profile_image: {
-        type: Buffer,
+        data: Buffer,
         contentType: String
     }
     
@@ -31,9 +29,8 @@ const UserSchema = mongoose.Schema({
 const userModel = mongoose.model('User', UserSchema);
 
 
-checkIfUserExists = async (user) => {
-    const data = await userModel.findOne(user);
-    console.log(data);
+checkIfUserExists = async ({username, email}) => {
+    const data = await userModel.findOne({username} || {email});
     if(data)
         return data;
     return null;

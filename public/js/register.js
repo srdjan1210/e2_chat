@@ -40,7 +40,7 @@ Main.Register = {
         formData.append("username", this.Data.username);
         formData.append("email", this.Data.email);
         formData.append("password", this.Data.password);
-        formData.append("Image", this.Data.Image);
+        formData.append("image", this.Data.Image);
 
         console.log(Array.from(formData));
         fetch('http://localhost:3000/register', {
