@@ -11,10 +11,7 @@ createToken = (data) => {
 checkTokenValidity = (req, res, next) => {
     const token = req.header('x-auth');
     console.log(token);
-    if(!token){
-        next();
-        return;
-    }
+    if(!token) return next();
         
     const checked = jwt.verify(token, secret);
     req.payload = checked;

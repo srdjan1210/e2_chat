@@ -5,6 +5,7 @@ const path = require('path');
 const { validateUserData } = require('./validationController');
 const { checkIfUserExists, saveUserToDatabase } = require('../models/user');
 const { hashPassword } = require('../middleware/hash');
+const { trimUserData } = require('../helpers/stringOperations');
 
 
 
@@ -31,17 +32,10 @@ registerUser = async (req, res) => {
             contentType: 'image/png'
         }
     }).then(saved => {
-        if(saved) return res.send(_.pick(saved,['_id', 'username', 'email']));
+        if(saved) return res.status(201).send(_.pick(saved,['_id', 'username', 'email']));
     }).catch(err => {
         return res.status(501).send("Database problem!");
     });
-}
-
-
-trimUserData = (user) => {
-    user.email = user.email.trim();
-    user.password = user.password.trim();
-    user.username = user.username.trim();
 }
 
 

@@ -22,7 +22,10 @@ const UserSchema = mongoose.Schema({
     profile_image: {
         data: Buffer,
         contentType: String
-    }
+    }, 
+    firstname: String,
+    lastname: String
+
     
 });
 
@@ -43,7 +46,7 @@ saveUserToDatabase = async (user) => {
 }
 
 findUserByUsername = async ({ username }) => {
-    const user = await userModel.findOne({username});
+    const user = await userModel.findOne({ username });
     return user;
 }
 

@@ -1,7 +1,7 @@
 const webtoken = require('../middleware/webtoken');
 const { findUserByUsername } = require('../models/user');
 const _ = require('lodash');
-const { hashPassword, verifyPassword } = require('../middleware/hash');
+const { verifyPassword } = require('../middleware/hash');
 
 loginUser = async (req, res) => {
     user = req.body;
@@ -10,12 +10,10 @@ loginUser = async (req, res) => {
     if(result == null) return res.status(401).send({ err: "Wrong username or password!"});
 
     if(!(await verifyPassword(user.password, result.password))) return res.status(401).send({err: "Password or username incorrect"});
+    if(req.payload._id == result._id && 
+       req.payload.username == result.username)  return res.send(_.pick(result, ['_id', 'username','email']));
+           
 
-    if(req.payload) {
-        if(req.payload._id == result._id && req.payload.username == result.username) 
-            return res.send(_.pick(result, ['_id', 'username','email']));
-        return res.status(403).send("Token not valid!");
-    }
   
     const token = webtoken.createToken(_.pick(result, '_id', 'username'));
     res.header('x-auth', token).status(200);
