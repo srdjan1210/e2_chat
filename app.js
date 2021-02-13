@@ -17,15 +17,11 @@ const { Mongoose } = require("mongoose");
 const PORT = process.env.PORT;
 
 //Database
-<<<<<<< HEAD
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true,})
 .then((connected) => {
     console.log(connected);
 })
 .catch((err) => {
-=======
-mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser: true, useUnifiedTopology: true,}).catch((err) => {
->>>>>>> a8118eb424817ca909b4daca4893a6035237adc5
     console.log(err);
 });
 //Request settings
@@ -46,4 +42,6 @@ http.listen(PORT, () => {
     console.log("Listening at " + PORT);
 });
 
+
+module.exports = io;
 

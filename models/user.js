@@ -50,4 +50,5 @@ findUserByUsername = async ({ username }) => {
     return user;
 }
 
+
 module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername }

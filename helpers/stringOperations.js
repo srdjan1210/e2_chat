@@ -6,4 +6,4 @@ trimUserData = (user) => {
 }
 
 
-module.exports = { trimUserData };
+module.exports = { trimUserData }
