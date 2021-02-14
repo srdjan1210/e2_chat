@@ -12,8 +12,13 @@ checkTokenValidity = (req, res, next) => {
     const token = req.header('x-auth');
     console.log(token);
     if(!token) return next();
-        
-    const checked = jwt.verify(token, secret);
+    const checked = null;
+    try {
+        checked = jwt.verify(token, secret);
+    }catch(err) {
+        return res.status(400).send({err: "Token not valid"});
+    }
+    
     req.payload = checked;
     next();
 }
