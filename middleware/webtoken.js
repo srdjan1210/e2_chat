@@ -12,7 +12,7 @@ checkTokenValidity = (req, res, next) => {
     const token = req.header('x-auth');
     console.log(token);
     if(!token) return next();
-    const checked = null;
+    let checked = null;
     try {
         checked = jwt.verify(token, secret);
     }catch(err) {
