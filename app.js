@@ -12,14 +12,14 @@ const mongoose = require('mongoose');
 //Routers
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
-const homeRouter = require('../routes/homeRouter');
+const homeRouter = require('./routes/homeRouter');
 // Constants
 const PORT = process.env.PORT;
 
 //Database
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true,})
 .then((connected) => {
-    console.log(connected);
+    console.log('Database connected')
 })
 .catch((err) => {
     console.log(err);
