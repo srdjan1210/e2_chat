@@ -14,6 +14,7 @@ loginUser = async (req, res) => {
         const token = webtoken.createToken(_.pick(result, '_id', 'username'));
         res.header('x-auth', token).status(200);
         res.send(_.pick(result, ['_id', 'username','email']));
+        return;
     }
 
     if(req.payload._id == result._id && 

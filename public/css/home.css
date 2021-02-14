@@ -17,3 +17,7 @@ section#home .content {
     display: grid;
     grid-gap: 20px;
 }
+
+#section#home .content .item1{
+    
+}
