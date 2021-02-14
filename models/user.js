@@ -50,5 +50,9 @@ findUserByUsername = async ({ username }) => {
     return user;
 }
 
+findUserById = async ({ _id }) => {
+    const result = await userModel.findOne({ _id});
+    return result;
+}
 
-module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername }
+module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, findUserById }

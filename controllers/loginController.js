@@ -13,14 +13,14 @@ loginUser = async (req, res) => {
     if(!req.payload){
         const token = webtoken.createToken(_.pick(result, '_id', 'username'));
         res.header('x-auth', token).status(200);
-        res.send(_.pick(result, ['_id', 'username','email']));
-        return;
+        return res.send(_.pick(result, ['firstname', 'lastname', 'username', 'email', 'profile_image']));
+        
     }
 
     if(req.payload._id == result._id && 
-       req.payload.username == result.username)  return res.send(_.pick(result, ['_id', 'username','email']));
+       req.payload.username == result.username)  return res.send(_.pick(result, ['firstname', 'lastname', 'username', 'email', 'profile_image']));
            
-        res.status(403).send({err: "Token not valid"});
+    res.status(403).send({err: "Token not valid"});
   
 
     

@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 //Routers
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
-const { Mongoose } = require("mongoose");
+const homeRouter = require('../routes/homeRouter');
 // Constants
 const PORT = process.env.PORT;
 
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/home', homeRouter);
 
 
 

@@ -30,7 +30,9 @@ registerUser = async (req, res) => {
         profile_image: {
             data: fs.readFileSync(path.join(__dirname, '../public/uploads/imgs/' + req.file.filename)), 
             contentType: 'image/png'
-        }
+        },
+        lastname: user.lastname,
+        firstname: user.firstname
     }).then(saved => {
         if(saved) return res.status(201).send(_.pick(saved,['_id', 'username', 'email']));
     }).catch(err => {
