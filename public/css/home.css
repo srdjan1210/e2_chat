@@ -8,7 +8,7 @@ section#home .sidebar{
 }
 
 section#home .content {
-    height: 2000px;
+    min-height: 2000px;
     padding: 70px 350px;
     background-color: #435259;
 }

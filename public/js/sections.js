@@ -11,6 +11,7 @@ Main.Sections = {
         }
         else location = window.location.hash;
         sectionName = location.substring(2).split('/');
+        if(Main.User.logged) sectionName[0] = "home";
         if(sectionName[0]=="home" && (sectionName[1]=="" || !(sectionName[1]))){
             sectionName[1] = "profile";
             window.location.hash = "#/home/profile";
@@ -43,7 +44,7 @@ Main.Sections = {
         Main.Sections.sectionHandle();
     },
     setDefaultSection: function(){
-        if(Main.User._id == null){
+        if(!(Main.User.logged)){
             window.location.hash = "#/login";
             document.getElementById("login").classList.add("active");
         }else{

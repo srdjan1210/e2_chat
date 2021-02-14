@@ -1,4 +1,7 @@
-Main.User = {}
+Main.User = {
+    logged: false,
+    Info: {}
+}
 
 Main.Login = {
     Data: {
@@ -7,12 +10,14 @@ Main.Login = {
     },
     init: function(){
         document.getElementById("log-form").addEventListener("submit", this.formSubmitEvent);
+        document.getElementById("btn-logout").addEventListener("click", this.logOut);
     },
     formSubmitEvent: function(e){
         e.preventDefault();
-        Main.Login.readForm();
-        console.log(Main.Login.Data);
-        Main.Login.sendData();
+        if(!(Main.User.logged)){
+            Main.Login.readForm();
+            Main.Login.sendData(); 
+        }
     },
     readForm: function(){
         this.Data.username = document.getElementById("log-username").value;
@@ -27,18 +32,32 @@ Main.Login = {
             },
             body: JSON.stringify(Main.Login.Data)
         }).then(function (response) {
+            if(response.status == 200){
+                Main.User.logged = true;
+            }
             window.localStorage.setItem("e2_chat_token", response.headers.get("x-auth"));
             return response.json();
         }).then(function (response){
             console.log(response);
-            if(response._id != null){
-                console.log("LOGGED");
-                Main.User = response;
+            if(Main.User.logged){
+                Main.User.Info = response;
                 Main.Login.logUser();
+            }else if(response.err){
+                Main.openPopup(response.err);
             }
+        }).catch(function(error) {
+            console.error(error);
         });
     },
     logUser(){
-        Main.Sections.sectionHandle("#/home/profile");
+        //Main.Sections.sectionHandle("#/home/profile");
+        Main.Sections.sectionHandle();
+    },
+    logOut(e){
+        e.preventDefault();
+        Main.User.logged = false;
+        Main.User.Info = {};
+        window.localStorage.setItem("e2_chat_token", null);
+        Main.Sections.sectionHandle("#/login");
     }
 }

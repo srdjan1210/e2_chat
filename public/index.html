@@ -11,6 +11,16 @@
         <link rel="stylesheet" href="css/profile.css" type="text/css">
     </head>
     <body>
+        <div id="startup-loader" class="active">
+            <div class="loader"></div>
+        </div>
+        <div id="main-popup">
+            <div id="popup-wrapper"></div>
+            <div id="popup-container">
+                <div id="popup-exit">x</div>
+                <div id="popup-msg">12312321</div>
+            </div>
+        </div>
         <section class="section-major" id="login">
             <!-- LOGIN -->
             <div class="sheet">
@@ -59,6 +69,7 @@
             <div class="container">
                 <div class="sidebar left">
                     <div id="logo">e2</div>
+                    <button id="btn-logout">Log Out</button>
                 </div>
                 <div class="content">
                     <section class="section-minor .grid-container" id="profile">

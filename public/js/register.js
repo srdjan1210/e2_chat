@@ -20,8 +20,7 @@ Main.Register = {
     formSubmitEvent: function(e){
         e.preventDefault();
         Main.Register.readForm();
-        console.log(Main.Register.Data);
-        if(Main.Register.checkData()){
+        if((!(Main.User.logged)) && Main.Register.checkData()){
             Main.Register.sendData();
         }
     },
@@ -41,14 +40,21 @@ Main.Register = {
         formData.append("email", this.Data.email);
         formData.append("password", this.Data.password);
         formData.append("image", this.Data.Image);
-
         console.log(Array.from(formData));
         fetch('http://localhost:3000/register', {
             method: 'POST',
             body: formData
         }).then(function(response) {
             return response.json();
-        }).then(this.responseHandle).catch(function(error){
+        }).then(function(response) {
+            console.log(response);
+            if(response.err){
+                Main.openPopup(response.err);
+            }else{
+                Main.openPopup("Registered successfully");
+                Main.Sections.sectionHandle("#/login");
+            }
+        }).catch(function(error){
             console.error(error);
         });
     },
@@ -80,8 +86,5 @@ Main.Register = {
     },
     clearError: function(e){
         e.target.classList.remove("invalid");
-    },
-    responseHandle: function(response){
-        console.log(response);
     }
 }
