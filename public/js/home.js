@@ -1,0 +1,5 @@
+Main.Home = {
+    init: function() {
+        
+    }
+}

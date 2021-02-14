@@ -1,3 +1,5 @@
+Main.User = {}
+
 Main.Login = {
     Data: {
         username:"",
@@ -25,9 +27,18 @@ Main.Login = {
             },
             body: JSON.stringify(Main.Login.Data)
         }).then(function (response) {
+            window.localStorage.setItem("e2_chat_token", response.headers.get("x-auth"));
             return response.json();
         }).then(function (response){
             console.log(response);
+            if(response._id != null){
+                console.log("LOGGED");
+                Main.User = response;
+                Main.Login.logUser();
+            }
         });
+    },
+    logUser(){
+        Main.Sections.sectionHandle("#/home/profile");
     }
 }

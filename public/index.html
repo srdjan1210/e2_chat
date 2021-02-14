@@ -8,9 +8,10 @@
         <link rel="stylesheet" href="css/home.css" type="text/css">
         <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
         <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
+        <link rel="stylesheet" href="css/profile.css" type="text/css">
     </head>
     <body>
-        <section id="login">
+        <section class="section-major" id="login">
             <!-- LOGIN -->
             <div class="sheet">
                 <nav>
@@ -27,7 +28,7 @@
             </div>
             <!-- LOGIN END -->
         </section>
-        <section id="register">
+        <section class="section-major" id="register">
             <!-- REGISTER -->
             <div class="sheet">
                 <nav>
@@ -53,14 +54,25 @@
             </div>
             <!-- REGISTER END -->
         </section>
-        <section id="home">
+        <section class="section-major" id="home">
             <!-- HOME -->
             <div class="container">
                 <div class="sidebar left">
                     <div id="logo">e2</div>
                 </div>
-                <div class="content grid-container">
-                    
+                <div class="content">
+                    <section class="section-minor .grid-container" id="profile">
+                        <div class="grid-container">
+                            <div class="item1">
+                                <div id="panel">
+                                    <div class="image-container"></div>
+                                </div>
+                            </div>
+                            <div class="item2">2</div>
+                            <div class="item3">3</div>
+                        </div>
+                    </section>
+                    <section class="section-minor" id="about">about</section>
                 </div>
                 <div class="sidebar right">
 
@@ -73,5 +85,6 @@
         <script src="js/sections.js"></script>
         <script src="js/login.js"></script>
         <script src="js/register.js"></script>
+        <script src="js/home.js"></script>
     </body>
 </html>

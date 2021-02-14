@@ -1,0 +1,43 @@
+section#profile .grid-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 250px auto;
+    margin:30px;
+    grid-column-gap: 50px;
+}
+
+section#profile .item1{
+    grid-row:1 / span 2;
+    grid-column: 1;
+}
+
+section #profile .item2{
+    grid-row:1;
+    grid-column: 2;
+}
+
+section #profile .item3{
+    grid-row:2;
+    grid-column:2;
+}
+
+section#profile #panel{
+    position: relative;
+    background-color: #1ab188;
+    min-height: 400px;
+    margin-top: 100px;
+}
+
+section#profile #panel .image-container{
+    position:absolute;
+    margin:auto;
+    left:0px;
+    right:0px;
+    top:-125px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border:5px solid #1ab188;
+    background-image: url("../img/person_icon.png");
+    background-size: cover;
+}

@@ -3,6 +3,7 @@ let Main = {
         Main.Sections.init();
         Main.Login.init();
         Main.Register.init();
+        Main.Home.init();
     }
 }
 
