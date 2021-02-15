@@ -12,6 +12,7 @@ section#home #mini-panel{
     margin:auto;
     width: 140px;
     height: 140px;
+    background-color: #24323d;
     background-image: url("../img/person_icon.png");
     background-size: cover;
     border-radius: 50%;
