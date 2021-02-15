@@ -24,7 +24,7 @@ Main.Login = {
         this.Data.password = document.getElementById("log-password").value;
     },
     sendData: function () {
-        console.log(Main.Login.Data);
+        Main.loadStart();
         fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
@@ -45,8 +45,10 @@ Main.Login = {
             } else if (response.err) {
                 Main.openPopup(response.err);
             }
+            Main.loadEnd();
         }).catch(function (error) {
             console.error(error);
+            Main.loadEnd();
         });
     },
     logUser() {

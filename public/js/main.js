@@ -9,6 +9,7 @@ let Main = {
         document.getElementById("popup-exit").addEventListener("click", this.closePopup);
     },
     checkSession: function () {
+        
         fetch('http://localhost:3000/home/userinfo', {
             method: 'POST',
             headers: {
@@ -27,11 +28,24 @@ let Main = {
                 Main.User.Info = response;
                 Main.Login.logUser();
             }
-            document.getElementById("startup-loader").classList.remove("active");
+            Main.loadEnd();
         }).catch(function (error) {
             console.error(error);
-            document.getElementById("startup-loader").classList.remove("active");
+            Main.loadEnd();
         });
+    },
+    loadStart: function(){
+        document.getElementById("startup-loader").classList.add("active");
+    },
+    loadEnd: function(){
+        document.getElementById("startup-loader").classList.remove("active");
+        this.setLoaderOpacity("75%");
+    },
+    setLoaderOpacity: function(opacity){
+        let loader = document.querySelector("#startup-loader #blank");
+        if(loader.style.opacity!=opacity){
+            loader.style.opacity = opacity;
+        }
     },
     openPopup: function (msg) {
         document.getElementById("popup-msg").innerHTML = msg;

@@ -10,6 +10,10 @@ Main.Register = {
     init: function () {
         document.getElementById("reg-form").addEventListener("submit", this.formSubmitEvent);
         document.getElementById("reg-file").addEventListener("change", this.fileInfoEvent);
+        let requiredInputs = document.querySelectorAll("#reg-form .required");
+        requiredInputs.forEach(function(input, index){
+            input.addEventListener("focus", Main.Register.clearError);
+        });
     },
     fileInfoEvent: function (e) {
         let infoElement = document.getElementById("reg-file-info");
@@ -41,6 +45,7 @@ Main.Register = {
         formData.append("password", this.Data.password);
         formData.append("image", this.Data.Image);
         console.log(Array.from(formData));
+        Main.loadStart();
         fetch('http://localhost:3000/register', {
             method: 'POST',
             body: formData
@@ -54,8 +59,10 @@ Main.Register = {
                 Main.openPopup("Registered successfully");
                 Main.Sections.sectionHandle("#/login");
             }
+            Main.loadEnd();
         }).catch(function (error) {
             console.error(error);
+            Main.loadEnd();
         });
     },
     checkData: function () {
@@ -63,19 +70,16 @@ Main.Register = {
         if (!(Utility.checkEmail(this.Data.email))) {
             let emailInput = document.getElementById("reg-email");
             emailInput.classList.add("invalid");
-            emailInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         if (this.Data.username.length < 4) {
             let usernameInput = document.getElementById("reg-username");
             usernameInput.classList.add("invalid");
-            usernameInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         if (this.Data.password.length < 8) {
             let passwordInput = document.getElementById("reg-password");
             passwordInput.classList.add("invalid");
-            passwordInput.addEventListener("focus", this.clearError);
             valid = false;
         }
         if (!(this.Data.Image)) {
@@ -85,6 +89,7 @@ Main.Register = {
         return valid;
     },
     clearError: function (e) {
+        console.log(e);
         e.target.classList.remove("invalid");
     }
 }
