@@ -19,7 +19,7 @@ const UserSchema = mongoose.Schema({
     },
     last_active_at: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     created: Date,
     profile_image: {

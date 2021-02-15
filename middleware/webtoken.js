@@ -15,7 +15,9 @@ checkTokenValidity = (req, res, next) => {
     let checked = null;
     try {
         checked = jwt.verify(token, secret);
+        
     }catch(err) {
+        console.log(err.message);
         return res.status(400).send({err: "Token not valid"});
     }
     
