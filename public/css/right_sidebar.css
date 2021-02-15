@@ -1,4 +1,46 @@
 section#home .sidebar.right{
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
     right: 0px;
+    font-size: 20px;
 }
+
+section#home #user-nutshell{
+    padding-top:50px;
+}
+
+section#home #mini-panel{
+    margin:auto;
+    width: 140px;
+    height: 140px;
+    background-image: url("../img/person_icon.png");
+    background-size: cover;
+    border-radius: 50%;
+    border:5px solid #1ab188;
+    margin-bottom:20px;
+}
+
+section#home #mini-info{
+    text-align: center;
+    color:#1ab188;
+}
+
+section#home #btn-logout{
+    width: 100px;
+    line-height: 40px;
+    outline: none;
+    opacity: 0.85;
+    background-color:#1ab188;
+    margin:auto;
+    display: block;
+    border:none;
+    cursor: pointer;
+    font-size: 20px;
+    color:#24323d;
+    margin-top: 20px;
+}
+
+section#home #btn-logout:hover{
+    opacity: 1.0;
+}
+
+

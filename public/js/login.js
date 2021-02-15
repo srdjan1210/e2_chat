@@ -38,7 +38,6 @@ Main.Login = {
             window.localStorage.setItem("e2_chat_token", response.headers.get("x-auth"));
             return response.json();
         }).then(function (response){
-            console.log(response);
             if(Main.User.logged){
                 Main.User.Info = response;
                 Main.Login.logUser();
@@ -50,8 +49,9 @@ Main.Login = {
         });
     },
     logUser(){
-        //Main.Sections.sectionHandle("#/home/profile");
         Main.Sections.sectionHandle();
+        document.getElementById("mini-info").innerHTML = Main.User.Info.username;
+        console.log(Main.User.Info);
     },
     logOut(e){
         e.preventDefault();
