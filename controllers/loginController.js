@@ -1,5 +1,5 @@
 const webtoken = require('../middleware/webtoken');
-const { findUserByUsername } = require('../models/user');
+const { findUserByUsername, setUserActiveTime } = require('../models/user');
 const _ = require('lodash');
 const { verifyPassword } = require('../middleware/hash');
 
@@ -13,13 +13,10 @@ loginUser = async (req, res) => {
     if(!req.payload){
         const token = webtoken.createToken(_.pick(result, '_id', 'username'));
         res.header('x-auth', token).status(200);
+        await setUserActiveTime(result);
         return res.send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email', 'profile_image']));
         
     }
-
-    if(req.payload._id == result._id && 
-       req.payload.username == result.username)  return res.send(_.pick(result, ['firstname', 'lastname', 'username', 'email', 'profile_image']));
-           
     res.status(403).send({err: "Token not valid"});
   
 

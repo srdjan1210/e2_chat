@@ -17,7 +17,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         unique: true
     },
-    last_active_at: Date,
+    last_active_at: {
+        type: Date,
+        default: Date.now()
+    },
     created: Date,
     profile_image: {
         data: Buffer,
@@ -55,4 +58,18 @@ findUserById = async ({ _id }) => {
     return result;
 }
 
-module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, findUserById }
+findChatUsers = async (id) => {
+    const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_image');
+    console.log(users);
+    return users;
+}
+
+setUserActiveTime = async(user) => {
+    const result = await userModel.findOne(user);
+    result.last_active_at = Date.now();
+    await result.save();
+}
+
+
+
+module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, findUserById, setUserActiveTime, findChatUsers }

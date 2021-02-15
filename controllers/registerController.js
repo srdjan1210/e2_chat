@@ -10,7 +10,7 @@ const { trimUserData } = require('../helpers/stringOperations');
 
 
 registerUser = async (req, res) => {
-    const user = _.pick(req.body,['email', 'username', 'password']);
+    const user = _.pick(req.body,['email', 'username', 'password','lastname', 'firstname']);
     trimUserData(user);
 
     const validated = validateUserData(_.pick(user, ['email', 'username']));  

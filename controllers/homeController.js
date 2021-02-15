@@ -1,4 +1,4 @@
-const { findUserById } = require('../models/user');
+const { findUserById, findChatUsers } = require('../models/user');
 const _ = require('lodash');
 
 userinfo = async (req, res) => {
@@ -11,6 +11,14 @@ userinfo = async (req, res) => {
     
 }
 
+chatsinfo = async (req, res) => {
+    if(!req.payload)
+        return res.status(403).send({err: "Token not valid"});
+    const users = await findChatUsers(req.payload._id);
+    return res.status(200).send({data: users});
+
+}
 
 
-module.exports = { userinfo }
+
+module.exports = { userinfo, chatsinfo }
