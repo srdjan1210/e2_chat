@@ -34,7 +34,7 @@ Main.Home = {
         let chatButtons = document.getElementById("chat-openers");
         data = Main.otherUsers.Info.data;
         data.forEach(function(user, index){
-            if(user.username.includes("srki")){
+            if(user.username.includes("srki")||user.username.includes("srdjan")){
                 output += `<div class="chat-opener">${user.username} <= peder</div>`
             }else{
                 output += `<div class="chat-opener">${user.username}</div>`
