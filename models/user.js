@@ -43,6 +43,7 @@ checkIfUserExists = async ({username, email}) => {
 }
 
 saveUserToDatabase = async (user) => {
+    console.log(user);
     const usr = new userModel(user);
     return await usr.save();
     

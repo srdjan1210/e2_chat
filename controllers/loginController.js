@@ -18,9 +18,6 @@ loginUser = async (req, res) => {
         
     }
     res.status(403).send({err: "Token not valid"});
-  
-
-    
 }
 
 
