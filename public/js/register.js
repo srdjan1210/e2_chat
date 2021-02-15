@@ -89,7 +89,6 @@ Main.Register = {
         return valid;
     },
     clearError: function (e) {
-        console.log(e);
         e.target.classList.remove("invalid");
     }
 }

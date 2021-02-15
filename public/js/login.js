@@ -42,10 +42,15 @@ Main.Login = {
             if (Main.User.logged) {
                 Main.User.Info = response;
                 Main.Login.logUser();
+                if(Main.otherUsers.infoTaken){
+                    Main.loadEnd();
+                }
             } else if (response.err) {
                 Main.openPopup(response.err);
+                Main.loadEnd();
+            }else{
+                Main.loadEnd();
             }
-            Main.loadEnd();
         }).catch(function (error) {
             console.error(error);
             Main.loadEnd();
@@ -59,11 +64,26 @@ Main.Login = {
         e.preventDefault();
         Main.User.logged = false;
         Main.User.Info = {};
+        Main.otherUsers.infoTaken = false;
+        Main.otherUsers.Info = {};
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
     },
     displayUserInfo: function() {
-        document.getElementById("mini-info").innerHTML = Main.User.Info.username;
+        let Info = Main.User.Info;
+        console.log(Info);
+
+        document.getElementById("mini-info").innerHTML = Info.username;
+        document.getElementById("panel-username").innerHTML = Info.username;
+        document.getElementById("panel-firstname").innerHTML = Info.firstname;
+        document.getElementById("panel-lastname").innerHTML = Info.lastname;
+        document.getElementById("profile-email").innerHTML = Info.email;
+
+        Main.Home.getUsersInfo();
+
+        this.displayProfileImage();
+    },
+    displayProfileImage: function(){
         let arrayBufferView = new Uint8Array( Main.User.Info.profile_image.data.data );
         let blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
         let urlCreator = window.URL || window.webkitURL;

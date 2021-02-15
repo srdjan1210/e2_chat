@@ -9,7 +9,6 @@ let Main = {
         document.getElementById("popup-exit").addEventListener("click", this.closePopup);
     },
     checkSession: function () {
-        
         fetch('http://localhost:3000/home/userinfo', {
             method: 'POST',
             headers: {
@@ -27,8 +26,13 @@ let Main = {
             if (Main.User.logged) {
                 Main.User.Info = response;
                 Main.Login.logUser();
+                if(Main.otherUsers.infoTaken){
+                    Main.loadEnd();
+                }
+                Main.setLoaderOpacity("75%");
+            }else{
+                Main.loadEnd();
             }
-            Main.loadEnd();
         }).catch(function (error) {
             console.error(error);
             Main.loadEnd();
