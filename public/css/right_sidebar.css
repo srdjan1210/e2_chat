@@ -2,6 +2,7 @@ section#home .sidebar.right{
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
     right: 0px;
     font-size: 16px;
+    color:#1ab188;
 }
 
 section#home #user-nutshell{
@@ -44,4 +45,9 @@ section#home #btn-logout:hover{
     opacity: 1.0;
 }
 
+section#home #chat-openers-wrapper h3{
+    margin-top: 20px;
+    margin-bottom:10px;
+    text-align: center;
+}
 

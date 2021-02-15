@@ -1,9 +1,16 @@
+section#profile {
+    color:#1ab188;
+    font-size: 16px;
+}
+
 section#profile .grid-container {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 30px;
     grid-template-columns: 210px auto;
-    margin:30px;
+    margin:auto;
     grid-column-gap: 50px;
+    margin-top:100px;
+    max-width: 1100px;
 }
 
 section#profile .item1{
@@ -14,18 +21,23 @@ section#profile .item1{
 section #profile .item2{
     grid-row:1;
     grid-column: 2;
+    background-color: #24323d;
+    box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
+    padding:0px 20px;
 }
 
 section #profile .item3{
     grid-row:2;
     grid-column:2;
+    background-color: #24323d;
+    box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
+    padding:0px 20px;
 }
 
 section#profile #panel{
     position: relative;
     background-color: #24323d;
-    min-height: 400px;
-    margin-top: 100px;
+    min-height: 500px;
     box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
 }
 
@@ -43,4 +55,51 @@ section#profile #panel .image-container{
     background-image: url("../img/person_icon.png");
     background-size: cover;
     box-shadow: 3px -2px 8px rgb(0 0 0 / 30%);
+}
+
+section#profile #panel-info{
+    padding-top: 130px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+section#profile #panel-line{
+    border-bottom:1px solid #1ab188;
+    margin:10px 20px 30px 20px;
+}
+
+section#profile button{
+    border:none;
+    background-color:#24323d;
+    font-size: 16px;
+    outline:none;
+    cursor: pointer;
+    color:#1ab188;
+    line-height: 28px;
+}
+
+section#profile button:hover{
+    text-decoration: underline;
+}
+
+section#profile .grid-container h3{
+    padding:10px 0px;
+    margin:10px 0px;
+    border-bottom:2px solid #1ab188;
+}
+
+section#profile table{
+    color:#1ab188;
+    font-size: 16px;
+}
+
+section#profile tr{
+    line-height: 32px;
+}
+
+section#profile td,
+section#profile th{
+    min-width: 210px;
 }

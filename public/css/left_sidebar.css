@@ -11,3 +11,21 @@ section#home #logo {
     color:#1ab188;
     text-align: center;
 }
+
+section#home #main-navigation a{
+    position: relative;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    color:#1ab188;
+    text-decoration: none;
+}
+
+section#home #main-navigation a:visited{
+    text-decoration:none;
+    color:#1ab188;
+}
+
+section#home #main-navigation a:hover{
+    text-decoration: underline;
+}
