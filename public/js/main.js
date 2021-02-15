@@ -29,6 +29,7 @@ let Main = {
                 if(Main.otherUsers.infoTaken){
                     Main.loadEnd();
                 }
+                Main.setLoaderOpacity("75%");
             }else{
                 Main.loadEnd();
             }

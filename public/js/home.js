@@ -37,5 +37,8 @@ Main.Home = {
             output += `<div class="chat-opener">${user.username}</div>`
         });
         chatButtons.innerHTML = output;
+    },
+    eraseUserInfo: function(){
+        
     }
 }
