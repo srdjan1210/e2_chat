@@ -21,7 +21,7 @@ const saveMessage = async (content, from, to, chatid) => {
 }
 
 
-const findMessages = (chatid) => {
+const findMessages = async (chatid) => {
     const messages = await messageModel.find({chatid});
     return messages;
 }

@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const compression = require('compression');
+require('./controllers/chatController')(io);
 //Routers
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
@@ -25,6 +27,7 @@ mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTop
     console.log(err);
 });
 //Request settings
+app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json({limit: "20mb"}));
@@ -44,5 +47,4 @@ http.listen(PORT, () => {
 });
 
 
-module.exports = io;
 
