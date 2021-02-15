@@ -25,10 +25,9 @@ mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTop
     console.log(err);
 });
 //Request settings
-
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.json({limit: "20mb"}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

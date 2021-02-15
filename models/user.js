@@ -19,7 +19,7 @@ const UserSchema = mongoose.Schema({
     },
     last_active_at: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     created: Date,
     profile_image: {
@@ -43,7 +43,6 @@ checkIfUserExists = async ({username, email}) => {
 }
 
 saveUserToDatabase = async (user) => {
-    console.log(user);
     const usr = new userModel(user);
     return await usr.save();
     
