@@ -34,11 +34,15 @@ Main.Home = {
         let chatButtons = document.getElementById("chat-openers");
         data = Main.otherUsers.Info.data;
         data.forEach(function(user, index){
-            output += `<div class="chat-opener">${user.username}</div>`
+            if(user.username.includes("srki")){
+                output += `<div class="chat-opener">${user.username} <= peder</div>`
+            }else{
+                output += `<div class="chat-opener">${user.username}</div>`
+            }
         });
         chatButtons.innerHTML = output;
     },
     eraseUserInfo: function(){
-        
+
     }
 }
