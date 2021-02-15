@@ -1,7 +1,7 @@
 section#home .sidebar.right{
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
     right: 0px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 section#home #user-nutshell{
@@ -34,7 +34,7 @@ section#home #btn-logout{
     display: block;
     border:none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
     color:#24323d;
     margin-top: 20px;
 }
