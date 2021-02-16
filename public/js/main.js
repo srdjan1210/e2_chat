@@ -26,7 +26,7 @@ let Main = {
             if (Main.User.logged) {
                 Main.User.Info = response;
                 Main.Login.logUser();
-                if(Main.otherUsers.infoTaken){
+                if(Main.OtherUsers.infoTaken){
                     Main.loadEnd();
                 }
                 Main.setLoaderOpacity("75%");

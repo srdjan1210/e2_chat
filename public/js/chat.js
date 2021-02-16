@@ -1,0 +1,5 @@
+Main.Chat = {
+    init: function(){
+        
+    }
+}

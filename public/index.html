@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
         <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
         <link rel="stylesheet" href="css/profile.css" type="text/css">
+        <link rel="stylesheet" href="css/chat.css">
     </head>
     <body>
         <div id="startup-loader" class="active">
@@ -155,7 +156,15 @@
                     <div id="chat-openers-wrapper">
                         <h3>Available Users</h3>
                         <div id="chat-openers">
-                            <div class="chat-opener"></div>
+                            <div class="chat-opener">
+                                <div class="mini-image-container"></div>
+                                <div class="chat-info">
+                                    <div class="mini-username"></div>
+                                    <div class="mini-firstname"></div>
+                                    <div class="mini-lastname"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,10 +172,12 @@
             <!-- HOME END-->
         </section>
         <script src="js/utility.js"></script>
+        <script src="js/templates.js"></script>
         <script src="js/main.js"></script>
         <script src="js/sections.js"></script>
         <script src="js/login.js"></script>
         <script src="js/register.js"></script>
         <script src="js/home.js"></script>
+        <script src="js/chat.js"></script>
     </body>
 </html>

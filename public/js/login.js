@@ -42,7 +42,7 @@ Main.Login = {
             if (Main.User.logged) {
                 Main.User.Info = response;
                 Main.Login.logUser();
-                if(Main.otherUsers.infoTaken){
+                if(Main.OtherUsers.infoTaken){
                     Main.loadEnd();
                 }
             } else if (response.err) {
@@ -58,39 +58,17 @@ Main.Login = {
     },
     logUser() {
         Main.Sections.sectionHandle();
-        this.displayUserInfo();
+        Main.Home.displayUserInfo();
     },
     logOut(e) {
         e.preventDefault();
         Main.User.logged = false;
         Main.User.Info = {};
-        Main.otherUsers.infoTaken = false;
-        Main.otherUsers.Info = {};
+        Main.OtherUsers.infoTaken = false;
+        Main.OtherUsers.Info = {};
+        Main.Home.displayUserInfo();
+        Main.Home.displayOthers();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
-    },
-    displayUserInfo: function() {
-        let Info = Main.User.Info;
-        console.log(Info);
-
-        document.getElementById("mini-info").innerHTML = Info.username;
-        document.getElementById("panel-username").innerHTML = Info.username;
-        document.getElementById("panel-firstname").innerHTML = Info.firstname;
-        document.getElementById("panel-lastname").innerHTML = Info.lastname;
-        document.getElementById("profile-email").innerHTML = Info.email;
-
-        Main.Home.getUsersInfo();
-
-        this.displayProfileImage();
-    },
-    displayProfileImage: function(){
-        let arrayBufferView = new Uint8Array( Main.User.Info.profile_image.data.data );
-        let blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
-        let urlCreator = window.URL || window.webkitURL;
-        let imageUrl = urlCreator.createObjectURL( blob );
-        let images = document.querySelectorAll(".image-container");
-        images.forEach(function(image, index) {
-            image.style.backgroundImage = `url(${imageUrl})`;
-        });
     }
 }
