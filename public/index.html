@@ -1,183 +1,178 @@
 <html>
-    <head>
-        <title>e2 chat</title>
-        <link rel="stylesheet" href="css/main.css" type="text/css">
-        <link rel="stylesheet" href="css/login_register.css" type="text/css">
-        <link rel="stylesheet" href="css/register.css" type="text/css">
-        <link rel="stylesheet" href="css/login.css" type="text/css">
-        <link rel="stylesheet" href="css/home.css" type="text/css">
-        <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
-        <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
-        <link rel="stylesheet" href="css/profile.css" type="text/css">
-        <link rel="stylesheet" href="css/chat.css">
-    </head>
-    <body>
-        <div id="startup-loader" class="active">
-            <div class="loader"></div>
-            <div id="blank"></div>
+
+<head>
+    <title>e2 chat</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/login_register.css" type="text/css">
+    <link rel="stylesheet" href="css/register.css" type="text/css">
+    <link rel="stylesheet" href="css/login.css" type="text/css">
+    <link rel="stylesheet" href="css/home.css" type="text/css">
+    <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
+    <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
+    <link rel="stylesheet" href="css/profile.css" type="text/css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+
+<body>
+    <div id="startup-loader" class="active">
+        <div class="loader"></div>
+        <div id="blank"></div>
+    </div>
+    <div id="main-popup">
+        <div id="popup-wrapper"></div>
+        <div id="popup-container">
+            <div id="popup-exit">x</div>
+            <div id="popup-msg"></div>
         </div>
-        <div id="main-popup">
-            <div id="popup-wrapper"></div>
-            <div id="popup-container">
-                <div id="popup-exit">x</div>
-                <div id="popup-msg"></div>
-            </div>
+    </div>
+    <section class="section-major" id="login">
+        <!-- LOGIN -->
+        <div class="sheet">
+            <nav>
+                <a href="#/register" style="color:#aaa;">Sign Up</a>
+                <a href="#/login" style="background-color:#1ab188;opacity: 1.0;">Log In</a>
+                <div class="clearfix"></div>
+            </nav>
+            <h2>Log In</h2>
+            <form id="log-form" action="" class="grid-container">
+                <input maxlength="15" id="log-username" type="text" placeholder="username" class="item1">
+                <input maxlength="20" id="log-password" type="password" placeholder="password" class="item2">
+                <input id="log-btn" type="submit" value="LOG IN" class="item3">
+            </form>
         </div>
-        <section class="section-major" id="login">
-            <!-- LOGIN -->
-            <div class="sheet">
-                <nav>
-                    <a href="#/register" style="color:#aaa;">Sign Up</a>
-                    <a href="#/login" style="background-color:#1ab188;opacity: 1.0;">Log In</a>
-                    <div class="clearfix"></div>
-                </nav>
-                <h2>Log In</h2>
-                <form id="log-form" action="" class="grid-container">
-                    <input maxlength="15" id="log-username" type="text" placeholder="username" class="item1">
-                    <input maxlength="20" id="log-password" type="password" placeholder="password" class="item2">
-                    <input id="log-btn" type="submit" value="LOG IN" class="item3">
-                </form>
-            </div>
-            <!-- LOGIN END -->
-        </section>
-        <section class="section-major" id="register">
-            <!-- REGISTER -->
-            <div class="sheet">
-                <nav>
-                    <a href="#/register" style="background-color:#1ab188;opacity: 1.0;">Sign Up</a>
-                    <a href="#/login" style="color:#aaa;">Log In</a>
-                    <div class="clearfix"></div>
-                </nav>
-                <h2>Sign Up For Free</h2>
-                <form id="reg-form" action="" class="grid-container">
-                    <input maxlength="20" id="reg-firstname" type="text" placeholder="first name" class="item1">
-                    <input maxlength="20" id="reg-lastname" type="text" placeholder="last name" class="item2">
-                    <input maxlength="15" id="reg-username" type="text" placeholder="username *" class="item3 required">
-                    <input maxlength="35" id="reg-email" type="email" placeholder="email *" class="item4 required">
-                    <input maxlength="20" id="reg-password" type="password" placeholder="password *" class="item5 required">
-                    <label class="item6">
+        <!-- LOGIN END -->
+    </section>
+    <section class="section-major" id="register">
+        <!-- REGISTER -->
+        <div class="sheet">
+            <nav>
+                <a href="#/register" style="background-color:#1ab188;opacity: 1.0;">Sign Up</a>
+                <a href="#/login" style="color:#aaa;">Log In</a>
+                <div class="clearfix"></div>
+            </nav>
+            <h2>Sign Up For Free</h2>
+            <form id="reg-form" action="" class="grid-container">
+                <input maxlength="20" id="reg-firstname" type="text" placeholder="first name" class="item1">
+                <input maxlength="20" id="reg-lastname" type="text" placeholder="last name" class="item2">
+                <input maxlength="15" id="reg-username" type="text" placeholder="username *" class="item3 required">
+                <input maxlength="35" id="reg-email" type="email" placeholder="email *" class="item4 required">
+                <input maxlength="20" id="reg-password" type="password" placeholder="password *" class="item5 required">
+                <label class="item6">
                         <input id="reg-file" type="file"/>
                         <div id="reg-file-btn">Choose Image</div>
                     </label>
-                    <div id="reg-file-info" class="item7">not chosen *</div>
-                    <input id="reg-btn" type="submit" value="GET STARTED" class="item8">
-                </form>
+                <div id="reg-file-info" class="item7">not chosen *</div>
+                <input id="reg-btn" type="submit" value="GET STARTED" class="item8">
+            </form>
+        </div>
+        <!-- REGISTER END -->
+    </section>
+    <section class="section-major" id="home">
+        <!-- HOME -->
+        <div id="home-background"></div>
+        <div class="container">
+            <div class="sidebar left">
+                <div id="logo">e2</div>
+                <nav id="main-navigation">
+                    <a href="#/home/profile">My Profile</a>
+                    <a href="#/home/about">About Us</a>
+                </nav>
             </div>
-            <!-- REGISTER END -->
-        </section>
-        <section class="section-major" id="home">
-            <!-- HOME -->
-            <div id="home-background"></div>
-            <div class="container">
-                <div class="sidebar left">
-                    <div id="logo">e2</div>
-                    <nav id="main-navigation">
-                        <a href="#/home/profile">My Profile</a>
-                        <a href="#/home/about">About Us</a>
-                    </nav>
-                </div>
-                <div class="content">
-                    <section class="section-minor" id="profile">
-                        <div class="grid-container">
-                            <div class="item1">
-                                <div id="panel">
-                                    <div class="image-container"></div>
-                                    <div id="panel-info">
-                                        <div id="panel-username"></div>
-                                        <div id="panel-fullname">
-                                            <span id="panel-firstname"></span>
-                                            <span> </span>
-                                            <span id="panel-lastname"></span>
-                                        </div>
-                                        <div id="panel-line"></div>
-                                        <div id="panel-change">
-                                            <button id="btn-change-firstname">change firstname</button>
-                                            <button id="btn-change-lastname">change lastname</button>
-                                            <button id="btn-change-username">change username</button>
-                                            <button id="btn-change-email">change email</button>
-                                            <button id="btn-change-password">change password</button>
-                                            <button id="btn-change-picture">change profile image</button>
-                                        </div>
+            <div class="content">
+                <section class="section-minor" id="profile">
+                    <div class="grid-container">
+                        <div class="item1">
+                            <div id="panel">
+                                <div class="image-container"></div>
+                                <div id="panel-info">
+                                    <div id="panel-username"></div>
+                                    <div id="panel-fullname">
+                                        <span id="panel-firstname"></span>
+                                        <span> </span>
+                                        <span id="panel-lastname"></span>
+                                    </div>
+                                    <div id="panel-line"></div>
+                                    <div id="panel-change">
+                                        <button id="btn-change-firstname">change firstname</button>
+                                        <button id="btn-change-lastname">change lastname</button>
+                                        <button id="btn-change-username">change username</button>
+                                        <button id="btn-change-email">change email</button>
+                                        <button id="btn-change-password">change password</button>
+                                        <button id="btn-change-picture">change profile image</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item2">
-                                <h3>Personal Info</h3>
-                                <table>
-                                    <tr>
-                                        <td>Birthday</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nationality</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gender</td>
-                                        <td>-</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item3">
-                                <h3>Contact</h3>
-                                <table>
-                                    <tr>
-                                        <td>e-mail</td>
-                                        <td id="profile-email">-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Street Address</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Country/Region</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Province/State</td>
-                                        <td>-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>City</td>
-                                        <td>-</td>
-                                    </tr>
-                                </table>
-                            </div>
                         </div>
-                    </section>
-                    <section class="section-minor" id="about">about</section>
+                        <div class="item2">
+                            <h3>Personal Info</h3>
+                            <table>
+                                <tr>
+                                    <td>Birthday</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>-</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="item3">
+                            <h3>Contact</h3>
+                            <table>
+                                <tr>
+                                    <td>e-mail</td>
+                                    <td id="profile-email">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Street Address</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Country/Region</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>Province/State</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>-</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="section-minor" id="about">about</section>
+            </div>
+            <div class="sidebar right">
+                <div id="user-nutshell">
+                    <div id="mini-panel" class="image-container"></div>
+                    <div id="mini-info"></div>
+                    <button id="btn-logout">Log Out</button>
                 </div>
-                <div class="sidebar right">
-                    <div id="user-nutshell">
-                        <div id="mini-panel" class="image-container"></div>
-                        <div id="mini-info"></div>
-                        <button id="btn-logout">Log Out</button>
-                    </div>
-                    <div id="chat-openers-wrapper">
-                        <h3>Available Users</h3>
-                        <div id="chat-openers">
-                            <div class="chat-opener">
-                                <div class="mini-image-container"></div>
-                                <div class="chat-info">
-                                    <div class="mini-username"></div>
-                                    <div class="mini-firstname"></div>
-                                    <div class="mini-lastname"></div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="chat-openers-wrapper">
+                    <h3>Available Users</h3>
+                    <div id="chat-openers"></div>
                 </div>
             </div>
-            <!-- HOME END-->
-        </section>
-        <script src="js/utility.js"></script>
-        <script src="js/templates.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/sections.js"></script>
-        <script src="js/login.js"></script>
-        <script src="js/register.js"></script>
-        <script src="js/home.js"></script>
-        <script src="js/chat.js"></script>
-    </body>
+        </div>
+        <div id="chat-windows"></div>
+        <!-- HOME END-->
+    </section>
+    <script src="js/utility.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/sections.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+
 </html>

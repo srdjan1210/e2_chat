@@ -1,76 +1,82 @@
-section#home .sidebar.right{
+section#home .sidebar.right {
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
     right: 0px;
     font-size: 16px;
-    color:#1ab188;
+    color: #1ab188;
 }
 
-section#home #user-nutshell{
-    padding-top:50px;
+section#home #user-nutshell {
+    padding-top: 50px;
 }
 
-section#home #mini-panel{
-    margin:auto;
+section#home #mini-panel {
+    margin: auto;
     width: 140px;
     height: 140px;
     background-color: #24323d;
     background-image: url("../img/person_icon.png");
     background-size: cover;
     border-radius: 50%;
-    border:5px solid #1ab188;
-    margin-bottom:20px;
+    border: 5px solid #1ab188;
+    margin-bottom: 20px;
 }
 
-section#home #mini-info{
+section#home #mini-info {
     text-align: center;
-    color:#1ab188;
+    color: #1ab188;
 }
 
-section#home #btn-logout{
+section#home #btn-logout {
     width: 100px;
     line-height: 40px;
     outline: none;
     opacity: 0.85;
-    background-color:#1ab188;
-    margin:auto;
+    background-color: #1ab188;
+    margin: auto;
     display: block;
-    border:none;
+    border: none;
     cursor: pointer;
     font-size: 18px;
-    color:#24323d;
+    color: #24323d;
     margin-top: 20px;
 }
 
-section#home #btn-logout:hover{
+section#home #btn-logout:hover {
     opacity: 1.0;
 }
 
-section#home #chat-openers-wrapper h3{
-    margin:20px 5px 2px 5px;
+section#home #chat-openers-wrapper h3 {
+    margin: 20px 5px 2px 5px;
     text-align: center;
-    font-size:16px;
+    font-size: 16px;
     border-bottom: 1px solid #1ab188;
 }
 
-section#home #chat-openers{
-    overflow-y:scroll;
+section#home #chat-openers {
+    overflow-y: scroll;
 }
 
-section#home .chat-opener{
-    padding:5px;
+section#home .chat-opener {
+    padding: 5px;
     cursor: pointer;
 }
 
-section#home #chat-openers .mini-image-container{
-    float:left;
+section#home #chat-openers .mini-image-container {
+    background-image: url(../img/person_icon.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #1ab188;
+    float: left;
 }
 
-section#home #chat-openers .chat-info{
-    float:left;
-    margin-left:10px;
+section#home #chat-openers .chat-info {
+    float: left;
+    margin-left: 10px;
     font-size: 15px;
 }
 
-section#home .chat-opener:hover{
-    background-color:#435259;
+section#home .chat-opener:hover {
+    background-color: #435259;
 }

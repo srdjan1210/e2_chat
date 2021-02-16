@@ -1,0 +1,3 @@
+jsConfig = {
+    maxChatWindows: 3
+}
