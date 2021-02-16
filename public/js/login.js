@@ -66,8 +66,6 @@ Main.Login = {
         Main.User.Info = {};
         Main.OtherUsers.infoTaken = false;
         Main.OtherUsers.Info = {};
-        Main.Home.displayUserInfo();
-        Main.Home.displayOthers();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
     }

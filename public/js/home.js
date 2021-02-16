@@ -15,20 +15,18 @@ Main.Home = {
         document.getElementById("panel-firstname").innerHTML = Info.firstname;
         document.getElementById("panel-lastname").innerHTML = Info.lastname;
         document.getElementById("profile-email").innerHTML = Info.email;
-
         Main.Home.getUsersInfo();
-
-        //this.displayProfileImage();
+        console.log(Main.User.Info);
+        this.displayProfileImage();
     },
     displayProfileImage: function(){
-        let arrayBufferView = new Uint8Array( Main.User.Info.profile_image.data.data );
-        let blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
-        let urlCreator = window.URL || window.webkitURL;
-        let imageUrl = urlCreator.createObjectURL( blob );
-        let images = document.querySelectorAll(".image-container");
-        images.forEach(function(image, index) {
-            image.style.backgroundImage = `url(${imageUrl})`;
-        });
+        if(Main.User.Info.profile_img_300.data.data){
+            let imageUrl = Utility.createImageUrl(Main.User.Info.profile_img_300.data.data);
+            let images = document.querySelectorAll(".image-container");
+            images.forEach(function(image, index) {
+                image.style.backgroundImage = `url(${imageUrl})`;
+            });
+        }
     },
     getUsersInfo: function(){
         fetch("http://localhost:3000/home/chatinfo", {
@@ -56,15 +54,26 @@ Main.Home = {
         data = Main.OtherUsers.Info.data;
         if(data){
             data.forEach(function(user, index){
-                output += Templates.chatOpener(user.username, user.firstname, user.lastname);
+                let imageUrl = Utility.createImageUrl(user.profile_img_100.data.data);
+                console.log(user._id);
+                output += Templates.chatOpener(user._id, user.username, user.firstname, user.lastname, imageUrl);
             });
         }
         chatButtons.innerHTML = output;
         this.setAvailableUsersHeight();
+        this.setOpenChatEvents();
     },
     setAvailableUsersHeight: function(e){
         let chats = document.getElementById("chat-openers");
         let nutshell = document.getElementById("user-nutshell");
         chats.style.height = window.innerHeight - nutshell.offsetHeight - 50;
+    },
+    setOpenChatEvents(){
+        let btns = document.querySelectorAll(".chat-opener");
+        if(btns){
+            btns.forEach(function(btn, index){
+                btn.addEventListener("click", Main.Chat.openChatEvent);
+            });
+        }
     }
 }
