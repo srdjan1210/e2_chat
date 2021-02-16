@@ -4,12 +4,12 @@ const path = require('path');
 
 const resizeProfileImage = async (username) => {
     const image100 = await resizeimg(await fs.readFile(path.join(__dirname, `../public/uploads/imgs/${username}.png`)),{
-        width: 200,
-        height: 160
+        width: 160,
+        height: 200
     });
     const image500 = await resizeimg(await fs.readFile(path.join(__dirname, `../public/uploads/imgs/${username}.png`)),{
-        width: 500,
-        height: 400
+        width: 300,
+        height: 280
     });
 
     fs.writeFile(path.join(__dirname, `../public/resources/profileimgs/${username}_100.png`), image100);
