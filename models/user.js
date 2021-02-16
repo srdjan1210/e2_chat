@@ -22,10 +22,6 @@ const UserSchema = mongoose.Schema({
         default: Date.now
     },
     created: Date,
-    profile_image: {
-        data: Buffer,
-        contentType: String
-    }, 
     firstname: String,
     lastname: String
 
@@ -59,7 +55,7 @@ findUserById = async ({ _id }) => {
 }
 
 findChatUsers = async (id) => {
-    const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_image');
+    const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at');
     console.log(users);
     return users;
 }

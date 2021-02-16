@@ -6,12 +6,14 @@ const { validateUserData } = require('./validationController');
 const { checkIfUserExists, saveUserToDatabase } = require('../models/user');
 const { hashPassword } = require('../middleware/hash');
 const { trimUserData } = require('../helpers/stringOperations');
+const { resizeProfileImage } = require('../image-formatters/resize');
 
 
 
 registerUser = async (req, res) => {
     const user = _.pick(req.body,['email', 'username', 'password','lastname', 'firstname']);
     trimUserData(user);
+    resizeProfileImage(user.username);
 
     const validated = validateUserData(_.pick(user, ['email', 'username']));  
     if(validated.error) return res.status(409).send({err: validated.error.details[0].message});
@@ -27,10 +29,6 @@ registerUser = async (req, res) => {
         email: user.email,
         created: Date.now(),
         lastActiveAt: null,
-        profile_image: {
-            data: fs.readFileSync(path.join(__dirname, '../public/uploads/imgs/' + req.file.filename)), 
-            contentType: 'image/png'
-        },
         lastname: user.lastname,
         firstname: user.firstname
     }).then(saved => {

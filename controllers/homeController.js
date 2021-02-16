@@ -7,7 +7,7 @@ userinfo = async (req, res) => {
     const user = await findUserById({_id: req.payload._id});
     if(user == null)
         return res.status(204).send({ err: "User not found"});
-    return res.status(200).send(_.pick(user, ['_id', 'firstname', 'lastname', 'username', 'email', 'profile_image']))
+    return res.status(200).send(_.pick(user, ['_id', 'firstname', 'lastname', 'username', 'email']))
     
 }
 
