@@ -11,7 +11,9 @@ Main.Sections = {
         }
         else location = window.location.hash;
         sectionName = location.substring(2).split('/');
-        if (Main.User.logged) sectionName[0] = "home";
+        if (Main.User.logged) {
+            sectionName[0] = "home";
+        }
         if (sectionName[0] == "home" && (sectionName[1] == "" || !(sectionName[1]))) {
             sectionName[1] = "profile";
             window.location.hash = "#/home/profile";

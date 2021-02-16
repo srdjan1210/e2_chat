@@ -38,6 +38,26 @@ section {
     font-style: italic;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #24323d;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #435259;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1ab188;
+}
+
 input:focus{
     outline:none;
 }
