@@ -1,10 +1,11 @@
-Main.Chat.socket = io();
-Main.Chat.socketInit = function() {
-    const id = Math.floor(Math.random() * 100);
+Main.Chat.socket;
+Main.Chat.socketInit = function(id) {
+    Main.Chat.socket = io();
     const socket = Main.Chat.socket;
     socket.on('connect', () => {
         //User se loguje te dostavlja svoj id
         socket.emit('new user', id);
+        console.log(id);
     });
     socket.on('new message', ({ msg, from }) => {
         //Ovdje ces ti uciniti sta hoces sa porukom i sa idom posiljaoca

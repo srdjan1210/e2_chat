@@ -1,7 +1,7 @@
 Main.Chat = {
     chatCounter: 0,
     init: function() {
-        Main.Chat.socketInit();
+
     },
     openChatEvent: function(e) {
         let User = Main.getOtherUserInfo(this.getAttribute("data-id"));
