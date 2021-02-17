@@ -25,8 +25,13 @@ module.exports = (io) => {
 
         socket.on('join room', async (id, callback) => {
             const channel = connected.filter(usr => usr.id == id);
-            socket.join(channel[0].socketid);
-            callback(channel[0].socketid);
+            if(channel[0]){
+                socket.join(channel[0].socketid);
+                callback(channel[0].socketid);
+            }
+
+            callback(null);
+         
         });
 
         socket.on('leave room', async (room) => {
