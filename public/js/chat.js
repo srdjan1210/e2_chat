@@ -17,13 +17,15 @@ Main.Chat = {
         let chatWindows = document.querySelector("#chat-windows");
         let chatWindow = document.createElement("div");
         let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
+        Main.Chat.joinRoom(chatWindow);
+
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
         chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
         chatWindows.prepend(chatWindow);
+
         Main.Chat.setCloseChatEvent(chatWindow);
         Main.Chat.chatCounter++;
-        Main.Chat.joinRoom(User._id);
     },
     checkIfChatOpen: function(id) {
         let chats = document.querySelectorAll(".chat-window");

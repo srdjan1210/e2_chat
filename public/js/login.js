@@ -64,6 +64,7 @@ Main.Login = {
         Main.OtherUsers.Info = {};
         Main.Home.removeOthers();
         Main.Chat.closeAllChats();
+        Main.Chat.socketDisconnect();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
     }
