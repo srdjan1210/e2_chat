@@ -17,7 +17,7 @@ Main.Chat = {
         let chatWindows = document.querySelector("#chat-windows");
         let chatWindow = document.createElement("div");
         let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
-        Main.Chat.joinRoom(chatWindow);
+        Main.Chat.joinRoom(chatWindow, User._id);
 
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
@@ -78,5 +78,31 @@ Main.Chat = {
         Main.Chat.sendMessage(message, from, to, room);
 
         this.querySelector(".chat-new-msg").value = "";
+    },
+    getChatWindow: function(id) {
+        let chatWindows = document.querySelectorAll(".chat-window");
+        let chatWindow;
+        if (chatWindows) {
+            chatWindows.forEach(function(chat, index) {
+                if (chat.getAttribute("data-id") == id) {
+                    chatWindow = chat;
+                }
+            });
+        }
+        return chatWindow;
+    },
+    displayForeignMessage: function({ msg, from }) {
+        let chatWindow = Main.Chat.getChatWindow(from);
+        if (!chatWindow) return;
+        let chatBody = chatWindow.querySelector(".chat-body");
+        let chatBlock = document.createElement("div");
+
+        chatBlock.classList.add("chat-block");
+        chatBlock.innerHTML = Templates.message(msg, true);
+        chatBody.append(chatBlock);
+        Main.Chat.setChatScroll(chatBody);
+    },
+    setChatScroll: function(chatBody) {
+
     }
 }

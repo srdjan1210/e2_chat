@@ -30,5 +30,13 @@ Templates = {
                 <div style="transform: rotate(45deg);">+</div>
             </div>`
         return output;
+    },
+    message: function(msg, foreign) {
+        let output =
+            `<div class="chat-pointer"></div>
+            <div class="message-container">
+                <div class="message">${msg}</div>    
+            </div>`
+        return output;
     }
 }
