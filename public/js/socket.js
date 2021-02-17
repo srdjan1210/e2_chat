@@ -1,11 +1,11 @@
 Main.Chat.socket;
-Main.Chat.socketInit = function(id) {
+Main.Chat.socketInit = function() {
     Main.Chat.socket = io();
+    const id = Main.User.Info._id;
     const socket = Main.Chat.socket;
     socket.on('connect', () => {
         //User se loguje te dostavlja svoj id
         socket.emit('new user', id);
-        console.log(id);
     });
     socket.on('new message', ({ msg, from }) => {
         console.log(`${from}: ${msg}`);
@@ -28,10 +28,7 @@ Main.Chat.joinRoom = function(chatWindow) {
     const id = Main.User.Info._id;
     const socket = Main.Chat.socket;
     socket.emit('join room', id, (room) => {
-        console.log(room);
         chatWindow.setAttribute("data-room", room);
-        Main.Chat.sendMessage("duvaj ga", id, chatWindow.getAttribute("data-id"), room);
-
         //Sacuvaj sobu koju dobijes ovdje, pa je prosledjujes dalje
         // kada se bude trebala poruka poslati
     });

@@ -44,6 +44,42 @@ section#home .chat-image {
     margin-right: 10px;
 }
 
+section#home .chat-body {
+    height: 260px;
+}
+
+section#home .chat-form {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+}
+
+section#home .chat-new-msg {
+    outline: none;
+    resize: none;
+    width: 77%;
+    background-color: #24323d;
+    border: none;
+    color: #1ab188;
+    padding: 4px;
+}
+
+section#home .chat-form .btn-send-msg {
+    width: 23%;
+    background-color: #1ab188;
+    cursor: pointer;
+    color: #24323d;
+    opacity: 0.75;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    padding: 0px;
+}
+
+section#home .chat-form .btn-send-msg:hover {
+    opacity: 1.0;
+}
+
 section#home .btn-chat-close {
     position: absolute;
     height: 40px;
@@ -60,4 +96,22 @@ section#home .btn-chat-close {
 
 section#home .btn-chat-close:hover {
     background-color: #e3242b;
+}
+
+section#home .chat-form ::placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
+}
+
+section#home .chat-form :-ms-input-placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
+}
+
+section#home .chat-form ::-ms-input-placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
 }

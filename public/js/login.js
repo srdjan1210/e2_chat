@@ -54,7 +54,7 @@ Main.Login = {
     logUser() {
         Main.Sections.sectionHandle();
         Main.Home.displayUserInfo();
-        Main.Chat.socketInit(Main.User.Info._id);
+        Main.Chat.socketInit();
     },
     logOut(e) {
         e.preventDefault();

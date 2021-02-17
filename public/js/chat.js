@@ -24,6 +24,7 @@ Main.Chat = {
         chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
         chatWindows.prepend(chatWindow);
 
+        Main.Chat.setReadFormEvent(chatWindow);
         Main.Chat.setCloseChatEvent(chatWindow);
         Main.Chat.chatCounter++;
     },
@@ -44,7 +45,10 @@ Main.Chat = {
         closeBtn.addEventListener("click", Main.Chat.closeChatEvent);
     },
     closeChatEvent: function(e) {
+        let chatForm = this.closest(".chat-window").querySelector(".chat-form");
+
         this.removeEventListener("click", Main.Chat.closeChatEvent);
+        chatForm.removeEventListener("submit", Main.Chat.readFormEvent);
         this.closest(".chat-window").remove();
         Main.Chat.chatCounter--;
     },
@@ -54,9 +58,25 @@ Main.Chat = {
             chats.forEach(function(chat, index) {
                 let closeBtn = chat.querySelector(".btn-chat-close");
                 closeBtn.removeEventListener("click", Main.Chat.closeChatEvent);
+                chat.querySelector(".chat-form").removeEventListener("submit", Main.Chat.readFormEvent);
                 chat.remove();
             });
         }
         Main.Chat.chatCounter = 0;
+    },
+    setReadFormEvent: function(chatWindow) {
+        let sendBtn = chatWindow.querySelector(".chat-form");
+        sendBtn.addEventListener("submit", Main.Chat.readFormEvent);
+    },
+    readFormEvent: function(e) {
+        e.preventDefault();
+        const chatWindow = this.closest(".chat-window");
+        const from = Main.User.Info._id;
+        const message = this.querySelector(".chat-new-msg").value;
+        const to = chatWindow.getAttribute("data-id");
+        const room = chatWindow.getAttribute("data-room");
+        Main.Chat.sendMessage(message, from, to, room);
+
+        this.querySelector(".chat-new-msg").value = "";
     }
 }

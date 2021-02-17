@@ -23,7 +23,8 @@ Templates = {
             </div>
             <div class="chat-body"></div>
             <form action="" class="chat-form">
-                
+                <textarea class="chat-new-msg" placeholder="write message here..."></textarea>
+                <input type="submit" class="btn-send-msg" value="Send">
             </form>
             <div class="btn-chat-close">
                 <div style="transform: rotate(45deg);">+</div>
