@@ -64,7 +64,6 @@ findUserById = async ({ _id }) => {
 
 findChatUsers = async (id) => {
     const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_img_100 profile_img_300');
-    console.log(users);
     return users;
 }
 
