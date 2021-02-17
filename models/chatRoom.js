@@ -10,7 +10,7 @@ const ChatRoomSchema = mongoose.Schema({
 const chatRoomModel = mongoose.model('Chatroom', ChatRoomSchema);
 
 const findOrCreateChatRoom = async (users) => {
-    const room = await chatRoomModel.findOne({ users });
+    const room = await chatRoomModel.findOne({ users: { $all: users }  });
     if(room != null)
         return room;
     const newRoom = new chatRoomModel({ users });
