@@ -9,8 +9,11 @@ Main.Chat.socketInit = function() {
     socket.on('new message', Main.Chat.displayForeignMessage);
 }
 Main.Chat.socketDisconnect = function() {
-    Main.Chat.socket.disconnect();
-    Main.Chat.socket = undefined;
+    let socket = Main.Chat.socket;
+    if (socket) {
+        socket.disconnect();
+        socket = undefined;
+    }
 }
 Main.Chat.sendMessage = function(msg, from, to, room) {
     if (msg == "" || !msg) return;
