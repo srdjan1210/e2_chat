@@ -1,7 +1,7 @@
 Main.Chat = {
     chatCounter: 0,
     init: function() {
-
+        Main.Chat.socketInit();
     },
     openChatEvent: function(e) {
         let User = Main.getOtherUserInfo(this.getAttribute("data-id"));
@@ -23,6 +23,7 @@ Main.Chat = {
         chatWindows.prepend(chatWindow);
         Main.Chat.setCloseChatEvent(chatWindow);
         Main.Chat.chatCounter++;
+        Main.Chat.joinRoom(User._id);
     },
     checkIfChatOpen: function(id) {
         let chats = document.querySelectorAll(".chat-window");

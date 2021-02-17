@@ -22,6 +22,9 @@ Templates = {
                 </div>
             </div>
             <div class="chat-body"></div>
+            <form action="" class="chat-form">
+                
+            </form>
             <div class="btn-chat-close">
                 <div style="transform: rotate(45deg);">+</div>
             </div>`

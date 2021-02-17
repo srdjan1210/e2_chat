@@ -1,5 +1,5 @@
 section#home #home-background {
-    /*background-image: url("../img/bg.jpg");*/
+    background-image: url("../img/bg.jpg");
     filter: blur(8px);
     -webkit-filter: blur(8px);
     position: fixed;
