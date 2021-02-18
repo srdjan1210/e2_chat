@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>e2 chat</title>
+    <title>e2</title>
     <link rel="stylesheet" href="css/main.css" type="text/css">
     <link rel="stylesheet" href="css/login_register.css" type="text/css">
     <link rel="stylesheet" href="css/register.css" type="text/css">
@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/left_sidebar.css" type="text/css">
     <link rel="stylesheet" href="css/right_sidebar.css" type="text/css">
     <link rel="stylesheet" href="css/profile.css" type="text/css">
-    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/chat.css" type="text/css">
+    <link rel="stylesheet" href="css/feed.css" type="text/css">
 </head>
 
 <body>
@@ -81,9 +82,23 @@
             </div>
             <div class="content">
                 <section class="section-minor" id="feed">
-                    feed
+                    <!-- NEWS FEED -->
+                    <div id="post-creator">
+                        <form action="" id="create-post-form">
+                            <h3>Create New Post</h3>
+                            <textarea id="create-post-msg" placeholder="Write post message here..."></textarea>
+                            <div class="create-post-block">
+                                <input id="create-post-btn" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="post-container">
+                        Empty
+                    </div>
+                    <!-- NEWS FEED END-->
                 </section>
                 <section class="section-minor" id="profile">
+                    <!-- PROFILE -->
                     <div class="grid-container">
                         <div class="item1">s
                             <div id="panel">
@@ -150,8 +165,12 @@
                             </table>
                         </div>
                     </div>
+                    <!-- PROFILE END -->
                 </section>
-                <section class="section-minor" id="about">about</section>
+                <section class="section-minor" id="about">
+                    <!-- ABOUT -->
+                    <!-- ABOUT END -->
+                </section>
             </div>
             <div class="sidebar right">
                 <div id="user-nutshell">
@@ -179,6 +198,7 @@
     <script src="js/home.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/socket.js"></script>
+    <script src="js/post.js"></script>
 </body>
 
 </html>

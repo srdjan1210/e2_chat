@@ -29,20 +29,9 @@ section#home #mini-info {
 section#home #btn-logout {
     width: 100px;
     line-height: 40px;
-    outline: none;
-    opacity: 0.85;
-    background-color: #1ab188;
     margin: auto;
-    display: block;
-    border: none;
-    cursor: pointer;
     font-size: 18px;
-    color: #24323d;
     margin-top: 20px;
-}
-
-section#home #btn-logout:hover {
-    opacity: 1.0;
 }
 
 section#home #chat-openers-wrapper h3 {

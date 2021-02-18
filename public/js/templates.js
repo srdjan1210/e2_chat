@@ -21,7 +21,9 @@ Templates = {
                     <div class="chat-fullname">${firstname} ${lastname}</div>
                 </div>
             </div>
-            <div class="chat-body"></div>
+            <div class="chat-body-outer">
+                <div class="chat-body"></div>
+            </div>
             <form action="" class="chat-form">
                 <textarea class="chat-new-msg" placeholder="write message here..."></textarea>
                 <input type="submit" class="btn-send-msg" value="Send">

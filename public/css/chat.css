@@ -44,20 +44,28 @@ section#home .chat-image {
     margin-right: 10px;
 }
 
-section#home .chat-body {
-    height: 280px;
-    padding: 10px;
-    padding-top: 0px;
+section#home .chat-body-outer {
     overflow-y: scroll;
-    margin: 1px 0px;
+    height: 292px;
+    position: relative;
+}
+
+section#home .chat-body {
     font-size: 14px;
+    padding: 0px 10px;
+    margin: 1px 0px;
+    position: relative;
 }
 
 section#home .chat-body .chat-block {
     position: relative;
-    margin-top: 10px;
+    margin-bottom: 10px;
     /*margin-top: 25px;*/
     display: flex;
+}
+
+section#home .chat-body .chat-block:first-child {
+    margin-top: 10px;
 }
 
 section#home .chat-body .chat-block.own {
@@ -82,13 +90,14 @@ section#home .chat-block.own .message-container {
 }
 
 
-/*section#home .chat-block .chat-pointer {
+/*
+section#home .chat-block .chat-pointer {
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 0 28px 26px;
-    border-color: transparent transparent #1ab189 transparent;
+    border-color: transparent transparent #24323d transparent;
     position: absolute;
     left: 0px;
     top: -11px;
@@ -97,7 +106,8 @@ section#home .chat-block.own .message-container {
 
 section#home .chat-block.own .chat-pointer {
     display: none;
-}*/
+}
+*/
 
 section#home .chat-form {
     display: flex;
@@ -106,29 +116,12 @@ section#home .chat-form {
 }
 
 section#home .chat-new-msg {
-    outline: none;
-    resize: none;
     width: 77%;
-    background-color: #24323d;
-    border: none;
-    color: #1ab188;
-    padding: 4px;
+    font-size: 14px;
 }
 
 section#home .chat-form .btn-send-msg {
     width: 23%;
-    background-color: #1ab188;
-    cursor: pointer;
-    color: #24323d;
-    opacity: 0.75;
-    outline: none;
-    border: none;
-    font-size: 16px;
-    padding: 0px;
-}
-
-section#home .chat-form .btn-send-msg:hover {
-    opacity: 1.0;
 }
 
 section#home .btn-chat-close {
@@ -149,32 +142,14 @@ section#home .btn-chat-close:hover {
     background-color: #e3242b;
 }
 
-section#home .chat-form ::placeholder {
-    color: #1ab188;
-    opacity: 0.38;
-    font-style: italic;
-}
-
-section#home .chat-form :-ms-input-placeholder {
-    color: #1ab188;
-    opacity: 0.38;
-    font-style: italic;
-}
-
-section#home .chat-form ::-ms-input-placeholder {
-    color: #1ab188;
-    opacity: 0.38;
-    font-style: italic;
-}
-
-section#home .chat-body::-webkit-scrollbar-track {
+section#home .chat-body-outer::-webkit-scrollbar-track {
     background: #435259;
 }
 
-section#home .chat-body::-webkit-scrollbar-thumb {
+section#home .chat-body-outer::-webkit-scrollbar-thumb {
     background: #24323d;
 }
 
-section#home .chat-body::-webkit-scrollbar-thumb:hover {
+section#home .chat-body-outer::-webkit-scrollbar-thumb:hover {
     background: #1ab188;
 }

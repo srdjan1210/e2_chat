@@ -20,10 +20,61 @@ section#home .sidebar {
 
 section#home .content {
     min-height: 2000px;
-    padding: 70px 280px;
+    padding: 60px 280px 100px 280px;
     background-color: #435259;
 }
 
 section#home .section-minor {
     position: relative;
+    max-width: 1100px;
+    margin: auto;
+    font-size: 16px;
+    color: #1ab188;
+}
+
+section#home textarea {
+    outline: none;
+    resize: none;
+    background-color: #24323d;
+    border: none;
+    color: #1ab188;
+    padding: 4px;
+    font-size: 16px;
+}
+
+section#home ::placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
+}
+
+section#home :-ms-input-placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
+}
+
+section#home ::-ms-input-placeholder {
+    color: #1ab188;
+    opacity: 0.38;
+    font-style: italic;
+}
+
+section#home input[type=submit],
+section#home button {
+    background-color: #1ab188;
+    cursor: pointer;
+    color: #24323d;
+    opacity: 0.75;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    padding: 0px;
+    display: block;
+    position: relative;
+}
+
+section#home input[type=submit]:hover,
+section#home button:hover {
+    opacity: 1.0;
 }

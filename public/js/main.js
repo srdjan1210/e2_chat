@@ -4,7 +4,7 @@ let Main = {
         Main.Login.init();
         Main.Register.init();
         Main.Home.init();
-        Main.Chat.init();
+
         this.checkSession();
 
         document.getElementById("popup-exit").addEventListener("click", this.closePopup);

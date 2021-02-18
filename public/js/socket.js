@@ -19,13 +19,7 @@ Main.Chat.sendMessage = function(msg, from, to, room) {
     if (msg == "" || !msg) return;
     const socket = Main.Chat.socket;
     socket.emit('message', { msg, from, to, room }, () => {
-        let chatWindow = Main.Chat.getChatWindow(to);
-        let chatBody = chatWindow.querySelector(".chat-body");
-        let chatBlock = document.createElement("div");
-        chatBlock.classList.add("chat-block");
-        chatBlock.classList.add("own");
-        chatBlock.innerHTML = Templates.message(msg, false);
-        chatBody.append(chatBlock);
+        Main.Chat.displayOwnMessage({ msg, from, to, room });
     });
 }
 Main.Chat.joinRoom = function(chatWindow, user_id) {

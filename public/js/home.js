@@ -1,5 +1,7 @@
 Main.Home = {
     init: function() {
+        Main.Chat.init();
+        Main.Post.init();
         window.addEventListener("resize", this.setAvailableUsersHeight);
     },
     displayUserInfo: function() {

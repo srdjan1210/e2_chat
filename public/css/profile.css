@@ -1,5 +1,4 @@
 section#profile {
-    color:#1ab188;
     font-size: 16px;
 }
 
@@ -7,57 +6,56 @@ section#profile .grid-container {
     display: grid;
     grid-gap: 30px;
     grid-template-columns: 210px auto;
-    margin:auto;
+    margin: auto;
     grid-column-gap: 30px;
-    margin-top:100px;
-    max-width: 1100px;
+    margin-top: 120px;
 }
 
-section#profile .item1{
-    grid-row:1 / span 2;
+section#profile .item1 {
+    grid-row: 1 / span 2;
     grid-column: 1;
 }
 
-section #profile .item2{
-    grid-row:1;
+section #profile .item2 {
+    grid-row: 1;
     grid-column: 2;
     background-color: #24323d;
     box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
-    padding:0px 20px;
+    padding: 0px 20px;
 }
 
-section #profile .item3{
-    grid-row:2;
-    grid-column:2;
+section #profile .item3 {
+    grid-row: 2;
+    grid-column: 2;
     background-color: #24323d;
     box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
-    padding:0px 20px;
+    padding: 0px 20px;
 }
 
-section#profile #panel{
+section#profile #panel {
     position: relative;
     background-color: #24323d;
     min-height: 500px;
     box-shadow: 3px 3px 8px rgb(0 0 0 / 30%);
 }
 
-section#profile #panel .image-container{
-    position:absolute;
-    margin:auto;
-    left:0px;
-    right:0px;
-    top:-100px;
+section#profile #panel .image-container {
+    position: absolute;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    top: -100px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border:5px solid #1ab188;
-    background-color:#24323d;
+    border: 5px solid #1ab188;
+    background-color: #24323d;
     background-image: url("../img/person_icon.png");
     background-size: cover;
     box-shadow: 3px -2px 8px rgb(0 0 0 / 30%);
 }
 
-section#profile #panel-info{
+section#profile #panel-info {
     padding-top: 130px;
     text-align: center;
     line-height: 35px;
@@ -65,41 +63,40 @@ section#profile #panel-info{
     font-weight: bold;
 }
 
-section#profile #panel-line{
-    border-bottom:1px solid #1ab188;
-    margin:10px 20px 30px 20px;
+section#profile #panel-line {
+    border-bottom: 1px solid #1ab188;
+    margin: 10px 20px 30px 20px;
 }
 
-section#profile button{
-    border:none;
-    background-color:#24323d;
+section#profile button {
+    background-color: #24323d;
     font-size: 16px;
-    outline:none;
     cursor: pointer;
-    color:#1ab188;
+    color: #1ab188;
     line-height: 28px;
+    margin: auto;
 }
 
-section#profile button:hover{
+section#profile button:hover {
     text-decoration: underline;
 }
 
-section#profile .grid-container h3{
-    padding:10px 0px;
-    margin:10px 0px;
-    border-bottom:2px solid #1ab188;
+section#profile .grid-container h3 {
+    padding: 10px 0px;
+    margin: 10px 0px;
+    border-bottom: 2px solid #1ab188;
 }
 
-section#profile table{
-    color:#1ab188;
+section#profile table {
+    color: #1ab188;
     font-size: 16px;
 }
 
-section#profile tr{
+section#profile tr {
     line-height: 32px;
 }
 
 section#profile td,
-section#profile th{
+section#profile th {
     min-width: 210px;
 }

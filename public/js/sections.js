@@ -37,6 +37,7 @@ Main.Sections = {
         for (i = 0; i < sections.length; i++) sections[i].classList.remove("active");
         if (section != null && (section.classList.contains(sectionType))) {
             section.classList.add("active");
+            document.querySelector("body").scrollTop = 0;
         } else {
             this.setDefaultSection();
         }

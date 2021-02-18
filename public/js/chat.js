@@ -91,6 +91,18 @@ Main.Chat = {
         }
         return chatWindow;
     },
+    displayOwnMessage: function({ msg, from, to, room }) {
+        let chatWindow = Main.Chat.getChatWindow(to);
+        if (!chatWindow) return;
+        let chatBody = chatWindow.querySelector(".chat-body");
+        let chatBlock = document.createElement("div");
+
+        chatBlock.classList.add("chat-block");
+        chatBlock.classList.add("own");
+        chatBlock.innerHTML = Templates.message(msg, false);
+        chatBody.append(chatBlock);
+        Main.Chat.setChatScroll(chatBody);
+    },
     displayForeignMessage: function({ msg, from }) {
         let chatWindow = Main.Chat.getChatWindow(from);
         if (!chatWindow) return;
@@ -103,6 +115,10 @@ Main.Chat = {
         Main.Chat.setChatScroll(chatBody);
     },
     setChatScroll: function(chatBody) {
-
+        chatOuter = chatBody.closest(".chat-body-outer");
+        delta = chatBody.offsetHeight - chatOuter.offsetHeight;
+        if (delta >= 0) {
+            chatOuter.scrollTop = delta + 50;
+        }
     }
 }

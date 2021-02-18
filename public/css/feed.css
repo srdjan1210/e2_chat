@@ -1,0 +1,36 @@
+section#feed {}
+
+section#feed #post-creator,
+section#feed #post-container {
+    padding: 20px;
+    background-color: #24323d;
+}
+
+section#feed #post-creator {
+    margin-bottom: 50px;
+}
+
+section#feed #create-post-form h3 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+section#feed #create-post-msg {
+    background-color: #435259;
+    width: 100%;
+    height: 150px;
+    padding: 8px;
+}
+
+section#feed .create-post-block {
+    display: flex;
+    justify-content: flex-end;
+}
+
+section#feed #create-post-btn {
+    margin-top: 15px;
+    width: 90px;
+    height: 32px;
+}
+
+section#feed #post-container {}
