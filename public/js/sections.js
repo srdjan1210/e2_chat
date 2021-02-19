@@ -31,7 +31,7 @@ Main.Sections = {
             return;
         }
         this.sectionChange(sectionName, "section-minor");
-        if (sectionName == "profile" && profile) {
+        if (sectionName == "profile" && profile && Main.User.logged) {
             if (Main.OtherUsers.infoTaken) {
                 Main.Home.displayProfile(profile.replaceAll("%20", " "));
             } else {
