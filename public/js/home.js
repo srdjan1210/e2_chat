@@ -2,6 +2,11 @@ Main.Home = {
     init: function() {
         Main.Chat.init();
         Main.Post.init();
+        let expandBtns = document.querySelectorAll(".sidebar .btn-expand");
+
+        expandBtns.forEach(function(btn, index) {
+            btn.addEventListener("click", Main.Home.expandSidebar);
+        });
         window.addEventListener("resize", this.setAvailableUsersHeight);
     },
     displayProfile: function(username) {
@@ -33,10 +38,13 @@ Main.Home = {
     },
     displayUser: function() {
         Info = Main.User.Info;
-        document.getElementById("mini-info").innerHTML = Info.username;
         let imageUrl = Utility.createImageUrl(Info.profile_img_300.data.data);
         let image = document.getElementById("mini-panel");
+        let miniImage = document.getElementById("mini-user-image");
+
+        document.getElementById("mini-info").innerHTML = Info.username;
         image.style.backgroundImage = `url(${imageUrl})`;
+        miniImage.style.backgroundImage = `url(${imageUrl})`;
     },
     getUsersInfo: function() {
         fetch("http://localhost:3000/home/chatinfo", {
@@ -99,6 +107,21 @@ Main.Home = {
             btns.forEach(function(btn, index) {
                 btn.addEventListener("click", Main.Chat.openChatEvent);
             });
+        }
+    },
+    expandSidebar: function(e) {
+        e.preventDefault();
+        let sideBar = this.closest(".sidebar");
+        let chatWindows = document.getElementById("chat-windows");
+        let content = document.getElementById("content");
+
+        sideBar.classList.toggle("expanded");
+        if (!(sideBar.classList.contains("expanded"))) {
+            chatWindows.style.right = 72;
+            content.style.paddingRight = 92;
+        } else {
+            chatWindows.style.right = 280;
+            content.style.paddingRight = 300;
         }
     }
 }

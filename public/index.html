@@ -59,9 +59,9 @@
                 <input maxlength="35" id="reg-email" type="email" placeholder="email *" class="item4 required">
                 <input maxlength="20" id="reg-password" type="password" placeholder="password *" class="item5 required">
                 <label class="item6">
-                        <input id="reg-file" type="file"/>
-                        <div id="reg-file-btn">Choose Image</div>
-                    </label>
+                    <input id="reg-file" type="file"/>
+                    <div id="reg-file-btn">Choose Image</div>
+                </label>
                 <div id="reg-file-info" class="item7">not chosen *</div>
                 <input id="reg-btn" type="submit" value="GET STARTED" class="item8">
             </form>
@@ -80,7 +80,7 @@
                     <a href="#/home/about">About Us</a>
                 </nav>
             </div>
-            <div class="content">
+            <div id="content">
                 <section class="section-minor" id="feed">
                     <!-- NEWS FEED -->
                     <div id="post-creator">
@@ -88,7 +88,7 @@
                             <h3>Create New Post</h3>
                             <textarea id="create-post-msg" placeholder="Write post message here..."></textarea>
                             <div class="create-post-block">
-                                <input id="create-post-btn" type="submit">
+                                <input id="create-post-btn" type="submit" value="Post">
                             </div>
                         </form>
                     </div>
@@ -172,7 +172,12 @@
                     <!-- ABOUT END -->
                 </section>
             </div>
-            <div class="sidebar right">
+            <div class="sidebar right expanded">
+                <button class="btn-expand">
+                    <div class="expand-arrow"></div>
+                </button>
+                <div id="mini-user-image"></div>
+                <button id="btn-logout-mini"></button>
                 <div id="user-nutshell">
                     <div id="mini-panel" class="image-container"></div>
                     <div id="mini-info"></div>

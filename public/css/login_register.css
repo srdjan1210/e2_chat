@@ -1,21 +1,26 @@
+section#login,
+section#register {
+    position: relative;
+}
+
 section#login .sheet,
-section#register .sheet{
+section#register .sheet {
     display: block;
-    position: absolute;
+    position: fixed;
     width: 550px;
     height: 670px;
     background-color: #24323d;
-    top:0px;
-    right:0px;
-    bottom:0px;
-    left:0px;
-    margin:auto;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.9);
 }
 
 section#login h2,
-section#register h2{
-    color:#fff;
+section#register h2 {
+    color: #fff;
     text-align: center;
     font-weight: normal;
     margin: 25px 0px;
@@ -24,22 +29,22 @@ section#register h2{
 }
 
 section#login form,
-section#register form{
+section#register form {
     display: block;
     line-height: 30px;
-    font-size:18px;
-    color:#fff;
+    font-size: 18px;
+    color: #fff;
     font-weight: normal;
     width: 480px;
-    margin:auto;
+    margin: auto;
 }
 
 section#login a,
-section#register a{
+section#register a {
     width: 240px;
     line-height: 53px;
-    float:left;
-    color:#fff;
+    float: left;
+    color: #fff;
     background-color: #435259;
     text-decoration: none;
     text-align: center;
@@ -48,62 +53,62 @@ section#register a{
 }
 
 section#login a:visited,
-section#register a:visited{
+section#register a:visited {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
 }
 
 section#login a:hover,
-section#register a:hover{
-    background-color:#1ab188;
+section#register a:hover {
+    background-color: #1ab188;
 }
 
 section#login nav,
-section#register nav{
+section#register nav {
     display: block;
-    margin:auto;
+    margin: auto;
     width: 480px;
     margin-top: 40px;
 }
 
 section#login .grid-container,
-section#register .grid-container{
+section#register .grid-container {
     display: grid;
     grid-gap: 20px;
-    grid-row-gap:36px;
+    grid-row-gap: 36px;
 }
 
 section#login input,
-section#register input{
+section#register input {
     line-height: 40px;
-    border:2px solid #777;
+    border: 2px solid #777;
     font-size: 18px;
     display: block;
     position: relative;
     background-color: #24323d;
-    padding:0px 10px;
-    color:#fff;
+    padding: 0px 10px;
+    color: #fff;
 }
 
 section#login input[type=submit],
-section#register input[type=submit]{
-    border:none;
+section#register input[type=submit] {
+    border: none;
     cursor: pointer;
-    background-color:#1ab188;
+    background-color: #1ab188;
     width: 100%;
     display: block;
     height: 62px;
-    letter-spacing:0px;
+    letter-spacing: 0px;
     font-size: 20px;
     opacity: 0.8;
 }
 
 section#login input[type=submit]:hover,
-section#register input[type=submit]:hover{
+section#register input[type=submit]:hover {
     opacity: 1.0;
 }
 
 section#login .invalid,
-section#register .invalid{
+section#register .invalid {
     border: 2px solid #e3242b !important;
 }

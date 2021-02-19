@@ -59,7 +59,7 @@ section#profile #panel-info {
     padding-top: 130px;
     text-align: center;
     line-height: 35px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -70,7 +70,7 @@ section#profile #panel-line {
 
 section#profile button {
     background-color: #24323d;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     color: #1ab188;
     line-height: 28px;
@@ -85,11 +85,12 @@ section#profile .grid-container h3 {
     padding: 10px 0px;
     margin: 10px 0px;
     border-bottom: 2px solid #1ab188;
+    font-size: 15px;
 }
 
 section#profile table {
     color: #1ab188;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 section#profile tr {

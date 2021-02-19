@@ -6,6 +6,7 @@ Main.Login = {
     init: function() {
         document.getElementById("log-form").addEventListener("submit", this.formSubmitEvent);
         document.getElementById("btn-logout").addEventListener("click", this.logOut);
+        document.getElementById("btn-logout-mini").addEventListener("click", this.logOut);
     },
     formSubmitEvent: function(e) {
         e.preventDefault();

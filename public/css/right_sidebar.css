@@ -1,18 +1,90 @@
 section#home .sidebar.right {
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
-    right: 0px;
+    right: -208px;
     font-size: 16px;
     color: #1ab188;
 }
 
-section#home #user-nutshell {
+section#home .sidebar.right.expanded {
+    right: 0px;
+}
+
+section#home .sidebar.right .btn-expand {
+    position: absolute;
+    width: 62px;
+    left: 0px;
+    top: 0px;
+    background-color: #24323d;
+    height: 62px
+}
+
+section#home .sidebar.right .btn-expand:hover {
+    background-color: #435259;
+}
+
+section#home .sidebar.right .expand-arrow {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 25px 30px 25px 0;
+    border-color: transparent #1ab188 transparent transparent;
+    margin-left: 10px;
+}
+
+section#home .sidebar.right.expanded .expand-arrow {
+    border-width: 25px 0 25px 30px;
+    border-color: transparent transparent transparent #1ab189;
+    margin: auto;
+}
+
+section#home .sidebar.right #mini-user-image {
+    position: absolute;
+    top: 78px;
+    left: 0px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-size: cover;
+    border: 2px solid #1ab188;
+    margin: 0px 6px;
+    transition: all 0.2s;
+}
+
+section#home .sidebar.right #btn-logout-mini {
+    position: absolute;
+    top: 144px;
+    left: 0px;
+    width: 62px;
+    height: 62px;
+    background-image: url("../img/logout.png");
+    background-size: cover;
+    background-color: #24323d;
+    transition: all 0.25s;
+}
+
+section#home .sidebar.right #btn-logout-mini:hover {
+    background-color: #435259;
+}
+
+section#home .sidebar.right.expanded #mini-user-image,
+section#home .sidebar.right.expanded #btn-logout-mini {
+    left: 500px;
+}
+
+section#home .sidebar.right #user-nutshell {
     padding-top: 50px;
+    margin-left: 300px;
+    transition: all 0.3s;
+}
+
+section#home .sidebar.right.expanded #user-nutshell {
+    margin-left: 0px;
 }
 
 section#home #mini-panel {
     margin: auto;
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     background-color: #24323d;
     background-image: url("../img/person_icon.png");
     background-size: cover;
@@ -30,12 +102,12 @@ section#home #btn-logout {
     width: 100px;
     line-height: 40px;
     margin: auto;
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 20px;
 }
 
 section#home #chat-openers-wrapper h3 {
-    margin: 20px 5px 2px 5px;
+    margin: 20px 0px 2px 0px;
     text-align: center;
     font-size: 15px;
     border-bottom: 1px solid #1ab188;
