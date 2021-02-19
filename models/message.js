@@ -8,9 +8,9 @@ const MessageSchema = mongoose.Schema({
     msg: String,
     sent: {
         type: Date,
-        default: Date.now()
+        default: () => Math.floor(Date.now() / 1000)
     }    
-});
+}, { timestamps: true });
 
 
 const messageModel = mongoose.model('Message', MessageSchema);
@@ -26,4 +26,12 @@ const findMessages = async (chatid) => {
     return messages;
 }
 
-module.exports = { findMessages, saveMessage }
+
+const loadMessages = async (chatid, n) => {
+    console.log(chatid, n);
+    const messages = await messageModel.find({ chatid }).sort({ createdAt: -1}).skip(n * 40).limit(40);
+    return messages;
+}
+
+
+module.exports = { findMessages, saveMessage, loadMessages }

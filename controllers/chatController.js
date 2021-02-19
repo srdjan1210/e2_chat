@@ -1,6 +1,6 @@
 const io = require('../app');
 const { findOrCreateChatRoom } = require('../models/chatRoom');
-const { saveMessage } = require('../models/message');
+const { saveMessage, loadMessages } = require('../models/message');
 const { checkIfUserExists } = require('../models/user');
 let connected = [];
 
@@ -44,6 +44,12 @@ module.exports = (io) => {
             await saveMessage({ msg, from, to, chatid: chatroom._id });
             callback();
 
+        }); 
+
+        socket.on('load messages', async ({ from , to, n }, cb) => {
+            const chatroom = await findOrCreateChatRoom([from , to]);
+            const messages = await loadMessages(chatroom._id, n );
+            cb(messages);
         }); 
 
         socket.on('disconnect', () => {
