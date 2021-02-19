@@ -53,7 +53,9 @@ Main.Login = {
     },
     logUser() {
         Main.Sections.sectionHandle();
-        Main.Home.displayUserInfo();
+        document.getElementById("btn-my-profile").href = `#/home/profile/${Main.User.Info.username}`;
+        Main.Home.displayUser();
+        Main.Home.getUsersInfo();
         Main.Chat.socketInit();
     },
     logOut(e) {
@@ -62,6 +64,8 @@ Main.Login = {
         Main.User.Info = {};
         Main.OtherUsers.infoTaken = false;
         Main.OtherUsers.Info = {};
+        Main.Sections.currentProfile = undefined;
+
         Main.Home.removeOthers();
         Main.Chat.closeAllChats();
         Main.Chat.socketDisconnect();

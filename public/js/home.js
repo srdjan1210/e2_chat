@@ -4,26 +4,39 @@ Main.Home = {
         Main.Post.init();
         window.addEventListener("resize", this.setAvailableUsersHeight);
     },
-    displayUserInfo: function() {
-        let Info = Main.User.Info;
+    displayProfile: function(username) {
+        let User = Main.getOtherUserInfo(undefined, username);
+        let Info;
+        if (User) {
+            Info = User;
+        } else if (username && username != Main.User.Info.username) {
+            Main.openPopup("user doesn't exist");
+            Info = Main.User.Info;
+        } else {
+            Info = Main.User.Info;
+        }
+        console.log(Info);
 
-        document.getElementById("mini-info").innerHTML = Info.username;
         document.getElementById("panel-username").innerHTML = Info.username;
         document.getElementById("panel-firstname").innerHTML = Info.firstname;
         document.getElementById("panel-lastname").innerHTML = Info.lastname;
         document.getElementById("profile-email").innerHTML = Info.email;
-        Main.Home.getUsersInfo();
-        console.log(Main.User.Info);
-        this.displayProfileImage();
+
+        this.displayProfileImage(Info);
     },
-    displayProfileImage: function() {
-        if (Main.User.Info.profile_img_300.data.data) {
-            let imageUrl = Utility.createImageUrl(Main.User.Info.profile_img_300.data.data);
-            let images = document.querySelectorAll(".image-container");
-            images.forEach(function(image, index) {
-                image.style.backgroundImage = `url(${imageUrl})`;
-            });
+    displayProfileImage: function(Info) {
+        if (Info && Info.profile_img_300.data.data) {
+            let imageUrl = Utility.createImageUrl(Info.profile_img_300.data.data);
+            let image = document.getElementById("profile-image");
+            image.style.backgroundImage = `url(${imageUrl})`;
         }
+    },
+    displayUser: function() {
+        Info = Main.User.Info;
+        document.getElementById("mini-info").innerHTML = Info.username;
+        let imageUrl = Utility.createImageUrl(Info.profile_img_300.data.data);
+        let image = document.getElementById("mini-panel");
+        image.style.backgroundImage = `url(${imageUrl})`;
     },
     getUsersInfo: function() {
         fetch("http://localhost:3000/home/chatinfo", {
@@ -38,7 +51,14 @@ Main.Home = {
             Main.OtherUsers.Info = response;
             Main.OtherUsers.infoTaken = true;
             console.log(response);
+            if (Main.Sections.profile) {
+                Main.Home.displayProfile(Main.Sections.profile);
+            } else {
+                Main.Home.displayProfile();
+            }
+
             Main.Home.displayOthers();
+
             Main.loadEnd();
         }).catch(function(error) {
             console.error(error);
@@ -60,11 +80,11 @@ Main.Home = {
         this.setOpenChatEvents();
     },
     removeOthers: function() {
-        let btns = document.querySelectorAll(".chat-opener");
+        let btns = document.querySelectorAll(".chat-opener .btn-open-chat");
         if (btns) {
             btns.forEach(function(btn, index) {
                 btn.removeEventListener("click", Main.Chat.openChatEvent);
-                btn.remove();
+                btn.closest(".chat-opener").remove();
             });
         }
     },
@@ -74,7 +94,7 @@ Main.Home = {
         chats.style.height = window.innerHeight - nutshell.offsetHeight - 50;
     },
     setOpenChatEvents() {
-        let btns = document.querySelectorAll(".chat-opener");
+        let btns = document.querySelectorAll(".chat-opener .btn-open-chat");
         if (btns) {
             btns.forEach(function(btn, index) {
                 btn.addEventListener("click", Main.Chat.openChatEvent);

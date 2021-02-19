@@ -1,4 +1,5 @@
 Main.Sections = {
+    currentProfile: undefined,
     init: function() {
         this.sectionHandle();
         window.addEventListener("hashchange", this.urlChangeEvent);
@@ -19,17 +20,24 @@ Main.Sections = {
         };
         if (sectionName[0]) this.sectionMajor(sectionName[0]);
         else this.setDefaultSection();
-        if (sectionName[1]) this.sectionMinor(sectionName[1]);
+        if (sectionName[1]) this.sectionMinor(sectionName[1], sectionName[2]);
     },
     sectionMajor: function(sectionName) {
         this.sectionChange(sectionName, "section-major");
     },
-    sectionMinor: function(sectionName) {
+    sectionMinor: function(sectionName, profile) {
         if (!(document.getElementById("home").classList.contains("active"))) {
             this.setDefaultSection();
             return;
         }
         this.sectionChange(sectionName, "section-minor");
+        if (sectionName == "profile" && profile) {
+            if (Main.OtherUsers.infoTaken) {
+                Main.Home.displayProfile(profile.replaceAll("%20", " "));
+            } else {
+                Main.Sections.profile = profile.replaceAll("%20", " ");
+            }
+        }
     },
     sectionChange: function(sectionName, sectionType) {
         let section = document.getElementById(sectionName);
@@ -38,8 +46,10 @@ Main.Sections = {
         if (section != null && (section.classList.contains(sectionType))) {
             section.classList.add("active");
             document.querySelector("body").scrollTop = 0;
+            return true;
         } else {
             this.setDefaultSection();
+            return false;
         }
     },
     urlChangeEvent: function(e) {

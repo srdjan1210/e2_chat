@@ -1,9 +1,9 @@
-body{
+body {
     position: relative;
-    padding:0px;
-    margin:0px;
+    padding: 0px;
+    margin: 0px;
     font-family: "Consolas";
-    font-size: 15px;
+    font-size: 13px;
     background-color: #435259;
 }
 
@@ -11,55 +11,67 @@ section {
     display: none;
 }
 
-.active{
+.active {
     display: block !important;
 }
 
-.clearfix{
+.clearfix {
     clear: both;
     float: none;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #c0bdba;
-    opacity: 0.28; /* Firefox */
-    font-style: italic;
-}
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #c0bdba;
     opacity: 0.28;
+    /* Firefox */
     font-style: italic;
 }
-  
-::-ms-input-placeholder { /* Microsoft Edge */
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #c0bdba;
     opacity: 0.28;
     font-style: italic;
 }
 
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #c0bdba;
+    opacity: 0.28;
+    font-style: italic;
+}
+
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
-  
+
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #24323d;
 }
-  
+
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background: #435259;
 }
-  
+
+
 /* Handle on hover */
+
 ::-webkit-scrollbar-thumb:hover {
     background: #1ab188;
 }
 
-input:focus{
-    outline:none;
+input:focus {
+    outline: none;
 }
 
 .loader {
@@ -68,22 +80,33 @@ input:focus{
     border-top: 16px solid #1ab188;
     width: 100px;
     height: 100px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
     animation: spin 2s linear infinite;
 }
-  
+
+
 /* Safari */
+
 @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-}
-  
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
-#startup-loader{
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#startup-loader {
     display: none;
     width: 100%;
     height: 100%;
@@ -91,21 +114,21 @@ input:focus{
     z-index: 10;
 }
 
-#startup-loader #blank{
+#startup-loader #blank {
     z-index: 11;
-    position:fixed;
+    position: fixed;
     width: 100%;
     height: 100%;
     background-color: #435259;
 }
 
-#startup-loader .loader{
-    position:fixed;
-    top:0px;
-    bottom:0px;
-    left:0px;
+#startup-loader .loader {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
     right: 0px;
-    margin:auto;
+    margin: auto;
     z-index: 12;
 }
 
@@ -113,7 +136,7 @@ input:focus{
     display: none;
 }
 
-#main-popup #popup-wrapper{
+#main-popup #popup-wrapper {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -122,49 +145,48 @@ input:focus{
     opacity: 75%;
 }
 
-#main-popup #popup-container{
-    position:fixed;
-    margin:auto;
-    top:0px;
-    bottom:0px;
-    left:0px;
+#main-popup #popup-container {
+    position: fixed;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
     right: 0px;
     width: 450px;
     height: 240px;
-    background-color:#24323d;
-    z-index:9;
+    background-color: #24323d;
+    z-index: 9;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.9);
 }
 
-#main-popup #popup-exit{
-    position:absolute;
-    top:0px;
-    right:0px;
-    width: 65px;
-    line-height: 45px;
-    height: 50px;
-    font-size: 40px;
+#main-popup #popup-exit {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 55px;
+    line-height: 35px;
+    height: 40px;
+    font-size: 30px;
     background-color: #1ab188;
-    color:#24323d;
+    color: #24323d;
     text-align: center;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-#main-popup #popup-exit:hover{
+#main-popup #popup-exit:hover {
     background-color: #e3242b;
 }
 
 #main-popup #popup-msg {
-    font-size:22px;
-    color:#1ab188;
+    font-size: 18px;
+    color: #1ab188;
     text-align: center;
-    position:absolute;
-    margin:auto;
-    top:0px;
-    right:0px;
-    bottom:0px;
-    left:0px;
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
     height: 50px;
     line-height: 50px;
 }
-

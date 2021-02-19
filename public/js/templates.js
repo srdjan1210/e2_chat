@@ -2,12 +2,15 @@ Templates = {
     chatOpener: function(id, username, firstname, lastname, imageUrl) {
         let output =
             //HTML
-            `<div data-id="${id}" class="chat-opener">        
+            `<div data-id="${id}" class="chat-opener">
                 <div class="mini-image-container" style="background-image:url(${imageUrl});"></div>
                 <div class="chat-info">
-                    <div class="mini-username">${username}</div>
-                    <div class="mini-firstname">${firstname}</div>
-                    <div class="mini-lastname">${lastname}</div>
+                    <div class="mini-fullname">${firstname} ${lastname}</div>
+                    <div class="action-tab">
+                        <button class="chat-opener-btn btn-open-chat">chat</button>
+                        <a href="#/home/profile/${username}" class="chat-opener-btn">profile</a>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
             </div>`

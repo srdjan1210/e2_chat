@@ -60,12 +60,16 @@ let Main = {
         e.preventDefault();
         document.getElementById("main-popup").classList.remove("active");
     },
-    getOtherUserInfo: function(id) {
+    getOtherUserInfo: function(id, username) {
         let data = Main.OtherUsers.Info.data;
         let UserData;
         if (data) {
             data.forEach(function(user, index) {
-                if (user._id == id) {
+                if (id) {
+                    if (user._id == id) {
+                        UserData = user;
+                    }
+                } else if (user.username == username) {
                     UserData = user;
                 }
             });

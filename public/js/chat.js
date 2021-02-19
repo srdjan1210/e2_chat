@@ -4,7 +4,8 @@ Main.Chat = {
 
     },
     openChatEvent: function(e) {
-        let User = Main.getOtherUserInfo(this.getAttribute("data-id"));
+        let chatOpener = this.closest(".chat-opener");
+        let User = Main.getOtherUserInfo(chatOpener.getAttribute("data-id"));
         if (!(Main.Chat.checkIfChatOpen(User._id))) {
             if (Main.Chat.chatCounter < jsConfig.maxChatWindows) {
                 Main.Chat.createChat(User);

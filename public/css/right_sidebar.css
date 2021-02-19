@@ -37,7 +37,7 @@ section#home #btn-logout {
 section#home #chat-openers-wrapper h3 {
     margin: 20px 5px 2px 5px;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: 1px solid #1ab188;
 }
 
@@ -47,7 +47,11 @@ section#home #chat-openers {
 
 section#home .chat-opener {
     padding: 5px;
-    cursor: pointer;
+    position: relative;
+}
+
+section#home .chat-opener:hover {
+    background-color: #435259;
 }
 
 section#home #chat-openers .mini-image-container {
@@ -63,9 +67,30 @@ section#home #chat-openers .mini-image-container {
 section#home #chat-openers .chat-info {
     float: left;
     margin-left: 10px;
-    font-size: 15px;
+    font-size: 13px;
+    width: 72%;
+    text-align: center;
 }
 
-section#home .chat-opener:hover {
-    background-color: #435259;
+section#home #chat-openers .mini-fullname {
+    height: 17px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+section#home #chat-openers .action-tab {
+    width: 100%;
+    height: 25px;
+}
+
+section#home .chat-opener-btn:first-child {
+    margin-right: 4%;
+}
+
+section#home .chat-opener-btn {
+    float: left;
+    width: 48%;
+    font-size: 13px;
+    line-height: 25px;
+    text-decoration: none;
 }

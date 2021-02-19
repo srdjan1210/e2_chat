@@ -10,7 +10,7 @@ section#home #home-background {
 }
 
 section#home .sidebar {
-    width: 250px;
+    width: 270px;
     height: 100%;
     position: fixed;
     background-color: #24323d;
@@ -20,7 +20,7 @@ section#home .sidebar {
 
 section#home .content {
     min-height: 2000px;
-    padding: 60px 280px 100px 280px;
+    padding: 60px 300px 100px 300px;
     background-color: #435259;
 }
 
@@ -28,7 +28,7 @@ section#home .section-minor {
     position: relative;
     max-width: 1100px;
     margin: auto;
-    font-size: 16px;
+    font-size: 14px;
     color: #1ab188;
 }
 
@@ -39,7 +39,7 @@ section#home textarea {
     border: none;
     color: #1ab188;
     padding: 4px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 section#home ::placeholder {
@@ -61,7 +61,8 @@ section#home ::-ms-input-placeholder {
 }
 
 section#home input[type=submit],
-section#home button {
+section#home button,
+section#home a {
     background-color: #1ab188;
     cursor: pointer;
     color: #24323d;
@@ -75,6 +76,7 @@ section#home button {
 }
 
 section#home input[type=submit]:hover,
-section#home button:hover {
+section#home button:hover,
+section#home a:hover {
     opacity: 1.0;
 }
