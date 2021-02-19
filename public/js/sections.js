@@ -35,7 +35,7 @@ Main.Sections = {
             if (Main.OtherUsers.infoTaken) {
                 Main.Home.displayProfile(profile.replaceAll("%20", " "));
             } else {
-                Main.Sections.profile = profile.replaceAll("%20", " ");
+                Main.Sections.currentProfile = profile.replaceAll("%20", " ");
             }
         }
     },

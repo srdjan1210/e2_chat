@@ -51,8 +51,8 @@ Main.Home = {
             Main.OtherUsers.Info = response;
             Main.OtherUsers.infoTaken = true;
             console.log(response);
-            if (Main.Sections.profile) {
-                Main.Home.displayProfile(Main.Sections.profile);
+            if (Main.Sections.currentProfile) {
+                Main.Home.displayProfile(Main.Sections.currentProfile);
             } else {
                 Main.Home.displayProfile();
             }
