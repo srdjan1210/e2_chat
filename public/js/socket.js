@@ -5,7 +5,15 @@ Main.Chat.socketInit = function() {
     const socket = Main.Chat.socket;
 
     socket.on('user logged', (resp) => {
-       //Ti sredjujes
+        let chats = document.querySelectorAll(".chat-window");
+        if (chats) {
+            chats.forEach((chat, i) => {
+                if (chat.getAttribute("data-id") == resp.id) {
+                    //Main.Chat.joinRoom(chat, resp.id);
+                    chat.setAttribute("data-room", resp.room);
+                }
+            });
+        }
     });
 
     socket.on('connect', () => {
@@ -29,11 +37,9 @@ Main.Chat.sendMessage = function(msg, from, to, room) {
 }
 Main.Chat.joinRoom = function(chatWindow, user_id) {
     const socket = Main.Chat.socket;
-    const userid = Main.User.Info._id;
 
     socket.emit('join room', user_id, (room) => {
         chatWindow.setAttribute("data-room", room);
-        this.loadMessages(userid ,user_id, 0);
     });
 }
 Main.Chat.leaveRoom = function(room) {
@@ -43,7 +49,10 @@ Main.Chat.leaveRoom = function(room) {
 
 Main.Chat.loadMessages = function(from, to, n) {
     const socket = Main.Chat.socket;
-    socket.emit('load messages', { from, to, n }, (messages) => {
-        console.log(messages);
+    let chat = Main.Chat.getChatWindow(to);
+    Main.Chat.chatLoadStart(chat);
+    socket.emit('load messages', { from, to, n }, (resp) => {
+        Main.Chat.displayChatHistory(resp, chat);
+        chat.setAttribute("data-msgs", resp.length);
     });
 }

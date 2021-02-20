@@ -1,8 +1,6 @@
 Main.Chat = {
     chatCounter: 0,
-    init: function() {
-
-    },
+    init: function() {},
     openChatEvent: function(e) {
         let chatOpener = this.closest(".chat-opener");
         let User = Main.getOtherUserInfo(chatOpener.getAttribute("data-id"));
@@ -25,6 +23,9 @@ Main.Chat = {
         chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
         chatWindows.prepend(chatWindow);
 
+        Main.Chat.loadMessages(Main.User.Info._id, User._id, 0);
+
+        Main.Chat.setLoadMessagesEvent(chatWindow);
         Main.Chat.setReadFormEvent(chatWindow);
         Main.Chat.setCloseChatEvent(chatWindow);
         Main.Chat.chatCounter++;
@@ -47,7 +48,7 @@ Main.Chat = {
     },
     closeChatEvent: function(e) {
         let chatForm = this.closest(".chat-window").querySelector(".chat-form");
-
+        Main.Chat.removeLoadMessagesEvent(this.closest(".chat-window"));
         this.removeEventListener("click", Main.Chat.closeChatEvent);
         chatForm.removeEventListener("submit", Main.Chat.readFormEvent);
         this.closest(".chat-window").remove();
@@ -58,6 +59,7 @@ Main.Chat = {
         if (chats) {
             chats.forEach(function(chat, index) {
                 let closeBtn = chat.querySelector(".btn-chat-close");
+                Main.Chat.removeLoadMessagesEvent(chat);
                 closeBtn.removeEventListener("click", Main.Chat.closeChatEvent);
                 chat.querySelector(".chat-form").removeEventListener("submit", Main.Chat.readFormEvent);
                 chat.remove();
@@ -92,7 +94,7 @@ Main.Chat = {
         }
         return chatWindow;
     },
-    displayOwnMessage: function({ msg, from, to, room }) {
+    displayOwnMessage: function({ msg, from, to, room }, oldMessage) {
         let chatWindow = Main.Chat.getChatWindow(to);
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
@@ -101,10 +103,14 @@ Main.Chat = {
         chatBlock.classList.add("chat-block");
         chatBlock.classList.add("own");
         chatBlock.innerHTML = Templates.message(msg, false);
-        chatBody.append(chatBlock);
+        if (oldMessage == true) {
+            chatBody.prepend(chatBlock);
+        } else {
+            chatBody.append(chatBlock);
+        }
         Main.Chat.setChatScroll(chatBody);
     },
-    displayForeignMessage: function({ msg, from }) {
+    displayForeignMessage: function({ msg, from }, oldMessage) {
         let chatWindow = Main.Chat.getChatWindow(from);
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
@@ -112,14 +118,53 @@ Main.Chat = {
 
         chatBlock.classList.add("chat-block");
         chatBlock.innerHTML = Templates.message(msg, true);
-        chatBody.append(chatBlock);
+        if (oldMessage == true) {
+            chatBody.prepend(chatBlock);
+        } else {
+            chatBody.append(chatBlock);
+        }
         Main.Chat.setChatScroll(chatBody);
+    },
+    displayChatHistory(messages, chat) {
+        if (messages) {
+            messages.forEach(function(message, index) {
+                if (message.from == Main.User.Info._id) {
+                    Main.Chat.displayOwnMessage({ msg: message.msg, from: message.from, to: message.to, room: null }, true);
+                } else {
+                    Main.Chat.displayForeignMessage({ msg: message.msg, from: message.from }, true);
+                }
+            });
+        }
+        Main.Chat.chatLoadEnd(chat);
     },
     setChatScroll: function(chatBody) {
         chatOuter = chatBody.closest(".chat-body-outer");
         delta = chatBody.offsetHeight - chatOuter.offsetHeight;
         if (delta >= 0) {
             chatOuter.scrollTop = delta + 50;
+        }
+    },
+    chatLoadStart: function(chat) {
+        let chatBody = chat.querySelector(".chat-body");
+        let chatBlock = document.createElement("div");
+
+        chatBlock.classList.add("chat-block");
+        chatBlock.innerHTML = Templates.chatLoader();
+        chatBody.prepend(chatBlock);
+    },
+    chatLoadEnd: function(chat) {
+        chat.querySelector(".chat-loader").closest(".chat-block").remove();
+    },
+    setLoadMessagesEvent: function(chat) {
+        chat.querySelector(".chat-body-outer").addEventListener("scroll", Main.Chat.loadMessagesEvent);
+    },
+    removeLoadMessagesEvent: function(chat) {
+        chat.querySelector(".chat-body-outer").removeEventListener("scroll", Main.Chat.loadMessagesEvent);
+    },
+    loadMessagesEvent: function(e) {
+        let chat = this.closest(".chat-window");
+        if (this.scrollTop == 0) {
+            console.log(chat.getAttribute("data-msgs"));
         }
     }
 }

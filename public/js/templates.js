@@ -13,7 +13,7 @@ Templates = {
                     </div>
                 </div>
                 <div class="clearfix"></div>
-            </div>`
+            </div>`;
         return output;
     },
     chatWindow: function(username, firstname, lastname, imageUrl) {
@@ -33,15 +33,21 @@ Templates = {
             </form>
             <div class="btn-chat-close">
                 <div style="transform: rotate(45deg);">+</div>
-            </div>`
+            </div>`;
         return output;
     },
     message: function(msg, foreign) {
         let output =
-            `<div class="chat-pointer"></div>
-            <div class="message-container">
+            `<div class="message-container">
                 <div class="message">${msg}</div>    
-            </div>`
+            </div>`;
+        return output;
+    },
+    chatLoader: function() {
+        let output =
+            `<div class="chat-loader"></div>
+            <div class="chat-loader-msg">loading old messages...</div>
+            <div class="clearfix"></div>`;
         return output;
     }
 }

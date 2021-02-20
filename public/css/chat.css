@@ -61,7 +61,6 @@ section#home .chat-body {
 section#home .chat-body .chat-block {
     position: relative;
     margin-bottom: 10px;
-    /*margin-top: 25px;*/
     display: flex;
 }
 
@@ -82,7 +81,6 @@ section#home .chat-block .message-container {
     color: #1ab188;
     overflow-x: hidden;
     padding: 10px;
-    min-width: 50px;
 }
 
 section#home .chat-block.own .message-container {
@@ -90,29 +88,9 @@ section#home .chat-block.own .message-container {
     color: #24323d;
 }
 
-section#home .chat-block.own .message {
+section#home .chat-block .message {
     overflow-wrap: anywhere;
 }
-
-
-/*
-section#home .chat-block .chat-pointer {
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 28px 26px;
-    border-color: transparent transparent #24323d transparent;
-    position: absolute;
-    left: 0px;
-    top: -11px;
-    transform: rotate(-56deg);
-}
-
-section#home .chat-block.own .chat-pointer {
-    display: none;
-}
-*/
 
 section#home .chat-form {
     display: flex;
@@ -157,4 +135,24 @@ section#home .chat-body-outer::-webkit-scrollbar-thumb {
 
 section#home .chat-body-outer::-webkit-scrollbar-thumb:hover {
     background: #1ab188;
+}
+
+section#home .chat-body .chat-loader {
+    border: 4px solid #24323d;
+    border-radius: 50%;
+    border-top: 4px solid #1ab188;
+    width: 12px;
+    height: 12px;
+    -webkit-animation: spin 1s linear infinite;
+    /* Safari */
+    animation: spin 1s linear infinite;
+    float: left;
+}
+
+section#home .chat-body .chat-loader-msg {
+    font-style: italic;
+    float: left;
+    color: #24323d;
+    line-height: 20px;
+    padding-left: 5px;
 }
