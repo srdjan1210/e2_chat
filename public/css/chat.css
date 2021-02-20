@@ -90,6 +90,10 @@ section#home .chat-block.own .message-container {
     color: #24323d;
 }
 
+section#home .chat-block.own .message {
+    overflow-wrap: anywhere;
+}
+
 
 /*
 section#home .chat-block .chat-pointer {
