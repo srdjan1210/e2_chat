@@ -29,7 +29,7 @@ Main.Chat.socketDisconnect = function() {
     }
 }
 Main.Chat.sendMessage = function(msg, from, to, room) {
-    if (msg == "" || !msg) return;
+    if (msg.trim() == "" || !msg) return;
     const socket = Main.Chat.socket;
     socket.emit('message', { msg, from, to, room }, () => {
         Main.Chat.displayOwnMessage({ msg, from, to, room });
@@ -52,7 +52,11 @@ Main.Chat.loadMessages = function(from, to, n) {
     let chat = Main.Chat.getChatWindow(to);
     Main.Chat.chatLoadStart(chat);
     socket.emit('load messages', { from, to, n }, (resp) => {
-        Main.Chat.displayChatHistory(resp, chat);
-        chat.setAttribute("data-msgs", resp.length);
+        Main.Chat.displayChatHistory(resp, chat, n);
+        if (resp && resp.length != 0) {
+            chat.setAttribute("data-msgs", n);
+        } else {
+            chat.setAttribute("data-msgs", n - 1);
+        }
     });
 }

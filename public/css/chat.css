@@ -69,7 +69,6 @@ section#home .chat-body .chat-block:first-child {
 }
 
 section#home .chat-body .chat-block.own {
-    margin-top: 10px;
     justify-content: flex-end;
 }
 

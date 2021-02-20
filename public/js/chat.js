@@ -14,21 +14,28 @@ Main.Chat = {
     },
     createChat: function(User) {
         let chatWindows = document.querySelector("#chat-windows");
+        let chatWindow = Main.Chat.createChatWindow(User);
+
+        Main.Chat.joinRoom(chatWindow, User._id);
+        chatWindows.prepend(chatWindow);
+        Main.Chat.loadMessages(Main.User.Info._id, User._id, 0);
+        Main.Chat.setChatEvents(chatWindow);
+        Main.Chat.chatCounter++;
+    },
+    setChatEvents: function(chatWindow) {
+        Main.Chat.setLoadMessagesEvent(chatWindow);
+        Main.Chat.setSubmitFormEvent(chatWindow);
+        Main.Chat.setCloseChatEvent(chatWindow);
+        Main.Chat.setEnterButtonEvent(chatWindow);
+    },
+    createChatWindow: function(User) {
         let chatWindow = document.createElement("div");
         let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
-        Main.Chat.joinRoom(chatWindow, User._id);
 
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
         chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
-        chatWindows.prepend(chatWindow);
-
-        Main.Chat.loadMessages(Main.User.Info._id, User._id, 0);
-
-        Main.Chat.setLoadMessagesEvent(chatWindow);
-        Main.Chat.setReadFormEvent(chatWindow);
-        Main.Chat.setCloseChatEvent(chatWindow);
-        Main.Chat.chatCounter++;
+        return chatWindow;
     },
     checkIfChatOpen: function(id) {
         let chats = document.querySelectorAll(".chat-window");
@@ -48,9 +55,10 @@ Main.Chat = {
     },
     closeChatEvent: function(e) {
         let chatForm = this.closest(".chat-window").querySelector(".chat-form");
+        Main.Chat.removeEnterButtonEvent(this.closest(".chat-window"));
         Main.Chat.removeLoadMessagesEvent(this.closest(".chat-window"));
         this.removeEventListener("click", Main.Chat.closeChatEvent);
-        chatForm.removeEventListener("submit", Main.Chat.readFormEvent);
+        chatForm.removeEventListener("submit", Main.Chat.submitFormEvent);
         this.closest(".chat-window").remove();
         Main.Chat.chatCounter--;
     },
@@ -59,28 +67,46 @@ Main.Chat = {
         if (chats) {
             chats.forEach(function(chat, index) {
                 let closeBtn = chat.querySelector(".btn-chat-close");
+                Main.Chat.removeEnterButtonEvent(chat);
                 Main.Chat.removeLoadMessagesEvent(chat);
                 closeBtn.removeEventListener("click", Main.Chat.closeChatEvent);
-                chat.querySelector(".chat-form").removeEventListener("submit", Main.Chat.readFormEvent);
+                chat.querySelector(".chat-form").removeEventListener("submit", Main.Chat.submitFormEvent);
                 chat.remove();
             });
         }
         Main.Chat.chatCounter = 0;
     },
-    setReadFormEvent: function(chatWindow) {
-        let sendBtn = chatWindow.querySelector(".chat-form");
-        sendBtn.addEventListener("submit", Main.Chat.readFormEvent);
-    },
-    readFormEvent: function(e) {
-        e.preventDefault();
-        const chatWindow = this.closest(".chat-window");
+    readForm: function(chatWindow) {
         const from = Main.User.Info._id;
-        const message = this.querySelector(".chat-new-msg").value;
+        const message = chatWindow.querySelector(".chat-new-msg").value;
         const to = chatWindow.getAttribute("data-id");
         const room = chatWindow.getAttribute("data-room");
         Main.Chat.sendMessage(message, from, to, room);
-
-        this.querySelector(".chat-new-msg").value = "";
+        chatWindow.querySelector(".chat-new-msg").value = "";
+    },
+    setSubmitFormEvent: function(chatWindow) {
+        let sendBtn = chatWindow.querySelector(".chat-form");
+        sendBtn.addEventListener("submit", Main.Chat.submitFormEvent);
+    },
+    submitFormEvent: function(e) {
+        e.preventDefault();
+        let chatWindow = this.closest(".chat-window");
+        Main.Chat.readForm(chatWindow);
+    },
+    setEnterButtonEvent: function(chatWindow) {
+        let textarea = chatWindow.querySelector(".chat-new-msg");
+        textarea.addEventListener("keydown", Main.Chat.enterButtonEvent);
+    },
+    removeEnterButtonEvent: function(chatWindow) {
+        let textarea = chatWindow.querySelector(".chat-new-msg");
+        textarea.removeEventListener("keydown", Main.Chat.enterButtonEvent);
+    },
+    enterButtonEvent: function(e) {
+        if (e.keyCode == 13 && !(e.shiftKey)) {
+            e.preventDefault();
+            let chatWindow = this.closest(".chat-window");
+            Main.Chat.readForm(chatWindow);
+        }
     },
     getChatWindow: function(id) {
         let chatWindows = document.querySelectorAll(".chat-window");
@@ -94,55 +120,91 @@ Main.Chat = {
         }
         return chatWindow;
     },
-    displayOwnMessage: function({ msg, from, to, room }, oldMessage) {
+    displayOwnMessage: function({ msg, from, to, room }, oldMessage, messageId) {
         let chatWindow = Main.Chat.getChatWindow(to);
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
 
         chatBlock.classList.add("chat-block");
+        if (messageId) chatBlock.setAttribute("data-id", messageId);
         chatBlock.classList.add("own");
         chatBlock.innerHTML = Templates.message(msg, false);
         if (oldMessage == true) {
             chatBody.prepend(chatBlock);
         } else {
             chatBody.append(chatBlock);
+            Main.Chat.setChatScroll(chatWindow);
         }
-        Main.Chat.setChatScroll(chatBody);
     },
-    displayForeignMessage: function({ msg, from }, oldMessage) {
+    displayForeignMessage: function({ msg, from }, oldMessage, messageId) {
         let chatWindow = Main.Chat.getChatWindow(from);
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
 
         chatBlock.classList.add("chat-block");
+        if (messageId) chatBlock.setAttribute("data-id", messageId);
         chatBlock.innerHTML = Templates.message(msg, true);
         if (oldMessage == true) {
             chatBody.prepend(chatBlock);
         } else {
             chatBody.append(chatBlock);
+            Main.Chat.setChatScroll(chatWindow);
         }
-        Main.Chat.setChatScroll(chatBody);
     },
-    displayChatHistory(messages, chat) {
-        if (messages) {
+    displayChatHistory(messages, chat, n) {
+        let messageNum = 0;
+        if (messages && messages.length != 0) {
             messages.forEach(function(message, index) {
-                if (message.from == Main.User.Info._id) {
-                    Main.Chat.displayOwnMessage({ msg: message.msg, from: message.from, to: message.to, room: null }, true);
-                } else {
-                    Main.Chat.displayForeignMessage({ msg: message.msg, from: message.from }, true);
+                if (n == 0 || !(Main.Chat.checkIfMessageDisplayed(message, chat))) {
+                    messageNum++;
+                    if (message.from == Main.User.Info._id) {
+                        Main.Chat.displayOwnMessage({ msg: message.msg, from: message.from, to: message.to, room: null }, true, message._id);
+                    } else {
+                        Main.Chat.displayForeignMessage({ msg: message.msg, from: message.from }, true, message._id);
+                    }
                 }
             });
         }
         Main.Chat.chatLoadEnd(chat);
+        if (n == 0) {
+            Main.Chat.setChatScroll(chat);
+        } else if (messages && messageNum != 0) {
+            Main.Chat.setChatScrollAfterLoad(chat, messageNum);
+        }
     },
-    setChatScroll: function(chatBody) {
-        chatOuter = chatBody.closest(".chat-body-outer");
-        delta = chatBody.offsetHeight - chatOuter.offsetHeight;
+    checkIfMessageDisplayed: function(message, chat) {
+        let chatBlocks = chat.querySelectorAll(".chat-block");
+        let messageDisplayed = false;
+        if (chatBlocks) {
+            chatBlocks.forEach(function(chatBlock, i) {
+                if (chatBlock.getAttribute("data-id") == message._id) {
+                    messageDisplayed = true;
+                }
+            });
+        }
+        return messageDisplayed;
+    },
+    setChatScroll: function(chatWindow) {
+        let chatOuter = chatWindow.querySelector(".chat-body-outer");
+        let chatBody = chatWindow.querySelector(".chat-body");
+        let delta = chatBody.offsetHeight - chatOuter.offsetHeight;
         if (delta >= 0) {
             chatOuter.scrollTop = delta + 50;
         }
+    },
+    setChatScrollAfterLoad: function(chatWindow, newMessageNum) {
+        let chatBlocks = chatWindow.querySelectorAll(".chat-block");
+        let chatOuter = chatWindow.querySelector(".chat-body-outer");
+        let offSet = 0;
+        for (i = 0; i < chatBlocks.length; i++) {
+            if (i >= newMessageNum) break;
+            let style = chatBlocks[i].currentStyle || window.getComputedStyle(chatBlocks[i]);
+            offSet += parseInt(style.marginBottom);
+            offSet += parseInt(style.height);
+        }
+        chatOuter.scrollTop = offSet;
     },
     chatLoadStart: function(chat) {
         let chatBody = chat.querySelector(".chat-body");
@@ -164,7 +226,8 @@ Main.Chat = {
     loadMessagesEvent: function(e) {
         let chat = this.closest(".chat-window");
         if (this.scrollTop == 0) {
-            console.log(chat.getAttribute("data-msgs"));
+            let nextN = parseInt(chat.getAttribute("data-msgs")) + 1;
+            Main.Chat.loadMessages(Main.User.Info._id, chat.getAttribute("data-id"), nextN);
         }
     }
 }
