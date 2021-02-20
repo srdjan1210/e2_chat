@@ -3,6 +3,11 @@ Main.Chat.socketInit = function() {
     Main.Chat.socket = io();
     const id = Main.User.Info._id;
     const socket = Main.Chat.socket;
+
+    socket.on('user logged', (resp) => {
+       //Ti sredjujes
+    });
+
     socket.on('connect', () => {
         socket.emit('new user', id);
     });
@@ -28,13 +33,7 @@ Main.Chat.joinRoom = function(chatWindow, user_id) {
 
     socket.emit('join room', user_id, (room) => {
         chatWindow.setAttribute("data-room", room);
-        //prosledjujes svoj id, korisnikov id i slovo n
-        //N sluzi da ucitavas n * 40 poruka
-        //Ako smo ukupno poslali 50 poruka i stavis da je 
-        //n = 0, tada ucitava prvih 40
-        //ako stavis da je n = 1, tada preskace poslednjih 40 
-        //i kupi ostalih 10
-        this.loadMessages( userid ,user_id, 1);
+        this.loadMessages(userid ,user_id, 0);
     });
 }
 Main.Chat.leaveRoom = function(room) {
