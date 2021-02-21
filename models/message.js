@@ -37,16 +37,36 @@ const loadMessages = async (chatid, n) => {
 }
 
 const countNewMess = async (chatrooms, userid) => {
-    let result = Promise.all(
-        chatrooms.map(async chatid => {
-            const lastMsg = await messageModel.findOne({ chatid: chatid._id, last_seen: true, to: userid });
-            if(lastMsg == null) return { chatid: chatid._id, counted: 0, lastMsg };
-            const counted = await messageModel.countDocuments({ to: userid, createdAt:{ $gte: lastMsg.createdAt }, last_seen: false });
-            return {  chatid: chatid._id, counted, lastMsg: lastMsg._id };
-        })
-    );
-    return result;
+    let filteredChatrooms = await filterChatroomsWithNoSeenMessages(chatrooms, userid);
+
+    filteredChatrooms = Promise.all(filteredChatrooms.map(async ({ chatid, lastMsgId, counted, created, from}) => {
+        if(lastMsgId != null)
+            counted = await countMessages({ chatid, to: userid, createdAt: {$gt: created} });
+        return {chatid, from, lastMsgId, counted }
+    }));
+    return filteredChatrooms;
 }
 
+const filterChatroomsWithNoSeenMessages = async (chatrooms, userid) => {
+    let tempArray = [];
+    for(let chatroom of chatrooms) {
+        const lastMsg = await messageModel.findOne({chatid: chatroom._id, last_seen: true, to: userid });
+        if(lastMsg == null) {
+            const counted = await countMessages({ chatid: chatroom._id, to: userid });
+            let from = await messageModel.findOne({ chatid: chatroom._id, to: userid });
+            if(from != null) from = from.from;
+            if(counted != 0) tempArray.push({ from,  chatid: chatroom._id, counted, lastMsgId: null, created: null });
+            continue;
+        }
+
+        tempArray.push({ from: lastMsg.from, chatid: chatroom._id, counted: null, lastMsgId: lastMsg._id, created: lastMsg.createdAt });
+    }
+    return tempArray;
+}
+
+const countMessages = async (condition) => {
+    const result = await messageModel.countDocuments(condition);
+    return result;
+}
 
 module.exports = { findMessages, saveMessage, loadMessages, countNewMess }
