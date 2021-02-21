@@ -1,6 +1,6 @@
 const io = require('../app');
 const { findOrCreateChatRoom, findChatroomsThatUseId } = require('../models/chatRoom');
-const { saveMessage, loadMessages, countNewMess } = require('../models/message');
+const { saveMessage, loadMessages, countNewMess, loadNMessages } = require('../models/message');
 const { checkIfUserExists } = require('../models/user');
 let connected = [];
 
@@ -48,6 +48,11 @@ module.exports = (io) => {
             const messages = await loadMessages(chatroom._id, n );
             cb(messages);
         }); 
+
+        socket.on('load unseen messages', async ({ chatid, n }, cb) => {
+            const messages = await loadNMessages(chatid, n);
+            cb(messages);
+        });
 
         socket.on('disconnect', () => {
             console.log("disconnected");

@@ -67,3 +67,9 @@ Main.Chat.loadMessages = function(from, to, n) {
         }
     });
 }
+
+Main.Chat.loadUnseenMessages = function(chatid, n) {
+    socket.emit('load unseen messages', { chatid, n}, (messages) => {
+        console.log('messages');
+    });
+}

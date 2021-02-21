@@ -69,4 +69,9 @@ const countMessages = async (condition) => {
     return result;
 }
 
-module.exports = { findMessages, saveMessage, loadMessages, countNewMess }
+const loadNMessages = async (chatid, n) => {
+    const messages = await messageModel.find({ chatid }).sort({ createdAt: -1}).limit(n);
+    return messages;
+}
+
+module.exports = { findMessages, saveMessage, loadMessages, countNewMess, loadNMessages }
