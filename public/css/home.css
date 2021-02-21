@@ -81,4 +81,6 @@ section#home input[type=submit]:hover,
 section#home button:hover,
 section#home a:hover {
     opacity: 1.0;
+    background-color: #435259;
+    color: #1ab188;
 }

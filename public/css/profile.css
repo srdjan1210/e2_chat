@@ -79,6 +79,7 @@ section#profile button {
 
 section#profile button:hover {
     text-decoration: underline;
+    background-color: #24323d;
 }
 
 section#profile .grid-container h3 {

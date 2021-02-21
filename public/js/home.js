@@ -20,8 +20,6 @@ Main.Home = {
         } else {
             Info = Main.User.Info;
         }
-        console.log(Info);
-
         document.getElementById("panel-username").innerHTML = Info.username;
         document.getElementById("panel-firstname").innerHTML = Info.firstname;
         document.getElementById("panel-lastname").innerHTML = Info.lastname;
@@ -58,15 +56,12 @@ Main.Home = {
         }).then(function(response) {
             Main.OtherUsers.Info = response;
             Main.OtherUsers.infoTaken = true;
-            console.log(response);
             if (Main.Sections.currentProfile) {
                 Main.Home.displayProfile(Main.Sections.currentProfile);
             } else {
                 Main.Home.displayProfile();
             }
-
             Main.Home.displayOthers();
-
             Main.loadEnd();
         }).catch(function(error) {
             console.error(error);
@@ -88,11 +83,13 @@ Main.Home = {
         this.setOpenChatEvents();
     },
     removeOthers: function() {
-        let btns = document.querySelectorAll(".chat-opener .btn-open-chat");
-        if (btns) {
-            btns.forEach(function(btn, index) {
+        let chatOpeners = document.querySelectorAll(".chat-opener");
+        if (chatOpeners) {
+            chatOpeners.forEach(function(chatOpener, index) {
+                let btn = chatOpener.querySelector(".btn-open-chat");
+
                 btn.removeEventListener("click", Main.Chat.openChatEvent);
-                btn.closest(".chat-opener").remove();
+                chatOpener.remove();
             });
         }
     },
@@ -102,9 +99,12 @@ Main.Home = {
         chats.style.height = window.innerHeight - nutshell.offsetHeight - 50;
     },
     setOpenChatEvents() {
-        let btns = document.querySelectorAll(".chat-opener .btn-open-chat");
-        if (btns) {
-            btns.forEach(function(btn, index) {
+        let chatOpeners = document.querySelectorAll(".chat-opener");
+        if (chatOpeners) {
+            chatOpeners.forEach(function(chatOpener, index) {
+                let btn = chatOpener.querySelector(".btn-open-chat");
+                let imageBtn = chatOpener.querySelector(".mini-image-wrapper");
+                imageBtn.addEventListener("click", Main.Chat.openChatEvent);
                 btn.addEventListener("click", Main.Chat.openChatEvent);
             });
         }

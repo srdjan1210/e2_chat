@@ -2,6 +2,13 @@ Main.Chat = {
     chatCounter: 0,
     init: function() {},
     openChatEvent: function(e) {
+        e.preventDefault();
+        if (this.classList.contains("mini-image-wrapper")) {
+            if (this.closest(".sidebar").classList.contains("expanded")) {
+                return;
+            }
+        }
+
         let chatOpener = this.closest(".chat-opener");
         let User = Main.getOtherUserInfo(chatOpener.getAttribute("data-id"));
         if (!(Main.Chat.checkIfChatOpen(User._id))) {

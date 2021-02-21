@@ -117,13 +117,26 @@ section#home #chat-openers {
     overflow-y: scroll;
 }
 
-section#home .chat-opener {
-    padding: 5px;
+section#home .sidebar.right .chat-opener {
     position: relative;
 }
 
-section#home .chat-opener:hover {
+section#home .sidebar.right .chat-opener:hover {
     background-color: #435259;
+}
+
+section#home .sidebar.right.expanded .chat-opener:hover {
+    background-color: #24323d;
+}
+
+section#home .sidebar.right .mini-image-wrapper {
+    padding: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+section#home .sidebar.right.expanded .mini-image-wrapper {
+    cursor: auto;
 }
 
 section#home #chat-openers .mini-image-container {
@@ -133,15 +146,15 @@ section#home #chat-openers .mini-image-container {
     width: 50px;
     height: 50px;
     border: 1px solid #1ab188;
-    float: left;
 }
 
 section#home #chat-openers .chat-info {
     float: left;
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 13px;
-    width: 72%;
+    width: 67%;
     text-align: center;
+    padding: 5px;
 }
 
 section#home #chat-openers .mini-fullname {
