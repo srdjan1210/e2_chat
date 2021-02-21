@@ -23,7 +23,7 @@ Main.Chat.socketInit = function() {
         //ovo coutned ti je koliko ima novih poruka, to mozes displayat, a poslata ti je i id poslednje poruke
         socket.emit('new user', id, (newMessages) => {
             console.log(newMessages);
-            //Ovdje to handlujes 
+            Main.Chat.newMessages = newMessages;
         });
     });
     socket.on('new message', Main.Chat.displayForeignMessage);

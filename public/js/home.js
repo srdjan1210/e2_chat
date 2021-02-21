@@ -81,13 +81,15 @@ Main.Home = {
         chatButtons.innerHTML = output;
         this.setAvailableUsersHeight();
         this.setOpenChatEvents();
+        Main.Home.setMessageNotification(Main.Chat.newMessages);
     },
     removeOthers: function() {
         let chatOpeners = document.querySelectorAll(".chat-opener");
         if (chatOpeners) {
             chatOpeners.forEach(function(chatOpener, index) {
                 let btn = chatOpener.querySelector(".btn-open-chat");
-
+                let imageBtn = chatOpener.querySelector(".mini-image-wrapper");
+                imageBtn.removeEventListener("click", Main.Chat.openChatEvent);
                 btn.removeEventListener("click", Main.Chat.openChatEvent);
                 chatOpener.remove();
             });
@@ -117,11 +119,23 @@ Main.Home = {
 
         sideBar.classList.toggle("expanded");
         if (!(sideBar.classList.contains("expanded"))) {
-            chatWindows.style.right = 72;
+            chatWindows.style.right = 62;
             content.style.paddingRight = 92;
         } else {
-            chatWindows.style.right = 280;
+            chatWindows.style.right = 270;
             content.style.paddingRight = 300;
+        }
+    },
+    setMessageNotification: function(newMessages) {
+        let chatOpeners = document.querySelectorAll(".chat-opener");
+        if (newMessages && chatOpeners) {
+            newMessages.forEach((msg, i) => {
+                chatOpeners.forEach((chatOpener, j) => {
+                    if (msg.chatid == chatOpener.getAttribute("data-id")) {
+                        console.log(msg.counted);
+                    }
+                });
+            });
         }
     }
 }

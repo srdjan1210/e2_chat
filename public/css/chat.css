@@ -1,13 +1,14 @@
 section#home #chat-windows {
     position: fixed;
-    right: 280px;
+    right: 270px;
     bottom: 0px;
     display: flex;
     flex-direction: row;
     transition: all 0.3s;
 }
 
-section#home .chat-window {
+
+/* section#home .chat-window {
     display: block;
     position: relative;
     box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
@@ -18,7 +19,29 @@ section#home .chat-window {
     color: #1ab188;
     border: 1px solid #1ab188;
     border-bottom: none;
-    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 0.15s;
+    bottom: 0px;
+} */
+
+section#home .chat-window {
+    display: block;
+    position: absolute;
+    box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    height: 382px;
+    background-color: #435259;
+    z-index: 4;
+    color: #1ab188;
+    border: 1px solid #1ab188;
+    border-bottom: none;
+    transition: all 0.15s;
+    bottom: 0px;
+    right: 0px;
+}
+
+section#home .chat-window.expanded {
+    bottom: -342px;
 }
 
 section#home .chat-header {
@@ -32,8 +55,10 @@ section#home .chat-header {
 }
 
 section#home .chat-header-info {
+    margin-right: 40px;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 section#home .chat-image {
