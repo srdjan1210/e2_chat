@@ -1,6 +1,6 @@
 const io = require('../app');
-const { findOrCreateChatRoom } = require('../models/chatRoom');
-const { saveMessage, loadMessages } = require('../models/message');
+const { findOrCreateChatRoom, findChatroomsThatUseId } = require('../models/chatRoom');
+const { saveMessage, loadMessages, countNewMess } = require('../models/message');
 const { checkIfUserExists } = require('../models/user');
 let connected = [];
 
@@ -16,22 +16,20 @@ const socketExists = (id) => {
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
-        socket.on('new user', (id) => {
+        socket.on('new user', async (id, cb) => {
+            const chatrooms = await findChatroomsThatUseId(id);
+            const counts = await countNewMess(chatrooms, id);
+            cb(counts);
             if(!socketExists(id))
                 connected.push({ socketid: socket.id, id });
-           
             socket.broadcast.emit('user logged', { room: socket.id, id });
         });
 
         socket.on('join room', async (id, cb) => {
             const channel = connected.filter(usr => usr.id == id);
-            if(channel[0]){
-                socket.join(channel[0].socketid);
-                cb(channel[0].socketid);
-            }
-
-            cb(null);
-         
+            if(!channel[0]) return cb(null);
+            socket.join(channel[0].socketid);
+            cb(channel[0].socketid);
         });
 
         socket.on('leave room', async (room) => {
@@ -43,7 +41,6 @@ module.exports = (io) => {
             const chatroom = await findOrCreateChatRoom([from , to]);
             await saveMessage({ msg, from, to, chatid: chatroom._id });
             cb();
-
         }); 
 
         socket.on('load messages', async ({ from , to, n }, cb) => {

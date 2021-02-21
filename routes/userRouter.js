@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { publicUserInfo, changeFirstname, changeLastname, changeEmail } = require('../controllers/userController');
+const { publicUserInfo, changeFirstname, changeLastname, changeEmail, changePassword } = require('../controllers/userController');
+const { checkTokenValidity } = require('../middleware/webtoken');
 
-
-router.get('/:username', publicUserInfo);
-router.post('/change/password', changePassword);
-router.post('/change/firstname', changeFirstname);
-router.post('/change/lastname', changeLastname);
-router.post('/change/', changeEmail);
+router.post('/:username', checkTokenValidity, publicUserInfo);
+router.post('/change/password', checkTokenValidity, changePassword);
+router.post('/change/firstname', checkTokenValidity, changeFirstname);
+router.post('/change/lastname', checkTokenValidity, changeLastname);
+router.post('/change/email', checkTokenValidity, changeEmail);
 
 
 

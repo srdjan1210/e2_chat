@@ -17,7 +17,14 @@ Main.Chat.socketInit = function() {
     });
 
     socket.on('connect', () => {
-        socket.emit('new user', id);
+        //Dobijas niz koji sadrzi id chata i za svakoga koliko ima novih poruka
+        //Ako je lastMsg jednak null, tada ne postoji poslednja vidjena poruka, i tada bi trebao da 
+        //Vjerovatno ti posaljem ukupan broj poruka koje postojem ali to cu jos doraditi
+        //ovo coutned ti je koliko ima novih poruka, to mozes displayat, a poslata ti je i id poslednje poruke
+        socket.emit('new user', id, (newMessages) => {
+            console.log(newMessages);
+            //Ovdje to handlujes 
+        });
     });
     socket.on('new message', Main.Chat.displayForeignMessage);
 }

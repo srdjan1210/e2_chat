@@ -15,18 +15,19 @@ require('./controllers/chatController')(io);
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
 const homeRouter = require('./routes/homeRouter');
+const userRouter = require('./routes/userRouter');
 // Constants
 const PORT = process.env.PORT;
 
 //Database
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true,})
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true,  useFindAndModify: false })
 .then((connected) => {
     console.log('Database connected')
 })
 .catch((err) => {
     console.log(err);
 });
-//Request settings
+//Middlewares
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
+app.use('/user', userRouter);
 
 
 

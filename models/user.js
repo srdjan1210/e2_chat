@@ -39,40 +39,46 @@ const UserSchema = mongoose.Schema({
 const userModel = mongoose.model('User', UserSchema);
 
 
-checkIfUserExists = async ({username, email}) => {
+const checkIfUserExists = async ({username, email}) => {
     const data = await userModel.findOne({username} || {email});
     if(data)
         return data;
     return null;
 }
 
-saveUserToDatabase = async (user) => {
+const saveUserToDatabase = async (user) => {
     const usr = new userModel(user);
     return await usr.save();
     
 }
 
-findUserByUsername = async ({ username }) => {
+const findUserByUsername = async ({ username }) => {
     const user = await userModel.findOne({ username });
     return user;
 }
 
-findUserById = async ({ _id }) => {
+const findUserById = async ({ _id }) => {
     const result = await userModel.findOne({ _id});
     return result;
 }
 
-findChatUsers = async (id) => {
+const findChatUsers = async (id) => {
     const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_img_100 profile_img_300');
     return users;
 }
 
-setUserActiveTime = async(user) => {
+const setUserActiveTime = async(user) => {
     const result = await userModel.findOne(user);
     result.last_active_at = Date.now();
     await result.save();
 }
 
+const findUserAndUpdate = async (user, update) => {
+    return await userModel.findOneAndUpdate(user, update);
+}
 
 
-module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, findUserById, setUserActiveTime, findChatUsers }
+
+module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, 
+                    findUserById, setUserActiveTime, findChatUsers, findUserAndUpdate
+                 }

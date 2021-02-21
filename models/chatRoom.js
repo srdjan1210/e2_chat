@@ -17,6 +17,10 @@ const findOrCreateChatRoom = async (users) => {
     return await newRoom.save();
 }
 
-module.exports = { findOrCreateChatRoom }
+const findChatroomsThatUseId = async (id) => {
+    return await chatRoomModel.find({users: {$all:[id]}}).select('_id');  
+}
+
+module.exports = { findOrCreateChatRoom, findChatroomsThatUseId }
 
 

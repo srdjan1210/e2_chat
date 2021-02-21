@@ -9,6 +9,10 @@ const MessageSchema = mongoose.Schema({
     sent: {
         type: Date,
         default: () => Math.floor(Date.now() / 1000)
+    },
+    last_seen: {
+        type: Boolean,
+        default: false
     }    
 }, { timestamps: true });
 
@@ -28,10 +32,21 @@ const findMessages = async (chatid) => {
 
 
 const loadMessages = async (chatid, n) => {
-    console.log(chatid, n);
     const messages = await messageModel.find({ chatid }).sort({ createdAt: -1}).skip(n * 40).limit(40);
     return messages;
 }
 
+const countNewMess = async (chatrooms, userid) => {
+    let result = Promise.all(
+        chatrooms.map(async chatid => {
+            const lastMsg = await messageModel.findOne({ chatid: chatid._id, last_seen: true, to: userid });
+            if(lastMsg == null) return { chatid: chatid._id, counted: 0, lastMsg };
+            const counted = await messageModel.countDocuments({ to: userid, createdAt:{ $gte: lastMsg.createdAt }, last_seen: false });
+            return {  chatid: chatid._id, counted, lastMsg: lastMsg._id };
+        })
+    );
+    return result;
+}
 
-module.exports = { findMessages, saveMessage, loadMessages }
+
+module.exports = { findMessages, saveMessage, loadMessages, countNewMess }
