@@ -51,16 +51,29 @@ Main.Chat.leaveRoom = function(room) {
     socket.emit('leave room', room);
 }
 
-Main.Chat.loadMessages = function(from, to, n, k) {
+Main.Chat.loadMessages = function(from, to, loadTime) {
     const socket = Main.Chat.socket;
     let chat = Main.Chat.getChatWindow(to);
     Main.Chat.chatLoadStart(chat);
+    let k = Main.Chat.getDisplayedMsgNumber(chat) - 1;
+    let n = 40;
+    if (loadTime == 0 && Main.Chat.getUnseenMsgNumber(to) != 0) {
+        n = Main.Chat.getUnseenMsgNumber(to) + 10;
+    }
     socket.emit('load messages', { from, to, n, k }, (resp) => {
-        Main.Chat.displayChatHistory(resp, chat, n);
+        //console.log(n, k);
+        Main.Chat.displayChatHistory(resp, chat, loadTime);
         if (resp && resp.length != 0) {
-            chat.setAttribute("data-msgs", n);
+            chat.setAttribute("data-msgs", loadTime);
         } else {
-            chat.setAttribute("data-msgs", n - 1);
+            chat.setAttribute("data-msgs", loadTime - 1);
         }
+    });
+}
+
+Main.Chat.messageSeen = function(message) {
+    const socket = Main.Chat.socket;
+    socket.emit('message seen', { message }, (resp) => {
+        console.log(resp);
     });
 }

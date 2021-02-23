@@ -200,7 +200,6 @@ Main.Chat = {
     },
     displayChatHistory(messages, chat, n) {
         let messageNum = 0;
-        console.log(Main.Chat.newMessages);
         if (messages && messages.length != 0) {
             messages.forEach(function(message, index) {
                 if (n == 0 || !(Main.Chat.checkIfMessageDisplayed(message, chat))) {
@@ -288,5 +287,25 @@ Main.Chat = {
         e.preventDefault();
         let chatWindow = this.closest(".chat-window");
         chatWindow.classList.toggle("expanded");
+    },
+    getDisplayedMsgNumber: function(chat) {
+        let chatBlocks = chat.querySelectorAll(".chat-block");
+        if (!chatBlocks) {
+            return 0;
+        } else {
+            return chatBlocks.length;
+        }
+    },
+    getUnseenMsgNumber: function(user_id) {
+        let msgs = Main.Chat.newMessages;
+        let messageNumber = 0;
+        if (msgs) {
+            msgs.forEach((msg, i) => {
+                if (msg.from == user_id) {
+                    messageNumber = msg.counted;
+                }
+            });
+        }
+        return messageNumber;
     }
 }
