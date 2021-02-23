@@ -134,10 +134,13 @@ Main.Home = {
                 chatOpeners.forEach((chatOpener, j) => {
                     if (msg.from == chatOpener.getAttribute("data-id")) {
                         let container = chatOpener.querySelector(".notification-number");
-                        if (msg.counted < 9) {
+                        if (msg.counted < 99) {
                             container.innerHTML = msg.counted;
                         } else {
-                            container.innerHTML = 9;
+                            container.innerHTML = 99;
+                        }
+                        if (msg.counted > 9) {
+                            container.style.paddingRight = 1;
                         }
                         container.classList.add("active");
                     }

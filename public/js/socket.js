@@ -23,7 +23,10 @@ Main.Chat.socketInit = function() {
             }
         });
     });
-    socket.on('new message', Main.Chat.displayForeignMessage);
+    socket.on('new message', function({ msg, from }) {
+        //TODO:new msg notification if chat closed or minimized (real time)
+        Main.Chat.displayForeignMessage({ msg, from });
+    });
 }
 Main.Chat.socketDisconnect = function() {
     let socket = Main.Chat.socket;
@@ -55,14 +58,15 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
     const socket = Main.Chat.socket;
     let chat = Main.Chat.getChatWindow(to);
     Main.Chat.chatLoadStart(chat);
-    let k = Main.Chat.getDisplayedMsgNumber(chat) - 1;
+    let k = Main.Chat.getDisplayedMsgNumber(chat);
     let n = 40;
-    if (loadTime == 0 && Main.Chat.getUnseenMsgNumber(to) != 0) {
-        n = Main.Chat.getUnseenMsgNumber(to) + 10;
+    let newMsgNum = Main.Chat.getUnseenMsgNumber(to);
+    if (loadTime == 0 && newMsgNum != 0) {
+        n = newMsgNum + 10;
+        newMsgNum = newMsgNum;
     }
     socket.emit('load messages', { from, to, n, k }, (resp) => {
-        //console.log(n, k);
-        Main.Chat.displayChatHistory(resp, chat, loadTime);
+        Main.Chat.displayChatHistory(resp, chat, loadTime, newMsgNum);
         if (resp && resp.length != 0) {
             chat.setAttribute("data-msgs", loadTime);
         } else {
@@ -71,9 +75,14 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
     });
 }
 
-Main.Chat.messageSeen = function(message) {
+Main.Chat.messageSeen = function(chat) {
     const socket = Main.Chat.socket;
-    socket.emit('message seen', { message }, (resp) => {
-        console.log(resp);
-    });
+    let message = Main.Chat.getLastSeenMessage(chat);
+    if (message) {
+        let messageId = message.getAttribute("data-id");
+        console.log(messageId);
+        socket.emit('message seen', { messageId }, (resp) => {
+            console.log(resp);
+        });
+    }
 }

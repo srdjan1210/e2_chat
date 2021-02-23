@@ -172,6 +172,7 @@ Main.Chat = {
         let chatBlock = document.createElement("div");
 
         chatBlock.classList.add("chat-block");
+        chatBlock.classList.add("message-block");
         if (messageId) chatBlock.setAttribute("data-id", messageId);
         chatBlock.classList.add("own");
         chatBlock.innerHTML = Templates.message(msg, false);
@@ -189,6 +190,7 @@ Main.Chat = {
         let chatBlock = document.createElement("div");
 
         chatBlock.classList.add("chat-block");
+        chatBlock.classList.add("message-block");
         if (messageId) chatBlock.setAttribute("data-id", messageId);
         chatBlock.innerHTML = Templates.message(msg, true);
         if (oldMessage == true) {
@@ -197,8 +199,9 @@ Main.Chat = {
             chatBody.append(chatBlock);
             Main.Chat.setChatScroll(chatWindow);
         }
+        Main.Chat.messageSeen(chatWindow);
     },
-    displayChatHistory(messages, chat, n) {
+    displayChatHistory(messages, chat, n, newMsgNum) {
         let messageNum = 0;
         if (messages && messages.length != 0) {
             messages.forEach(function(message, index) {
@@ -208,6 +211,9 @@ Main.Chat = {
                         Main.Chat.displayOwnMessage({ msg: message.msg, from: message.from, to: message.to, room: null }, true, message._id);
                     } else {
                         Main.Chat.displayForeignMessage({ msg: message.msg, from: message.from }, true, message._id);
+                    }
+                    if (n == 0 && newMsgNum && newMsgNum != 0 && newMsgNum == (index + 1)) {
+                        Main.Chat.displayNewMessagesLabel(chat);
                     }
                 }
             });
@@ -289,11 +295,11 @@ Main.Chat = {
         chatWindow.classList.toggle("expanded");
     },
     getDisplayedMsgNumber: function(chat) {
-        let chatBlocks = chat.querySelectorAll(".chat-block");
-        if (!chatBlocks) {
+        let messageBlocks = chat.querySelectorAll(".chat-block.message-block");
+        if (!messageBlocks) {
             return 0;
         } else {
-            return chatBlocks.length;
+            return messageBlocks.length;
         }
     },
     getUnseenMsgNumber: function(user_id) {
@@ -307,5 +313,25 @@ Main.Chat = {
             });
         }
         return messageNumber;
+    },
+    displayNewMessagesLabel: function(chat) {
+        let chatBody = chat.querySelector(".chat-body");
+        let chatBlock = document.createElement("div");
+
+        chatBlock.classList.add("chat-block");
+        chatBlock.innerHTML = Templates.newMessageLabel();
+        chatBody.prepend(chatBlock);
+    },
+    getLastSeenMessage: function(chat) {
+        let messageBlocks = chat.querySelectorAll(".message-block");
+        let lastMessage;
+        if (messageBlocks) {
+            messageBlocks.forEach((msg, i) => {
+                if (!(msg.classList.contains("own"))) {
+                    lastMessage = msg;
+                }
+            });
+        }
+        return lastMessage;
     }
 }
