@@ -31,9 +31,8 @@ const findMessages = async (chatid) => {
 }
 
 
-const loadMessages = async (chatid, n) => {
-    const messages = await messageModel.find({ chatid }).sort({ createdAt: -1}).skip(n * 40).limit(40);
-    return messages;
+const loadMessages = async (chatid, n, k) => {
+    return await messageModel.find({ chatid }).sort({ createdAt: -1}).skip(k).limit(n);
 }
 
 const countNewMess = async (chatrooms, userid) => {
@@ -42,7 +41,7 @@ const countNewMess = async (chatrooms, userid) => {
     filteredChatrooms = Promise.all(filteredChatrooms.map(async ({ chatid, lastMsgId, counted, created, from}) => {
         if(lastMsgId != null)
             counted = await countMessages({ chatid, to: userid, createdAt: {$gt: created} });
-        return {chatid, from, lastMsgId, counted }
+        return { from, lastMsgId, counted }
     }));
     return filteredChatrooms;
 }
@@ -68,8 +67,5 @@ const countMessages = async (condition) => {
     return await messageModel.countDocuments(condition);
 }
 
-const loadNMessages = async (chatid, n) => {
-    return await messageModel.find({ chatid }).sort({ createdAt: -1}).limit(n);
-}
 
 module.exports = { findMessages, saveMessage, loadMessages, countNewMess, loadNMessages }

@@ -43,16 +43,11 @@ module.exports = (io) => {
             cb();
         }); 
 
-        socket.on('load messages', async ({ from , to, n }, cb) => {
+        socket.on('load messages', async ({ from , to, n, k }, cb) => {
             const chatroom = await findOrCreateChatRoom([from , to]);
-            const messages = await loadMessages(chatroom._id, n );
+            const messages = await loadMessages(chatroom._id, n, k);
             cb(messages);
         }); 
-
-        socket.on('load unseen messages', async ({ chatid, n }, cb) => {
-            const messages = await loadNMessages(chatid, n);
-            cb(messages);
-        });
 
         socket.on('disconnect', () => {
             console.log("disconnected");
