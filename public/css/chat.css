@@ -169,3 +169,11 @@ section#home .chat-body .chat-loader-msg {
     line-height: 20px;
     padding-left: 5px;
 }
+
+section#home .chat-body .new-msgs-label {
+    font-style: italic;
+    padding: 15px 0px;
+    text-align: center;
+    color: #1ab188;
+    width: 100%;
+}

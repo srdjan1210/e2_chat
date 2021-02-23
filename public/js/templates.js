@@ -53,5 +53,12 @@ Templates = {
             <div class="chat-loader-msg">loading old messages...</div>
             <div class="clearfix"></div>`;
         return output;
+    },
+    newMessageLabel: function() {
+        let output =
+            `<div class="new-msgs-label">
+                new messages
+            </div>`;
+        return output;
     }
 }

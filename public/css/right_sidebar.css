@@ -184,16 +184,16 @@ section#home .chat-opener-btn {
 
 section#home .chat-opener .notification-number {
     position: absolute;
-    width: 14px;
-    height: 17px;
+    width: 16px;
+    height: 19px;
     border-radius: 0px 0px 0px 100%;
     top: 0px;
     right: 0px;
     background-color: #e3242b;
     color: #24323d;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 11px;
+    line-height: 16px;
     text-align: right;
-    padding-right: 3px;
+    padding-right: 5px;
     display: none;
 }
