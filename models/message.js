@@ -65,13 +65,11 @@ const filterChatroomsWithNoSeenMessages = async (chatrooms, userid) => {
 }
 
 const countMessages = async (condition) => {
-    const result = await messageModel.countDocuments(condition);
-    return result;
+    return await messageModel.countDocuments(condition);
 }
 
 const loadNMessages = async (chatid, n) => {
-    const messages = await messageModel.find({ chatid }).sort({ createdAt: -1}).limit(n);
-    return messages;
+    return await messageModel.find({ chatid }).sort({ createdAt: -1}).limit(n);
 }
 
 module.exports = { findMessages, saveMessage, loadMessages, countNewMess, loadNMessages }
