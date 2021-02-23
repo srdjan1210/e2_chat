@@ -81,6 +81,7 @@ Main.Home = {
         chatButtons.innerHTML = output;
         this.setAvailableUsersHeight();
         this.setOpenChatEvents();
+
         Main.Home.setMessageNotification(Main.Chat.newMessages);
     },
     removeOthers: function() {
@@ -131,8 +132,14 @@ Main.Home = {
         if (newMessages && chatOpeners) {
             newMessages.forEach((msg, i) => {
                 chatOpeners.forEach((chatOpener, j) => {
-                    if (msg.chatid == chatOpener.getAttribute("data-id")) {
-                        console.log(msg.counted);
+                    if (msg.from == chatOpener.getAttribute("data-id")) {
+                        let container = chatOpener.querySelector(".notification-number");
+                        if (msg.counted < 9) {
+                            container.innerHTML = msg.counted;
+                        } else {
+                            container.innerHTML = 9;
+                        }
+                        container.classList.add("active");
                     }
                 });
             });

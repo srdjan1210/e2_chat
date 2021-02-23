@@ -8,7 +8,10 @@ Templates = {
                 <div class="chat-info">
                     <div class="mini-fullname">${firstname} ${lastname}</div>
                     <div class="action-tab">
-                        <button class="chat-opener-btn btn-open-chat">chat</button>
+                        <button class="chat-opener-btn btn-open-chat">
+                        <span>chat</span>
+                        <div class="notification-number">1</div>
+                        </button>
                         <a href="#/home/profile/${username}" class="chat-opener-btn">profile</a>
                         <div class="clearfix"></div>
                     </div>

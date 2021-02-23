@@ -9,7 +9,6 @@ Main.Chat.socketInit = function() {
         if (chats) {
             chats.forEach((chat, i) => {
                 if (chat.getAttribute("data-id") == resp.id) {
-                    //Main.Chat.joinRoom(chat, resp.id);
                     chat.setAttribute("data-room", resp.room);
                 }
             });
@@ -17,13 +16,11 @@ Main.Chat.socketInit = function() {
     });
 
     socket.on('connect', () => {
-        //Dobijas niz koji sadrzi id chata i za svakoga koliko ima novih poruka
-        //Ako je lastMsg jednak null, tada ne postoji poslednja vidjena poruka, i tada bi trebao da 
-        //Vjerovatno ti posaljem ukupan broj poruka koje postojem ali to cu jos doraditi
-        //ovo coutned ti je koliko ima novih poruka, to mozes displayat, a poslata ti je i id poslednje poruke
         socket.emit('new user', id, (newMessages) => {
-            console.log(newMessages);
             Main.Chat.newMessages = newMessages;
+            if (document.querySelectorAll(".chat-opener")) {
+                Main.Home.setMessageNotification(newMessages);
+            }
         });
     });
     socket.on('new message', Main.Chat.displayForeignMessage);
@@ -54,22 +51,16 @@ Main.Chat.leaveRoom = function(room) {
     socket.emit('leave room', room);
 }
 
-Main.Chat.loadMessages = function(from, to, n) {
+Main.Chat.loadMessages = function(from, to, n, k) {
     const socket = Main.Chat.socket;
     let chat = Main.Chat.getChatWindow(to);
     Main.Chat.chatLoadStart(chat);
-    socket.emit('load messages', { from, to, n }, (resp) => {
+    socket.emit('load messages', { from, to, n, k }, (resp) => {
         Main.Chat.displayChatHistory(resp, chat, n);
         if (resp && resp.length != 0) {
             chat.setAttribute("data-msgs", n);
         } else {
             chat.setAttribute("data-msgs", n - 1);
         }
-    });
-}
-
-Main.Chat.loadUnseenMessages = function(chatid, n) {
-    socket.emit('load unseen messages', { chatid, n}, (messages) => {
-        console.log('messages');
     });
 }

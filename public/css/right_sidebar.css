@@ -33,7 +33,7 @@ section#home .sidebar.right .expand-arrow {
 
 section#home .sidebar.right.expanded .expand-arrow {
     border-width: 25px 0 25px 30px;
-    border-color: transparent transparent transparent #1ab189;
+    border-color: transparent transparent transparent #1ab188;
     margin: auto;
 }
 
@@ -169,7 +169,7 @@ section#home #chat-openers .action-tab {
 }
 
 section#home .chat-opener-btn:first-child {
-    margin-right: 4%;
+    margin-left: 0%;
 }
 
 section#home .chat-opener-btn {
@@ -177,5 +177,23 @@ section#home .chat-opener-btn {
     width: 48%;
     font-size: 13px;
     line-height: 25px;
+    height: 25px;
     text-decoration: none;
+    margin-left: 4%;
+}
+
+section#home .chat-opener .notification-number {
+    position: absolute;
+    width: 14px;
+    height: 17px;
+    border-radius: 0px 0px 0px 100%;
+    top: 0px;
+    right: 0px;
+    background-color: #e3242b;
+    color: #24323d;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: right;
+    padding-right: 3px;
+    display: none;
 }

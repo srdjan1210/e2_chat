@@ -200,6 +200,7 @@ Main.Chat = {
     },
     displayChatHistory(messages, chat, n) {
         let messageNum = 0;
+        console.log(Main.Chat.newMessages);
         if (messages && messages.length != 0) {
             messages.forEach(function(message, index) {
                 if (n == 0 || !(Main.Chat.checkIfMessageDisplayed(message, chat))) {
