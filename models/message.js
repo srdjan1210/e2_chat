@@ -63,9 +63,19 @@ const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
     return tempArray;
 }
 
-const countMessages = async(condition) => {
+const countMessages = async (condition) => {
     return await messageModel.countDocuments(condition);
 }
 
+const findSingleMessage = async (criteria) => {
+    return await messageModel.find({criteria});
+}
+const findLastSeenMessage = async (chatid) => {
+    return await messageModel.findOne({ chatid, last_seen: true });
+}
 
-module.exports = { findMessages, saveMessage, loadMessages, countNewMess }
+const saveMessageObject = async (message) => {
+    await message.save();
+}
+
+module.exports = { findMessages, saveMessage, loadMessages, countNewMess, findSingleMessage,findLastSeenMessage, saveMessageObject }
