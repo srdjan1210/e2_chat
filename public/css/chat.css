@@ -23,7 +23,7 @@ section#home .chat-window {
     right: 0px;
 }
 
-section#home .chat-window.expanded {
+section#home .chat-window.hidden {
     bottom: -342px;
 }
 
@@ -42,6 +42,7 @@ section#home .chat-header-info {
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    position: relative;
 }
 
 section#home .chat-image {
@@ -70,6 +71,7 @@ section#home .chat-body .chat-block {
     position: relative;
     margin-bottom: 10px;
     display: flex;
+    transition: all 0.2s;
 }
 
 section#home .chat-body .chat-block:first-child {
@@ -176,4 +178,20 @@ section#home .chat-body .new-msgs-label {
     text-align: center;
     color: #1ab188;
     width: 100%;
+}
+
+section#home .chat-header-info .notification-number {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 5px;
+    margin: auto;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    border-radius: 50%;
+    background-color: #e3242b;
+    color: #24323d;
+    text-align: center;
+    display: none;
 }

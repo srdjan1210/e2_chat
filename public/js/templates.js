@@ -24,8 +24,9 @@ Templates = {
         let output =
             `<div class="chat-header">
                 <div class="chat-header-info">
-                <div class="chat-image" style="background-image:url(${imageUrl});"></div>
+                    <div class="chat-image" style="background-image:url(${imageUrl});"></div>
                     <div class="chat-fullname">${firstname} ${lastname}</div>
+                    <div class="notification-number"></div>
                 </div>
             </div>
             <div class="chat-body-outer">

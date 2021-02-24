@@ -18,7 +18,7 @@ Main.Chat.socketInit = function() {
     socket.on('connect', () => {
         socket.emit('new user', id, (newMessages) => {
             Main.Chat.newMessages = newMessages;
-            console.log(newMessages);
+            Main.Chat.newMessagesLoaded = true;
             if (document.querySelectorAll(".chat-opener")) {
                 Main.Home.setMessageNotification(newMessages);
             }
@@ -27,7 +27,7 @@ Main.Chat.socketInit = function() {
     socket.on('new message', function({ msg, from }) {
         let chat = Main.Chat.getChatWindow(from);
         Main.Chat.displayForeignMessage({ msg, from }, false, id);
-        if (chat) {
+        if (chat && !(chat.classList.contains("hidden"))) {
             Main.Chat.messageSeen(chat);
         } else {
             Main.Chat.getNotifications(from);

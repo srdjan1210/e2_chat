@@ -38,6 +38,7 @@ Main.ActiveChats = {
 
 Main.Chat = {
     chatCounter: 0,
+    newMessagesLoaded: false,
     newMessages: [],
     init: function() {},
     openChatEvent: function(e) {
@@ -50,7 +51,7 @@ Main.Chat = {
 
         let chatOpener = this.closest(".chat-opener");
         let User = Main.getOtherUserInfo(chatOpener.getAttribute("data-id"));
-        if (!(Main.Chat.checkIfChatOpen(User._id))) {
+        if (!(Main.Chat.checkIfChatOpen(User._id)) && Main.Chat.newMessagesLoaded) {
             if (Main.Chat.chatCounter < jsConfig.maxChatWindows) {
                 Main.Chat.createChat(User);
             } else {
@@ -186,6 +187,10 @@ Main.Chat = {
             chatBody.prepend(chatBlock);
         } else {
             chatBody.append(chatBlock);
+            let label = chatWindow.querySelector(".new-label");
+            if (label) {
+                label.remove();
+            }
             Main.Chat.setChatScroll(chatWindow);
         }
     },
@@ -220,7 +225,6 @@ Main.Chat = {
                     if (n == 0 && newMsgNum && newMsgNum != 0 && newMsgNum == (index + 1)) {
                         Main.Chat.displayNewMessagesLabel(chat);
                         Main.Chat.updateNotifications(chat.getAttribute("data-id"));
-
                     }
                 }
             });
@@ -299,7 +303,20 @@ Main.Chat = {
     hideChatEvent: function(e) {
         e.preventDefault();
         let chatWindow = this.closest(".chat-window");
-        chatWindow.classList.toggle("expanded");
+        let msgNum = Main.Chat.getUnseenMsgNumber(chatWindow.getAttribute("data-id"));
+
+        if (chatWindow.classList.contains("hidden")) {
+            Main.Chat.messageSeen(chatWindow);
+            Main.Chat.updateNotifications(chatWindow.getAttribute("data-id"));
+            let label = chatWindow.querySelector(".new-label");
+            if (label) {
+                label.remove();
+            }
+            let notification = chatWindow.querySelector(".notification-number");
+            notification.classList.remove("active");
+            Main.Chat.displayNewMessagesLabel(chatWindow, msgNum);
+        }
+        chatWindow.classList.toggle("hidden");
     },
     getDisplayedMsgNumber: function(chat) {
         let messageBlocks = chat.querySelectorAll(".chat-block.message-block");
@@ -336,13 +353,23 @@ Main.Chat = {
             msgs.push({ counted: number, from: user_id });
         }
     },
-    displayNewMessagesLabel: function(chat) {
+    displayNewMessagesLabel: function(chat, position) {
         let chatBody = chat.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
 
         chatBlock.classList.add("chat-block");
+        chatBlock.classList.add("new-label");
         chatBlock.innerHTML = Templates.newMessageLabel();
-        chatBody.prepend(chatBlock);
+        if (!position) {
+            chatBody.prepend(chatBlock);
+        } else {
+            let messageBlocks = chat.querySelectorAll(".chat-block.message-block");
+            if (messageBlocks) {
+                let index = messageBlocks.length - position;
+                messageBlocks[index].insertAdjacentHTML('beforebegin', chatBlock.outerHTML);
+                Main.Chat.setChatScroll(chat);
+            }
+        }
     },
     updateNotifications: function(from, number) {
         if (from) {
@@ -352,6 +379,26 @@ Main.Chat = {
                 Main.Chat.setUnseenMsgNumber(from, 0);
             }
             Main.Home.setMessageNotification(Main.Chat.newMessages);
+            Main.Chat.setHeaderNotifications(Main.Chat.newMessages);
         }
+    },
+    setHeaderNotifications: function(newMessages) {
+        let chats = document.querySelectorAll(".chat-window");
+        if (!chats) return;
+        if (!newMessages) return;
+        chats.forEach((chat, i) => {
+            newMessages.forEach((msg, j) => {
+                if (msg.counted != 0 && msg.from == chat.getAttribute("data-id")) {
+                    let container = chat.querySelector(".notification-number");
+                    if (chat.classList.contains("hidden")) {
+                        container.innerHTML = msg.counted;
+                        container.classList.add("active");
+                    } else {
+                        container.classList.remove("active");
+                    }
+                }
+            });
+        });
+
     }
 }
