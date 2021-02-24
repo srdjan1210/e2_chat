@@ -60,14 +60,11 @@ module.exports = (io) => {
             const chatroom = await findOrCreateChatRoom([from , to]);
             if(chatroom.users[0] == from) chatroom.unseen_messages_2 = 0;
             else chatroom.unseen_messages_1 = 0;
-            console.log('anulirano')
             await saveChatroomObject(chatroom);
         });
 
         socket.on('update notification', async ({ from, to }, cb) => {
-            console.log(from , to);
             const chatroom = await findOrCreateChatRoom([from, to]);
-            console.log(chatroom);
             if(chatroom.users[0] == from) cb(chatroom.unseen_messages_1);
             else cb(chatroom.unseen_messages_2);
 
