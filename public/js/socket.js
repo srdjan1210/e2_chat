@@ -85,7 +85,6 @@ Main.Chat.messageSeen = function(chat) {
     const from = Main.User.Info._id;
     if (chat) {
         const to = chat.getAttribute("data-id");
-        console.log(chat);
         socket.emit('message seen', { from, to }, (resp) => {
             console.log(resp);
         });
@@ -93,9 +92,8 @@ Main.Chat.messageSeen = function(chat) {
 }
 Main.Chat.getNotifications = function(from) {
     const socket = Main.Chat.socket;
-    const id = Main.User.Info._id;
-    socket.emit('update notification', { id, from }, (resp) => {
+    const to = Main.User.Info._id;
+    socket.emit('update notification', { to, from }, (resp) => {
         console.log(resp);
     });
-
 }
