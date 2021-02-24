@@ -25,7 +25,6 @@ module.exports = (io) => {
         socket.on('new user', async (id, cb) => {
             const chatrooms = await findChatroomsThatUseId(id);
             const counts = await filterChatroomsWithNoSeenMessages(chatrooms, id);
-            console.log(counts);
             cb(counts);
             if(!socketExists(id)) connected.push({ socketid: socket.id, id });
             socket.broadcast.emit('user logged', { room: socket.id, id });
@@ -59,12 +58,18 @@ module.exports = (io) => {
 
         socket.on('message seen', async ({ from , to }, cb) => {
             const chatroom = await findOrCreateChatRoom([from , to]);
-            console.log(chatroom);
             if(chatroom.users[0] == from) chatroom.unseen_messages_2 = 0;
             else chatroom.unseen_messages_1 = 0;
             console.log('anulirano')
             await saveChatroomObject(chatroom);
         });
+
+        socket.on('update notification', async ({ from, to }, cb) => {
+            const chatroom = await findOrCreateChatRoom([from, to]);
+            if(chatroom.users[0] == from) cb(chatroom.unseen_messages_1);
+            else cb(chatroom.unseen_messages_2);
+
+        })
 
         socket.on('typing', async ({ to }) => {
             const socketId = connected.fiter(user => to == user.id)[0].socketid;
