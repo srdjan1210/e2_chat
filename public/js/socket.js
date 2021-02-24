@@ -28,6 +28,7 @@ Main.Chat.socketInit = function() {
         let chat = Main.Chat.getChatWindow(from);
         //TODO:new msg notification if chat closed or minimized (real time)
         Main.Chat.displayForeignMessage({ msg, from }, false, id);
+        Main.Chat.getNotifications(chat);
         if (chat) {
             Main.Chat.messageSeen(chat);
         }
@@ -58,7 +59,6 @@ Main.Chat.leaveRoom = function(room) {
     const socket = Main.Chat.socket;
     socket.emit('leave room', room);
 }
-
 Main.Chat.loadMessages = function(from, to, loadTime) {
     const socket = Main.Chat.socket;
     let chat = Main.Chat.getChatWindow(to);
@@ -80,7 +80,6 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
         }
     });
 }
-
 Main.Chat.messageSeen = function(chat) {
     const socket = Main.Chat.socket;
     const from = Main.User.Info._id;
@@ -88,6 +87,16 @@ Main.Chat.messageSeen = function(chat) {
         const to = chat.getAttribute("data-id");
         console.log(chat);
         socket.emit('message seen', { from, to }, (resp) => {
+            console.log(resp);
+        });
+    }
+}
+Main.Chat.getNotifications = function(chat) {
+    const socket = Main.Chat.socket;
+    const from = Main.User.Info._id;
+    if (chat) {
+        const to = chat.getAttribute("data-id");
+        socket.emit('update notification', { from, to }, (resp) => {
             console.log(resp);
         });
     }
