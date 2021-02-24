@@ -325,17 +325,5 @@ Main.Chat = {
         chatBlock.classList.add("chat-block");
         chatBlock.innerHTML = Templates.newMessageLabel();
         chatBody.prepend(chatBlock);
-    },
-    getLastSeenMessage: function(chat) {
-        let messageBlocks = chat.querySelectorAll(".message-block");
-        let lastMessage;
-        if (messageBlocks) {
-            messageBlocks.forEach((msg, i) => {
-                if (!(msg.classList.contains("own"))) {
-                    lastMessage = msg;
-                }
-            });
-        }
-        return lastMessage;
     }
 }
