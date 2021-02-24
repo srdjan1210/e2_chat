@@ -360,11 +360,11 @@ Main.Chat = {
         chatBlock.classList.add("chat-block");
         chatBlock.classList.add("new-label");
         chatBlock.innerHTML = Templates.newMessageLabel();
-        if (!position) {
+        if (position == undefined) {
             chatBody.prepend(chatBlock);
         } else {
             let messageBlocks = chat.querySelectorAll(".chat-block.message-block");
-            if (messageBlocks) {
+            if (messageBlocks && position) {
                 let index = messageBlocks.length - position;
                 messageBlocks[index].insertAdjacentHTML('beforebegin', chatBlock.outerHTML);
                 Main.Chat.setChatScroll(chat);
