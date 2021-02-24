@@ -1,5 +1,4 @@
 /node_modules
 .env
 /public/uploads/imgs
-/public/resources/profileimgs
 /public/resources/messageimgs
