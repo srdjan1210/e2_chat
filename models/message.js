@@ -35,27 +35,6 @@ const loadMessages = async(chatid, n, k) => {
     return await messageModel.find({ chatid }).sort({ createdAt: -1 }).skip(k).limit(n);
 }
 
-const countNewMess = async(chatrooms, userid) => {
-    let filteredChatrooms = await filterChatroomsWithNoSeenMessages(chatrooms, userid);
-
-    filteredChatrooms = Promise.all(filteredChatrooms.map(async({ chatid, lastMsgId, counted, created, from }) => {
-        if (lastMsgId != null)
-            counted = await countMessages({ chatid, to: userid, createdAt: { $gt: created } });
-        return { from, lastMsgId, counted }
-    }));
-    return filteredChatrooms;
-}
-
-const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
-    console.log('called');
-    chatrooms = chatrooms.filter(chatroom => chatroom.unseen_messages > 0);
-    
-    return chatrooms.map(chatroom => {
-        let from = chatroom.users[0] == userid?chatroom.users[1]: chatroom.users[0];
-        return { counted: chatroom.unseen_messages, from };
-    });
-}
-
 const countMessages = async (condition) => {
     return await messageModel.countDocuments(condition);
 }
@@ -71,4 +50,4 @@ const saveMessageObject = async (message) => {
     await message.save();
 }
 
-module.exports = { findMessages, saveMessage, loadMessages, countNewMess, findSingleMessage,findLastSeenMessage, saveMessageObject }
+module.exports = { findMessages, saveMessage, loadMessages, findSingleMessage,findLastSeenMessage, saveMessageObject }

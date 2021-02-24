@@ -1,6 +1,6 @@
 const io = require('../app');
-const { findOrCreateChatRoom, findChatroomsThatUseId, saveChatroomObject } = require('../models/chatRoom');
-const { saveMessage, loadMessages, countNewMess, findSingleMessage, findLastSeenMessage, saveMessageObject } = require('../models/message');
+const { findOrCreateChatRoom, findChatroomsThatUseId, filterChatroomsWithNoSeenMessages, saveChatroomObject } = require('../models/chatRoom');
+const { saveMessage, loadMessages, findSingleMessage, findLastSeenMessage, saveMessageObject } = require('../models/message');
 const { checkIfUserExists } = require('../models/user');
 let connected = [];
 
@@ -13,12 +13,18 @@ const socketExists = (id) => {
     return false;
 }
 
+const updateNewMessages = (chatroom, from) => {
+    if(chatroom.users[0] == from) chatroom.unseen_messages_1++;
+    else chatroom.unseen_messages_2++;
+    return chatroom;
+}
+
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
         socket.on('new user', async (id, cb) => {
             const chatrooms = await findChatroomsThatUseId(id);
-            const counts = await countNewMess(chatrooms, id);
+            const counts = await filterChatroomsWithNoSeenMessages(chatrooms, id);
             console.log(counts);
             cb(counts);
             if(!socketExists(id)) connected.push({ socketid: socket.id, id });
@@ -37,13 +43,12 @@ module.exports = (io) => {
         });
 
         socket.on('message', async ({ msg, from, to, room}, cb) => {
-            console.log('hit');
-            const chatroom = await findOrCreateChatRoom([from , to]);
-            console.log(chatroom);
+            let chatroom = await findOrCreateChatRoom([from , to]);
             const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
             socket.to(room).emit('new message', { msg, from, id: message._id });
-            //await saveChatroomObject(chatroom);
-            cb(chatroom.unseen_messages);
+            chatroom = updateNewMessages(chatroom, from);
+            await saveChatroomObject(chatroom);
+            cb('done');
         }); 
 
         socket.on('load messages', async ({ from , to, n, k }, cb) => {
@@ -53,10 +58,11 @@ module.exports = (io) => {
         }); 
 
         socket.on('message seen', async ({ from , to }, cb) => {
-            console.log(from + '' + to);
             const chatroom = await findOrCreateChatRoom([from , to]);
-            chatroom.unseen_messages = 0;
             console.log(chatroom);
+            if(chatroom.users[0] == from) chatroom.unseen_messages_2 = 0;
+            else chatroom.unseen_messages_1 = 0;
+            console.log('anulirano')
             await saveChatroomObject(chatroom);
         });
 
