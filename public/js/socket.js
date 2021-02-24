@@ -71,6 +71,7 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
     }
     socket.emit('load messages', { from, to, n, k }, (resp) => {
         Main.Chat.displayChatHistory(resp, chat, loadTime, newMsgNum);
+        Main.Chat.messageSeen(chat);
         if (resp && resp.length != 0) {
             chat.setAttribute("data-msgs", loadTime);
         } else {
