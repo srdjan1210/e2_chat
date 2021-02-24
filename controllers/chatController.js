@@ -37,7 +37,7 @@ module.exports = (io) => {
         });
 
         socket.on('message', async ({ msg, from, to, room}, cb) => {
-           
+           console.log('poruka poslata ' + room);
             const chatroom = await findOrCreateChatRoom([from , to]);
             const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
             socket.to(room).emit('new message', { msg, from, id: message._id });
@@ -51,10 +51,21 @@ module.exports = (io) => {
         }); 
 
         socket.on('message seen', async ({ messageId }, cb) => {
+            console.log(messageId);
             const message = await findSingleMessage({_id: messageId});
-            const lastseen = await findLastSeenMessage(message.chatid);
-            await saveMessageObject(lastseen);
-            cb();
+            console.log(message);
+            const lastseen = await findLastSeenMessage({ chatid: message.chatid, from: message.from, last_seen: true });
+            console.log(lastseen);
+            message.last_seen = true
+            if(lastseen == null) {
+                console.log(message);
+               await saveMessageObject(message);
+               return cb('nesto');
+            }
+            lastseen.last_seen = false;
+            saveMessageObject(lastseen);
+            saveMessageObject(message);
+            cb('nesto2');
         });
 
         socket.on('typing', async ({ to }) => {
