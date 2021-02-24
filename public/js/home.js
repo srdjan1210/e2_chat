@@ -45,7 +45,7 @@ Main.Home = {
         miniImage.style.backgroundImage = `url(${imageUrl})`;
     },
     getUsersInfo: function() {
-        fetch("http://localhost:3000/home/chatinfo", {
+        fetch(`${jsConfig.domainUrl}/home/chatinfo`, {
             method: 'POST',
             headers: {
                 'x-auth': window.localStorage.getItem("e2_chat_token")

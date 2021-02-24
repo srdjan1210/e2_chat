@@ -10,7 +10,7 @@ let Main = {
         document.getElementById("popup-exit").addEventListener("click", this.closePopup);
     },
     checkSession: function() {
-        fetch('http://localhost:3000/home/userinfo', {
+        fetch(`${jsConfig.domainUrl}/home/userinfo`, {
             method: 'POST',
             headers: {
                 'x-auth': window.localStorage.getItem("e2_chat_token")

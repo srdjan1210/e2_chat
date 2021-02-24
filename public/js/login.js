@@ -21,7 +21,7 @@ Main.Login = {
     },
     sendData: function() {
         Main.loadStart();
-        fetch('http://localhost:3000/login', {
+        fetch(`${jsConfig.domainUrl}/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
