@@ -23,11 +23,9 @@ Main.Chat.socketInit = function() {
             }
         });
     });
-    socket.on('new message', function({ msg, from, id }) {
-        let chat = Main.Chat.getChatWindow(from);
+    socket.on('new message', function({ msg, from }) {
         //TODO:new msg notification if chat closed or minimized (real time)
-        Main.Chat.displayForeignMessage({ msg, from }, false, id);
-        Main.Chat.messageSeen(chat);
+        Main.Chat.displayForeignMessage({ msg, from });
     });
 }
 Main.Chat.socketDisconnect = function() {
@@ -69,9 +67,6 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
     }
     socket.emit('load messages', { from, to, n, k }, (resp) => {
         Main.Chat.displayChatHistory(resp, chat, loadTime, newMsgNum);
-        if (loadTime == 0 && newMsgNum != 0) {
-            Main.Chat.messageSeen(chat);
-        }
         if (resp && resp.length != 0) {
             chat.setAttribute("data-msgs", loadTime);
         } else {

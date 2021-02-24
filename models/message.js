@@ -70,8 +70,8 @@ const countMessages = async (condition) => {
 const findSingleMessage = async (criteria) => {
     return await messageModel.findOne(criteria);
 }
-const findLastSeenMessage = async (chatid) => {
-    return await messageModel.findOne({ chatid, last_seen: true });
+const findLastSeenMessage = async (criteria) => {
+    return await messageModel.findOne(criteria);
 }
 
 const saveMessageObject = async (message) => {
