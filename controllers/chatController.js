@@ -60,7 +60,6 @@ module.exports = (io) => {
             const chatroom = await findOrCreateChatRoom([from , to]);
             if(chatroom.users[0] == from) chatroom.unseen_messages_2 = 0;
             else chatroom.unseen_messages_1 = 0;
-            console.log('anulirano')
             await saveChatroomObject(chatroom);
         });
 
