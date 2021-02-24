@@ -87,7 +87,7 @@ Main.Chat.messageSeen = function(chat) {
     let message = Main.Chat.getLastSeenMessage(chat);
     if (message) {
         let messageId = message.getAttribute("data-id");
-        console.log(messageId);
+        console.log(message);
         socket.emit('message seen', { messageId }, (resp) => {
             console.log(resp);
         });
