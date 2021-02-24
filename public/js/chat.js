@@ -115,7 +115,12 @@ Main.Chat = {
         Main.ActiveChats.remove(chatWindow);
     },
     closeAllChats: function() {
-        Main.ActiveChats.removeAll();
+        let chats = document.querySelectorAll(".chat-window");
+        if (chats) {
+            chats.forEach((chat, i) => {
+                Main.Chat.closeChat(chat);
+            });
+        }
     },
     readForm: function(chatWindow) {
         const from = Main.User.Info._id;
@@ -199,7 +204,6 @@ Main.Chat = {
             chatBody.append(chatBlock);
             Main.Chat.setChatScroll(chatWindow);
         }
-        Main.Chat.messageSeen(chatWindow);
     },
     displayChatHistory(messages, chat, n, newMsgNum) {
         let messageNum = 0;
