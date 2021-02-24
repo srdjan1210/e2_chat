@@ -37,9 +37,10 @@ module.exports = (io) => {
         });
 
         socket.on('message', async ({ msg, from, to, room}, cb) => {
-            socket.to(room).emit('new message', { msg, from });
+           
             const chatroom = await findOrCreateChatRoom([from , to]);
-            await saveMessage({ msg, from, to, chatid: chatroom._id });
+            const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
+            socket.to(room).emit('new message', { msg, from, id: message._id });
             cb();
         }); 
 
@@ -49,10 +50,16 @@ module.exports = (io) => {
             cb(messages);
         }); 
 
-        socket.on('message seen', async ({ messageId }) => {
+        socket.on('message seen', async ({ messageId }, cb) => {
             const message = await findSingleMessage({_id: messageId});
             const lastseen = await findLastSeenMessage(message.chatid);
             await saveMessageObject(lastseen);
+            cb();
+        });
+
+        socket.on('typing', async ({ to }) => {
+            const socketId = connected.fiter(user => to == user.id)[0].socketid;
+            socket.to(socketid).emit('typing');
         });
 
         socket.on('disconnect', () => {
