@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const ChatRoomSchema = mongoose.Schema({
     users: {
         type: [mongoose.Schema.Types.ObjectId]
+    },
+    unseen_messages: {
+        type: Number,
+        default: 0
     }
 });
 
@@ -18,9 +22,13 @@ const findOrCreateChatRoom = async (users) => {
 }
 
 const findChatroomsThatUseId = async (id) => {
-    return await chatRoomModel.find({users: {$all:[id]}}).select('_id');  
+    return await chatRoomModel.find({users: {$all:[id]}}); 
 }
 
-module.exports = { findOrCreateChatRoom, findChatroomsThatUseId }
+const saveChatroomObject = async (chatroom) => {
+    await chatroom.save();
+}
+
+module.exports = { findOrCreateChatRoom, findChatroomsThatUseId, saveChatroomObject }
 
 

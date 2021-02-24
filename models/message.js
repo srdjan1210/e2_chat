@@ -47,31 +47,24 @@ const countNewMess = async(chatrooms, userid) => {
 }
 
 const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
-    let tempArray = [];
-    for (let chatroom of chatrooms) {
-        const lastMsg = await messageModel.findOne({ chatid: chatroom._id, last_seen: true, to: userid });
-        if (lastMsg == null) {
-            const counted = await countMessages({ chatid: chatroom._id, to: userid });
-            let from = await messageModel.findOne({ chatid: chatroom._id, to: userid });
-            if (from != null) from = from.from;
-            if (counted != 0) tempArray.push({ from, chatid: chatroom._id, counted, lastMsgId: null, created: null });
-            continue;
-        }
-
-        tempArray.push({ from: lastMsg.from, chatid: chatroom._id, counted: null, lastMsgId: lastMsg._id, created: lastMsg.createdAt });
-    }
-    return tempArray;
+    console.log('called');
+    chatrooms = chatrooms.filter(chatroom => chatroom.unseen_messages > 0);
+    
+    return chatrooms.map(chatroom => {
+        let from = chatroom.users[0] == userid?chatroom.users[1]: chatroom.users[0];
+        return { counted: chatroom.unseen_messages, from };
+    });
 }
 
 const countMessages = async (condition) => {
     return await messageModel.countDocuments(condition);
 }
 
-const findSingleMessage = async (criteria) => {
-    return await messageModel.findOne(criteria);
+const findSingleMessage = async (condition) => {
+    return await messageModel.findOne(condition);
 }
-const findLastSeenMessage = async (criteria) => {
-    return await messageModel.findOne(criteria);
+const findLastSeenMessage = async (condition) => {
+    return await messageModel.findOne(condition);
 }
 
 const saveMessageObject = async (message) => {

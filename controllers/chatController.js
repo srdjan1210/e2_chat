@@ -1,5 +1,5 @@
 const io = require('../app');
-const { findOrCreateChatRoom, findChatroomsThatUseId } = require('../models/chatRoom');
+const { findOrCreateChatRoom, findChatroomsThatUseId, saveChatroomObject } = require('../models/chatRoom');
 const { saveMessage, loadMessages, countNewMess, findSingleMessage, findLastSeenMessage, saveMessageObject } = require('../models/message');
 const { checkIfUserExists } = require('../models/user');
 let connected = [];
@@ -19,9 +19,9 @@ module.exports = (io) => {
         socket.on('new user', async (id, cb) => {
             const chatrooms = await findChatroomsThatUseId(id);
             const counts = await countNewMess(chatrooms, id);
+            console.log(counts);
             cb(counts);
-            if(!socketExists(id))
-                connected.push({ socketid: socket.id, id });
+            if(!socketExists(id)) connected.push({ socketid: socket.id, id });
             socket.broadcast.emit('user logged', { room: socket.id, id });
         });
 
@@ -37,11 +37,13 @@ module.exports = (io) => {
         });
 
         socket.on('message', async ({ msg, from, to, room}, cb) => {
-           console.log('poruka poslata ' + room);
+            console.log('hit');
             const chatroom = await findOrCreateChatRoom([from , to]);
+            console.log(chatroom);
             const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
             socket.to(room).emit('new message', { msg, from, id: message._id });
-            cb();
+            //await saveChatroomObject(chatroom);
+            cb(chatroom.unseen_messages);
         }); 
 
         socket.on('load messages', async ({ from , to, n, k }, cb) => {
@@ -50,22 +52,12 @@ module.exports = (io) => {
             cb(messages);
         }); 
 
-        socket.on('message seen', async ({ messageId }, cb) => {
-            console.log(messageId);
-            const message = await findSingleMessage({_id: messageId});
-            console.log(message);
-            const lastseen = await findLastSeenMessage({ chatid: message.chatid, from: message.from, last_seen: true });
-            console.log(lastseen);
-            message.last_seen = true
-            if(lastseen == null) {
-                console.log(message);
-               await saveMessageObject(message);
-               return cb('nesto');
-            }
-            lastseen.last_seen = false;
-            saveMessageObject(lastseen);
-            saveMessageObject(message);
-            cb('nesto2');
+        socket.on('message seen', async ({ from , to }, cb) => {
+            console.log(from + '' + to);
+            const chatroom = await findOrCreateChatRoom([from , to]);
+            chatroom.unseen_messages = 0;
+            console.log(chatroom);
+            await saveChatroomObject(chatroom);
         });
 
         socket.on('typing', async ({ to }) => {

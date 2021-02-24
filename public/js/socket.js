@@ -86,6 +86,7 @@ Main.Chat.messageSeen = function(chat) {
     if (message) {
         let messageId = message.getAttribute("data-id");
         console.log(message);
+        // { from, to } ovdje moras staviti umjesto messageId
         socket.emit('message seen', { messageId }, (resp) => {
             console.log(resp);
         });
