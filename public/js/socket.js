@@ -18,6 +18,7 @@ Main.Chat.socketInit = function() {
     socket.on('connect', () => {
         socket.emit('new user', id, (newMessages) => {
             Main.Chat.newMessages = newMessages;
+            console.log(newMessages);
             if (document.querySelectorAll(".chat-opener")) {
                 Main.Home.setMessageNotification(newMessages);
             }
@@ -82,12 +83,11 @@ Main.Chat.loadMessages = function(from, to, loadTime) {
 
 Main.Chat.messageSeen = function(chat) {
     const socket = Main.Chat.socket;
-    let message = Main.Chat.getLastSeenMessage(chat);
-    if (message) {
-        let messageId = message.getAttribute("data-id");
-        console.log(message);
-        // { from, to } ovdje moras staviti umjesto messageId
-        socket.emit('message seen', { messageId }, (resp) => {
+    const from = Main.User.Info._id;
+    if (chat) {
+        const to = chat.getAttribute("data-id");
+        console.log(chat);
+        socket.emit('message seen', { from, to }, (resp) => {
             console.log(resp);
         });
     }
