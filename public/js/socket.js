@@ -24,8 +24,12 @@ Main.Chat.socketInit = function() {
         });
     });
     socket.on('new message', function({ msg, from }) {
+        let chat = Main.Chat.getChatWindow(from);
         //TODO:new msg notification if chat closed or minimized (real time)
-        Main.Chat.displayForeignMessage({ msg, from });
+        Main.Chat.displayForeignMessage({ msg, from }, false, id);
+        if (chat) {
+            Main.Chat.messageSeen(chat);
+        }
     });
 }
 Main.Chat.socketDisconnect = function() {
