@@ -43,10 +43,11 @@ module.exports = (io) => {
 
         socket.on('message', async ({ msg, from, to, room}, cb) => {
             let chatroom = await findOrCreateChatRoom([from , to]);
-            const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
-            socket.to(room).emit('new message', { msg, from, id: message._id });
             chatroom = updateNewMessages(chatroom, from);
             await saveChatroomObject(chatroom);
+            const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
+            socket.to(room).emit('new message', { msg, from, id: message._id });
+
             cb('done');
         }); 
 
