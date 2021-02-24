@@ -142,7 +142,11 @@ Main.Home = {
                         if (msg.counted > 9) {
                             container.style.paddingRight = 1;
                         }
-                        container.classList.add("active");
+                        if (msg.counted != 0) {
+                            container.classList.add("active");
+                        } else {
+                            container.classList.remove("active");
+                        }
                     }
                 });
             });

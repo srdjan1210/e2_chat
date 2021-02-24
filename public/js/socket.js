@@ -26,11 +26,11 @@ Main.Chat.socketInit = function() {
     });
     socket.on('new message', function({ msg, from }) {
         let chat = Main.Chat.getChatWindow(from);
-        //TODO:new msg notification if chat closed or minimized (real time)
         Main.Chat.displayForeignMessage({ msg, from }, false, id);
-        Main.Chat.getNotifications(from);
         if (chat) {
             Main.Chat.messageSeen(chat);
+        } else {
+            Main.Chat.getNotifications(from);
         }
     });
 }
@@ -94,6 +94,6 @@ Main.Chat.getNotifications = function(from) {
     const socket = Main.Chat.socket;
     const to = Main.User.Info._id;
     socket.emit('update notification', { to, from }, (resp) => {
-        console.log(resp);
+        Main.Chat.updateNotifications(from, resp);
     });
 }

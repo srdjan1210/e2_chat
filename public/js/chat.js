@@ -38,6 +38,7 @@ Main.ActiveChats = {
 
 Main.Chat = {
     chatCounter: 0,
+    newMessages: [],
     init: function() {},
     openChatEvent: function(e) {
         e.preventDefault();
@@ -218,6 +219,8 @@ Main.Chat = {
                     }
                     if (n == 0 && newMsgNum && newMsgNum != 0 && newMsgNum == (index + 1)) {
                         Main.Chat.displayNewMessagesLabel(chat);
+                        Main.Chat.updateNotifications(chat.getAttribute("data-id"));
+
                     }
                 }
             });
@@ -318,6 +321,21 @@ Main.Chat = {
         }
         return messageNumber;
     },
+    setUnseenMsgNumber: function(user_id, number) {
+        let msgs = Main.Chat.newMessages;
+        let exists = false;
+        if (msgs) {
+            msgs.forEach((msg, i) => {
+                if (msg.from == user_id) {
+                    msg.counted = number;
+                    exists = true;
+                }
+            });
+        }
+        if (!exists) {
+            msgs.push({ counted: number, from: user_id });
+        }
+    },
     displayNewMessagesLabel: function(chat) {
         let chatBody = chat.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
@@ -325,5 +343,15 @@ Main.Chat = {
         chatBlock.classList.add("chat-block");
         chatBlock.innerHTML = Templates.newMessageLabel();
         chatBody.prepend(chatBlock);
+    },
+    updateNotifications: function(from, number) {
+        if (from) {
+            if (number) {
+                Main.Chat.setUnseenMsgNumber(from, number);
+            } else {
+                Main.Chat.setUnseenMsgNumber(from, 0);
+            }
+            Main.Home.setMessageNotification(Main.Chat.newMessages);
+        }
     }
 }
