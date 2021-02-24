@@ -65,7 +65,9 @@ module.exports = (io) => {
         });
 
         socket.on('update notification', async ({ from, to }, cb) => {
+            console.log(from , to);
             const chatroom = await findOrCreateChatRoom([from, to]);
+            console.log(chatroom);
             if(chatroom.users[0] == from) cb(chatroom.unseen_messages_1);
             else cb(chatroom.unseen_messages_2);
 
