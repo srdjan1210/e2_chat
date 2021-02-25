@@ -140,7 +140,7 @@ section#home .sidebar.right.expanded .mini-image-wrapper {
 }
 
 section#home #chat-openers .mini-image-container {
-    background-image: url(../img/person_icon.png);
+    background-image: url("../img/person_icon.png");
     background-size: cover;
     background-repeat: no-repeat;
     width: 50px;
