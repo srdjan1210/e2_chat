@@ -1,4 +1,4 @@
-const RELEASE = false;
+const RELEASE = true;
 
 let jsConfig = {
     defaultSection: ["home", "feed"],
@@ -9,7 +9,7 @@ let jsConfig = {
 
 function setUrl(c) {
     if (c) {
-        jsConfig.domainUrl = "UBACI URL I PROMIJENI RELEASE U TRUE";
+        jsConfig.domainUrl = "https://still-wildwood-26564.herokuapp.com";
     } else {
         jsConfig.domainUrl = "http://localhost:3000";
     }
