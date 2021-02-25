@@ -74,6 +74,7 @@ Main.Chat = {
         Main.Chat.setCloseChatEvent(chatWindow);
         Main.Chat.setEnterButtonEvent(chatWindow);
         Main.Chat.setHideChatEvent(chatWindow);
+        Main.Chat.setTypingEvent(chatWindow);
     },
     createChatWindow: function(User) {
         let chatWindow = document.createElement("div");
@@ -113,6 +114,9 @@ Main.Chat = {
         Main.Chat.removeHideChatEvent(chatWindow);
         Main.Chat.removeCloseChatEvent(chatWindow);
         Main.Chat.removeSubmitFormEvent(chatWindow);
+        Main.Chat.removeTypingEvent(chatWindow);
+
+        Main.Chat.userTyping(chatWindow.getAttribute("data-id"), false);
 
         Main.ActiveChats.remove(chatWindow);
     },
@@ -129,8 +133,13 @@ Main.Chat = {
         const message = chatWindow.querySelector(".chat-new-msg").value;
         const to = chatWindow.getAttribute("data-id");
         const room = chatWindow.getAttribute("data-room");
+        if (message.trim() == '' || !message) return;
         Main.Chat.sendMessage(message, from, to, room);
-        chatWindow.querySelector(".chat-new-msg").value = "";
+
+        let textarea = chatWindow.querySelector(".chat-new-msg");
+        textarea.value = "";
+        textarea.classList.remove("typing");
+        Main.Chat.userTyping(chatWindow.getAttribute("data-id"), false);
     },
     setSubmitFormEvent: function(chatWindow) {
         let sendBtn = chatWindow.querySelector(".chat-form");
@@ -399,6 +408,25 @@ Main.Chat = {
                 }
             });
         });
-
-    }
+    },
+    setTypingEvent: function(chat) {
+        let textarea = chat.querySelector(".chat-new-msg");
+        textarea.addEventListener("input", Main.Chat.typingEvent);
+    },
+    removeTypingEvent: function(chat) {
+        let textarea = chat.querySelector(".chat-new-msg");
+        textarea.removeEventListener("input", Main.Chat.typingEvent);
+    },
+    typingEvent: function(e) {
+        let val = this.value.trim();
+        let userId = this.closest(".chat-window").getAttribute("data-id");
+        if (val == "" && this.classList.contains("typing")) {
+            this.classList.remove("typing");
+            Main.Chat.userTyping(userId, false);
+        } else if (val != "" && !(this.classList.contains("typing"))) {
+            this.classList.add("typing");
+            Main.Chat.userTyping(userId, true);
+        }
+    },
+    displayTypingLabel: function(chat, typingState) {}
 }
