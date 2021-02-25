@@ -44,7 +44,6 @@ Main.Register = {
         formData.append("email", this.Data.email);
         formData.append("password", this.Data.password);
         formData.append("image", this.Data.Image);
-        console.log(Array.from(formData));
         Main.loadStart();
         fetch(`${jsConfig.domainUrl}/register`, {
             method: 'POST',
@@ -52,7 +51,6 @@ Main.Register = {
         }).then(function(response) {
             return response.json();
         }).then(function(response) {
-            console.log(response);
             if (response.err) {
                 Main.openPopup(response.err);
             } else {

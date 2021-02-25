@@ -20,7 +20,7 @@ section#home .sidebar {
 }
 
 section#home #content {
-    min-height: 2000px;
+    min-height: 0px;
     padding: 60px 300px 100px 300px;
     background-color: #435259;
     transition: all 0.3s;
