@@ -65,7 +65,7 @@ section#profile #panel-info {
 
 section#profile #panel-line {
     border-bottom: 1px solid #1ab188;
-    margin: 10px 20px 30px 20px;
+    margin: 5px 20px 5px 20px;
 }
 
 section#profile button {
@@ -101,4 +101,17 @@ section#profile tr {
 section#profile td,
 section#profile th {
     min-width: 210px;
+}
+
+section#profile #panel-info h3 {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+section#profile #panel-bio {
+    padding: 5px;
+    padding-bottom: 10px;
+    font-size: 13px;
+    line-height: 16px;
 }

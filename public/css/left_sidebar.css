@@ -1,6 +1,6 @@
 section#home .sidebar.left {
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-    left: 0px;
+    left: -208px;
 }
 
 section#home #logo {
@@ -31,4 +31,36 @@ section#home #main-navigation a:visited {
 
 section#home #main-navigation a:hover {
     background-color: #435259;
+}
+
+section#home .sidebar.left.expanded {
+    left: 0px;
+}
+
+section#home .sidebar.left .btn-expand {
+    position: absolute;
+    width: 62px;
+    right: 0px;
+    top: 0px;
+    background-color: #24323d;
+    height: 62px
+}
+
+section#home .sidebar.left .btn-expand:hover {
+    background-color: #435259;
+}
+
+section#home .sidebar.left .expand-arrow {
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 25px 0 25px 30px;
+    border-color: transparent transparent transparent #1ab188;
+    margin-left: 20px;
+}
+
+section#home .sidebar.left.expanded .expand-arrow {
+    border-width: 25px 30px 25px 0;
+    border-color: transparent #1ab188 transparent transparent;
+    margin: auto;
 }

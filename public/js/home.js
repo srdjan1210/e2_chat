@@ -120,11 +120,19 @@ Main.Home = {
 
         sideBar.classList.toggle("expanded");
         if (!(sideBar.classList.contains("expanded"))) {
-            chatWindows.style.right = 62;
-            content.style.paddingRight = 92;
+            if (sideBar.classList.contains("left")) {
+                content.style.paddingLeft = 92;
+            } else {
+                chatWindows.style.right = 62;
+                content.style.paddingRight = 92;
+            }
         } else {
-            chatWindows.style.right = 270;
-            content.style.paddingRight = 300;
+            if (sideBar.classList.contains("left")) {
+                content.style.paddingLeft = 300;
+            } else {
+                chatWindows.style.right = 270;
+                content.style.paddingRight = 300;
+            }
         }
     },
     setMessageNotification: function(newMessages) {
