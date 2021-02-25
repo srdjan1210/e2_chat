@@ -33,7 +33,7 @@ Main.Chat.socketInit = function() {
             Main.Chat.getNotifications(from);
         }
     });
-    socket.on("being typed to", ({ userId, typingState }) => {
+    socket.on("typing", ({ userId, typingState }) => {
         console.log(userId, typingState);
         let chat = Main.Chat.getChatWindow(userId);
         if (chat) {
