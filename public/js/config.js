@@ -1,5 +1,5 @@
 let jsConfig = {
-    release: false,
+    release: true,
     defaultSection: ["home", "feed"],
     defaultUrl: "#/home/feed",
     maxChatWindows: 3,
