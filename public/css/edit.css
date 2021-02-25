@@ -1,0 +1,68 @@
+section#edit {}
+
+section#edit .grid-container {
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    margin: auto;
+}
+
+section#edit #edit-personal-info {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+section#edit #edit-contact-info {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+section#edit #edit-personal-info,
+section#edit #edit-contact-info {
+    padding: 20px;
+    min-width: 300px;
+    background-color: #24323d;
+}
+
+section#edit h3 {
+    padding: 10px 0px;
+    margin: 10px 0px;
+    border-bottom: 2px solid #1ab188;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+section#edit .edit-block {
+    display: grid;
+    grid-template-columns: 110px auto 60px;
+    column-gap: 10px;
+    line-height: 32px;
+    margin-bottom: 20px;
+}
+
+section#edit .edit-block button {
+    line-height: 32px;
+}
+
+section#edit .edit-value {
+    display: block;
+    position: relative;
+    min-width: 0px;
+    background-color: #24323d;
+    border: none;
+    color: #1ab188;
+    font-size: 14px;
+}
+
+section#edit .edit-block.editing {
+    grid-template-columns: 110px auto 0px;
+}
+
+section#edit .edit-block.editing button {
+    display: none;
+}
+
+section#edit .edit-block.editing .edit-value {
+    border-bottom: 1px solid #1ab188;
+}

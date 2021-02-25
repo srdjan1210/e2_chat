@@ -2,6 +2,7 @@ Main.Home = {
     init: function() {
         Main.Chat.init();
         Main.Post.init();
+        Main.Edit.init();
         let expandBtns = document.querySelectorAll(".sidebar .btn-expand");
 
         expandBtns.forEach(function(btn, index) {
