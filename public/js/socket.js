@@ -37,7 +37,11 @@ Main.Chat.socketInit = function() {
         console.log(userId, typingState);
         let chat = Main.Chat.getChatWindow(userId);
         if (chat) {
-            Main.Chat.displayTypingLabel(chat, typingState);
+            if (typingState) {
+                Main.Chat.displayTypingLabel(chat);
+            } else {
+                Main.Chat.removeTypingLabel(chat);
+            }
         }
     });
 }

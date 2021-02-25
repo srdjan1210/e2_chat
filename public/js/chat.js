@@ -428,5 +428,17 @@ Main.Chat = {
             Main.Chat.userTyping(userId, true);
         }
     },
-    displayTypingLabel: function(chat, typingState) {}
+    displayTypingLabel: function(chat) {
+        let chatBody = chat.querySelector(".chat-body");
+        let chatBlock = document.createElement("div");
+
+        chatBlock.classList.add("chat-block");
+        chatBlock.classList.add("typing-label");
+        chatBlock.innerHTML = Templates.typingLabel();
+        chatBody.append(chatBlock);
+    },
+    removeTypingLabel: function(chat) {
+        let label = chat.querySelector(".chat-block.typing-label");
+        label.remove();
+    }
 }

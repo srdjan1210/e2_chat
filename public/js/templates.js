@@ -61,5 +61,12 @@ Templates = {
                 new messages
             </div>`;
         return output;
+    },
+    typingLabel: function() {
+        let output =
+            `<div class="typing-label-inner">
+                user is typing...
+            </div>`;
+        return output;
     }
 }
