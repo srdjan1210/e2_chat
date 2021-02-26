@@ -33,6 +33,17 @@ Main.Chat.socketInit = function() {
             Main.Chat.getNotifications(from);
         }
     });
+    socket.on("typing", ({ userId, typingState }) => {
+        console.log(userId, typingState);
+        let chat = Main.Chat.getChatWindow(userId);
+        if (chat) {
+            if (typingState) {
+                Main.Chat.displayTypingLabel(chat);
+            } else {
+                Main.Chat.removeTypingLabel(chat);
+            }
+        }
+    });
 }
 Main.Chat.socketDisconnect = function() {
     let socket = Main.Chat.socket;
@@ -42,7 +53,6 @@ Main.Chat.socketDisconnect = function() {
     }
 }
 Main.Chat.sendMessage = function(msg, from, to, room) {
-    if (msg.trim() == "" || !msg) return;
     const socket = Main.Chat.socket;
     socket.emit('message', { msg, from, to, room }, () => {
         Main.Chat.displayOwnMessage({ msg, from, to, room });
@@ -95,5 +105,13 @@ Main.Chat.getNotifications = function(from) {
     const to = Main.User.Info._id;
     socket.emit('update notification', { to, from }, (resp) => {
         Main.Chat.updateNotifications(from, resp);
+    });
+}
+Main.Chat.userTyping = function(userId, typingState) {
+    const socket = Main.Chat.socket;
+    const id = Main.User.Info._id;
+    console.log(typingState);
+    socket.emit("typing", { id: id, otherId: userId, typingState: typingState }, (resp) => {
+        console.log(resp);
     });
 }
