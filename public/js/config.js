@@ -1,4 +1,4 @@
-const RELEASE = true;
+const RELEASE = false;
 
 let jsConfig = {
     defaultSection: ["home", "feed"],

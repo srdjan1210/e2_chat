@@ -71,9 +71,11 @@ module.exports = (io) => {
 
         })
 
-        socket.on('typing', async ({ to }) => {
-            const socketId = connected.fiter(user => to == user.id)[0].socketid;
-            socket.to(socketid).emit('typing');
+        socket.on('typing', async ({ id, otherId, typingState }) => {
+            let socketId = connected.filter(user => otherId == user.id);
+            if(socketId.length == 0) return;
+            socketId = socketId[0].socketid;
+            socket.to(socketId).emit('typing',{ from: id, typingState});
         });
 
         socket.on('disconnect', () => {
