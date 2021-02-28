@@ -78,12 +78,11 @@ Main.Chat = {
     },
     createChatWindow: function(User) {
         let chatWindow = document.createElement("div");
-        //let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
+        let imageUrl = User.profile_img_100;
 
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
-        //chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
-        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname);
+        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
         return chatWindow;
     },
     checkIfChatOpen: function(id) {
@@ -430,16 +429,21 @@ Main.Chat = {
         }
     },
     displayTypingLabel: function(chat) {
-        let chatBody = chat.querySelector(".chat-body");
+        let chatForm = chat.querySelector(".chat-form");
         let chatBlock = document.createElement("div");
 
-        chatBlock.classList.add("chat-block");
+        chat.classList.add("typing");
         chatBlock.classList.add("typing-label");
         chatBlock.innerHTML = Templates.typingLabel();
-        chatBody.append(chatBlock);
+        chatForm.insertAdjacentHTML('beforebegin', chatBlock.outerHTML);
     },
     removeTypingLabel: function(chat) {
-        let label = chat.querySelector(".chat-block.typing-label");
-        label.remove();
+        let labels = chat.querySelectorAll(".chat-window .typing-label");
+        if (labels) {
+            labels.forEach((label, i) => {
+                label.remove();
+            });
+        }
+        chat.classList.remove("typing");
     }
 }

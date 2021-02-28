@@ -7,12 +7,8 @@ let jsConfig = {
     domainUrl: ""
 }
 
-function setUrl(c) {
-    if (c) {
-        jsConfig.domainUrl = "https://still-wildwood-26564.herokuapp.com";
-    } else {
-        jsConfig.domainUrl = "http://localhost:3000";
-    }
+if (RELEASE) {
+    jsConfig.domainUrl = "https://still-wildwood-26564.herokuapp.com";
+} else {
+    jsConfig.domainUrl = "http://localhost:3000";
 }
-
-setUrl(RELEASE);

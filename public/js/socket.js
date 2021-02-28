@@ -44,9 +44,13 @@ Main.Chat.socketInit = function() {
             }
         }
     });
+    socket.on("logout", ({ userId }) => {
+        console.log(userId);
+    });
 }
 Main.Chat.socketDisconnect = function() {
     let socket = Main.Chat.socket;
+
     if (socket) {
         socket.disconnect();
         socket = undefined;
@@ -110,7 +114,6 @@ Main.Chat.getNotifications = function(from) {
 Main.Chat.userTyping = function(userId, typingState) {
     const socket = Main.Chat.socket;
     const id = Main.User.Info._id;
-    console.log(typingState);
     socket.emit("typing", { id: id, otherId: userId, typingState: typingState }, (resp) => {
         console.log(resp);
     });

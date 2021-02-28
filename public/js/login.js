@@ -29,7 +29,6 @@ Main.Login = {
             },
             body: JSON.stringify(Main.Login.Data)
         }).then(function(response) {
-            console.log(response);
             if (response.status == 200) {
                 Main.User.logged = true;
             }

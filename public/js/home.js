@@ -26,25 +26,23 @@ Main.Home = {
         document.getElementById("panel-lastname").innerHTML = Info.lastname;
         document.getElementById("profile-email").innerHTML = Info.email;
 
-        //this.displayProfileImage(Info);
+        this.displayProfileImage(Info);
     },
     displayProfileImage: function(Info) {
-        if (Info && Info.profile_img_300.data.data) {
-            let imageUrl = Utility.createImageUrl(Info.profile_img_300.data.data);
+        if (Info && Info.profile_img_300) {
             let image = document.getElementById("profile-image");
-            image.style.backgroundImage = `url(${imageUrl})`;
+            image.style.backgroundImage = `url(${Info.profile_img_300})`;
         }
     },
     displayUser: function() {
         Info = Main.User.Info;
-
-        //let imageUrl = Utility.createImageUrl(Info.profile_img_300.data.data);
+        let imageUrl = Info.profile_img_300;
         let image = document.getElementById("mini-panel");
         let miniImage = document.getElementById("mini-user-image");
 
         document.getElementById("mini-info").innerHTML = Info.username;
-        //image.style.backgroundImage = `url(${imageUrl})`;
-        //miniImage.style.backgroundImage = `url(${imageUrl})`;
+        image.style.backgroundImage = `url(${imageUrl})`;
+        miniImage.style.backgroundImage = `url(${imageUrl})`;
     },
     getUsersInfo: function() {
         fetch(`${jsConfig.domainUrl}/home/chatinfo`, {
@@ -76,9 +74,8 @@ Main.Home = {
         data = Main.OtherUsers.Info.data;
         if (data) {
             data.forEach(function(user, index) {
-                //let imageUrl = Utility.createImageUrl(user.profile_img_100.data.data);
-                //output += Templates.chatOpener(user._id, user.username, user.firstname, user.lastname, imageUrl);
-                output += Templates.chatOpener(user._id, user.username, user.firstname, user.lastname);
+                let imageUrl = user.profile_img_100;
+                output += Templates.chatOpener(user._id, user.username, user.firstname, user.lastname, imageUrl);
             });
         }
         chatButtons.innerHTML = output;
