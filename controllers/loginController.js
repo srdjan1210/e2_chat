@@ -14,7 +14,7 @@ loginUser = async (req, res) => {
         const token = webtoken.createToken(_.pick(result, '_id', 'username'));
         res.header('x-auth', token).status(200);
         await setUserActiveTime({username: result.username});
-        return res.send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email', 'profile_img_100', 'profile_img_300']));
+        return res.send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email','profile_img_100', 'profile_img_300' ]));
         
     }
     res.status(403).send({err: "Token not valid"});

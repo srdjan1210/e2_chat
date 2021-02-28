@@ -1,7 +1,6 @@
 const io = require('../app');
 const { findOrCreateChatRoom, findChatroomsThatUseId, filterChatroomsWithNoSeenMessages, saveChatroomObject } = require('../models/chatRoom');
 const { saveMessage, loadMessages, findSingleMessage, findLastSeenMessage, saveMessageObject } = require('../models/message');
-const { checkIfUserExists } = require('../models/user');
 let connected = [];
 
 const socketExists = (id) => {

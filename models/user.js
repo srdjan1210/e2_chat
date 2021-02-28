@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
-const hash = require('../middleware/hash');
+const _ = require('lodash')
 
 
 const UserSchema = mongoose.Schema({
@@ -21,19 +20,18 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    profile_img_100: {
-        data: Buffer,
-        contentType: String
-    },
-    profile_img_300: {
-        data: Buffer,
-        contentType: String
-    },
+    profile_img_100: String,
+    profile_img_300: String,
+    birthday: String,
+    nationality: String,
+    street_adress: String,
+    country: String,
+    province_state: String,
+    city: String,
+    biography: String,
     created: Date,
     firstname: String,
     lastname: String
-
-    
 });
 
 const userModel = mongoose.model('User', UserSchema);
@@ -77,8 +75,24 @@ const findUserAndUpdate = async (user, update) => {
     return await userModel.findOneAndUpdate(user, update);
 }
 
+const setProperties = async (properties, _id) => {
+    const user = await findOne({ _id });
+    user = {...user, ...properties };
+    user.save();
+}
+
+const getProperties = async (properties, _id) => {
+    const user = await findOne({ _id });
+    return _.pick(user, properties);
+}
+
+const saveUserObject = async (user) => {
+    return await user.save();
+}
+
 
 
 module.exports = { checkIfUserExists, saveUserToDatabase, findUserByUsername, 
-                    findUserById, setUserActiveTime, findChatUsers, findUserAndUpdate
+                    findUserById, setUserActiveTime, findChatUsers, findUserAndUpdate,
+                    setProperties, saveUserObject
                  }
