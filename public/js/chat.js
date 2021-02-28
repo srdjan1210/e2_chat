@@ -78,11 +78,12 @@ Main.Chat = {
     },
     createChatWindow: function(User) {
         let chatWindow = document.createElement("div");
-        let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
+        //let imageUrl = Utility.createImageUrl(User.profile_img_100.data.data);
 
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
-        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
+        //chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
+        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname);
         return chatWindow;
     },
     checkIfChatOpen: function(id) {
