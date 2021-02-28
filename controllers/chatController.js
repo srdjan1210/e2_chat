@@ -79,9 +79,14 @@ module.exports = (io) => {
         });
 
         socket.on('disconnect', () => {
-            console.log("disconnected");
-            connected = connected.filter(user => socket.id != user.socketid);
-            console.log(connected);
+            let disconnectedUser;
+            connected = connected.filter(user =>{
+                if(user.socketid == socket.id) disconnectedUser = user.id;
+                return socket.id != user.socketid
+            });
+
+            socket.broadcast.emit('logout', { userId: disconnectedUser })
+
         });
     });
 
