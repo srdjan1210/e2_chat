@@ -159,5 +159,8 @@ Main.Home = {
                 });
             });
         }
+    },
+    clearUserData: function() {
+        Main.Edit.clearEditInputs();
     }
 }

@@ -58,6 +58,7 @@ Main.Login = {
         Main.Home.displayUser();
         Main.Home.getUsersInfo();
         Main.Chat.socketInit();
+        Main.Edit.setInitialData();
     },
     logOut(e) {
         e.preventDefault();
@@ -70,6 +71,7 @@ Main.Login = {
         Main.Home.removeOthers();
         Main.Chat.closeAllChats();
         Main.Chat.socketDisconnect();
+        Main.Home.clearUserData();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
     }

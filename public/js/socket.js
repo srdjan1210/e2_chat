@@ -34,7 +34,6 @@ Main.Chat.socketInit = function() {
         }
     });
     socket.on("typing", ({ userId, typingState }) => {
-        console.log(userId, typingState);
         let chat = Main.Chat.getChatWindow(userId);
         if (chat) {
             if (typingState) {
@@ -45,7 +44,10 @@ Main.Chat.socketInit = function() {
         }
     });
     socket.on("logout", ({ userId }) => {
-        console.log(userId);
+        let chat = Main.Chat.getChatWindow(userId);
+        if (chat) {
+            Main.Chat.removeTypingLabel(chat);
+        }
     });
 }
 Main.Chat.socketDisconnect = function() {
