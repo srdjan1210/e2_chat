@@ -7,14 +7,15 @@ const hash = require('../middleware/hash');
 //Addition validation needed 
 const editHandler = async(req, res) => {
     let response = {};
-    if(!req.body.username) return res.status(400).send({err : 'Username missing!'});
+    if(!req.body._id) return res.status(400).send({err : 'User id missing!'});
 
     for(let property of Object.entries(req.body))
-        if(property[1] != null && property[0] != 'username'){
-            response[property[0]] = await changeProperty(req, property[0], ['username', property[0]]);
+        if(property[1] != null && property[0] != '_id' && property[0] != 'username' && property[0] != 'email'){
+            response[property[0]] = await changeProperty(req, property[0], ['_id', property[0]]);
         }
     return res.status(200).send(response);
 }
+
 const publicUserInfo = async (req, res) => {
     const username = req.params.username;
     const user = await findUserByUsername({ username });
@@ -55,72 +56,25 @@ const changePassword = async (req, res) => {
 
     res.status(200).send('Password updated succesfully');
 }   
-
-
 //Schematic approach with simillart functions
-const changeFirstname = async (req, res) => {
-    const resp = await changeProperty(req, 'firstname', ['username', 'firstname'])
+const changeNormalProperty  = async (req, res) => {
+    const propertyName = req.params.propname;
+    const resp = await changeProperty(req, propertyName, ['username', propertyName]);
     if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeLastname = async (req, res) => {
-    const resp = await changeProperty(req, 'lastname', ['username', 'lastname']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeCity = async (req, res) => {
-    const resp = await changeProperty(req, 'city', ['username', 'city']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeBirthday = async (req, res) => {
-    const resp = await changeProperty(req, 'birthday', ['username', 'birthday']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeNationality = async (req, res) => {
-    const resp = await changeProperty(req, 'nationality', ['username', 'nationality']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeBiography = async (req, res) => {
-    const resp  = await changeProperty(req, 'biography', ['username', 'biography']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeAdress = async (req, res) => {
-    const resp  = await changeProperty(req, 'street_adress', ['username', 'street_adress']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeCountry = async (req, res) => {
-    const resp  = await changeProperty(req, 'country', ['username', 'country']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
-}
-
-const changeProvince = async (req, res) => {
-    const resp  = await changeProperty(req, 'province_state', ['username', 'province_state']);
-    if(resp.err) return resp.status(409).send(resp);
-    resp.status(200).send(resp);
+    res.status(200).send(resp);
 }
 
 const changeProperty = async (req, property, data) => {
-    const properties = _.pick(req.body, data);
+    let user = null;
     let updateProperty = {};
+    const properties = _.pick(req.body, data);
+
     updateProperty[property] = properties[property];
-    const user =  await findUserAndUpdate({ username: properties.username }, { ...updateProperty });
+    if(data[0] == 'username') user =  await findUserAndUpdate({ username: properties.username }, { ...updateProperty });
+    else user = await findUserAndUpdate({ _id: properties._id }, { ...updateProperty });
+
     if(user == null) return { err: 'Could not find specific users!' }
     return { msg: ' Succesfully changed given property!'}
 }
 
-module.exports =  { publicUserInfo, changeFirstname, changeLastname, changeEmail, changePassword, changeCity,
-                    changeCountry, changeNationality, changeAdress, changeBiography, changeProvince, changeBirthday,
-                    editHandler }
+module.exports =  { publicUserInfo, changeEmail, changePassword, editHandler, changeNormalProperty }
