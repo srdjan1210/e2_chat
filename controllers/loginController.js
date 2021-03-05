@@ -4,7 +4,7 @@ const _ = require('lodash');
 const { verifyPassword } = require('../middleware/hash');
 
 loginUser = async (req, res) => {
-    user = req.body;
+    const user = req.body;
     const result = await findUserByUsername(user);
     
     if(result == null) return res.status(401).send({ err: "Wrong username or password!"});
