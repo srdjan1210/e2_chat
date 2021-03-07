@@ -20,4 +20,9 @@ const validatePassword = (password) => {
     return schema.validate({ password });
 }
 
-module.exports = { validateUserData, validateEmail, validatePassword }
+const validateUsername = (username) => {
+    let schema = Joi.object({ username: Joi.string().max(15).required() });
+    return schema.validate({ username });
+}
+
+module.exports = { validateUserData, validateEmail, validatePassword, validateUsername }

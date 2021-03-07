@@ -1,4 +1,4 @@
-
+const _ = require('lodash')
 
 const checkForEmptyString = (req, res, next) => {
     const parameter = req.params.propname;
@@ -22,4 +22,21 @@ const checkForInvalidProperty = (req, res, next) => {
     
 }
 
-module.exports = { checkForEmptyString, checkIfParameterExists, checkForInvalidProperty }
+const checkIfPasswordDataExists = (req, res, next) => {
+    const { password, new_password } = _.pick(req.body, ['password', 'new_password']);
+    if(!password || !new_password) return res.status(400).send({ err: 'Data missing!'});
+    next();
+}
+
+const checkIfUsernameExists = (req, res, next) => {
+    const username = req.body.username;
+    if(!username) return res.status(400).send({err: 'Username missing'});
+    next();
+}
+const checkIfEmailExists = (req, res, next) => {
+    const email = req.body.email;
+    if(!email) return res.status(400).send({err: 'Email missing'});
+    next();
+}
+
+module.exports = { checkForEmptyString, checkIfParameterExists, checkForInvalidProperty, checkIfPasswordDataExists }
