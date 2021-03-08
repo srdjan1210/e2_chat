@@ -28,6 +28,7 @@ const publicUserInfo = async (req, res) => {
 }
 
 const changeEmail = async (req, res) => {
+    if(!req.payload) return res.status(403).send({err: 'Token not provided!'});
     req.body.username = req.payload.username;
     const { email, username } = _.pick(req.body, ['email', 'username']);
     const validated = validateEmail(email);
