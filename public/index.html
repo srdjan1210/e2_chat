@@ -267,13 +267,17 @@
                             <h3>Edit Password</h3>
                             <div class="edit-block" id="edit-password-block">
                                 <div>new password: </div>
-                                <input class="edit-value" value="" name="new-password" readonly>
+                                <input type="password" class="edit-value" value="" name="newPassword" readonly>
                                 <button class="btn-edit">edit</button>
                             </div>
                             <div class="edit-block" id="edit-confirm-block">
                                 <div>confirm password: </div>
-                                <input class="edit-value" value="" name="confirm_password" readonly>
+                                <input type="password" class="edit-value" value="" name="confirmPassword" readonly>
                                 <button class="btn-edit">edit</button>
+                            </div>
+                            <div class="edit-block editing" id="edit-old-block">
+                                <div>password: </div>
+                                <input type="password" class="edit-value" value="" name="oldPassword">
                             </div>
                         </div>
                         <div id="edit-save">
