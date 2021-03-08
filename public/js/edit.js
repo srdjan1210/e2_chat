@@ -52,8 +52,6 @@ Main.Edit = {
 
         Main.Edit.checkData(Data);
         Main.Edit.parseData(Data);
-
-        console.log(Data);
     },
     getEditData: function() {
         let Data = {};
@@ -88,7 +86,9 @@ Main.Edit = {
     parseData: function(Data) {
         let Info = Main.User.Info;
         let emailData = new FormData();
+        let token = window.localStorage.getItem("e2_chat_token");
         if (Data.email != null) {
+            emailData.append("x-auth", token);
             emailData.append("username", Info.username);
             emailData.append("email", Data.email);
             Main.Edit.sendEmailData(emailData);
