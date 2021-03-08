@@ -1,5 +1,4 @@
 Main.Edit = {
-    dataChanged: false,
     init: function() {
         this.clearEditInputs();
 
@@ -49,61 +48,79 @@ Main.Edit = {
     },
     saveEditEvent: function(e) {
         e.preventDefault();
-        let formData = Main.Edit.getEditData();
+        let Data = Main.Edit.getEditData();
 
-        console.log(Array.from(formData));
-        Main.Edit.sendData(formData);
+        Main.Edit.checkData(Data);
+        Main.Edit.parseData(Data);
+
+        console.log(Data);
     },
     getEditData: function() {
+        let Data = {};
+        let inputs = document.querySelectorAll(".edit-value");
+        if (inputs) {
+            inputs.forEach((input, i) => {
+                Data[input.name] = input.value.trim();
+            });
+        }
+        Data.image = document.querySelector("#edit-file").files[0];
+        return Data;
+    },
+    checkData: function(Data) {
         let Info = Main.User.Info;
+        if (Info.firstname && Info.firstname.trim() == Data.firstname) Data.firstname = null;
+        if (Info.lastname && Info.lastname.trim() == Data.lastname) Data.lastname = null;
+        if (Info.username && Info.username.trim() == Data.username) Data.username = null;
+        if (Info.birthday && Info.birthday.trim() == Data.birthday) Data.birthday = null;
+        if (Info.nationality && Info.nationality.trim() == Data.nationality) Data.nationality = null;
+        if (Info.gender && Info.gender.trim() == Data.gender) Data.gender = null;
 
-        let firstname = document.querySelector("#edit-firstname-block .edit-value").value.trim();
-        let lastname = document.querySelector("#edit-lastname-block .edit-value").value.trim();
-        let username = document.querySelector("#edit-username-block .edit-value").value.trim();
-        let birthday = document.querySelector("#edit-birthday-block .edit-value").value.trim();
-        let nationality = document.querySelector("#edit-nationality-block .edit-value").value.trim();
-        let gender = document.querySelector("#edit-gender-block .edit-value").value.trim();
-        let email = document.querySelector("#edit-email-block .edit-value").value.trim();
-        let street = document.querySelector("#edit-street-block .edit-value").value.trim();
-        let country = document.querySelector("#edit-country-block .edit-value").value.trim();
-        let province = document.querySelector("#edit-province-block .edit-value").value.trim();
-        let city = document.querySelector("#edit-city-block .edit-value").value.trim();
-        let image = document.querySelector("#edit-image-block #edit-file").files[0];
-        let password = document.querySelector("#edit-password-block .edit-value").value.trim();
-        let confirm = document.querySelector("#edit-confirm-block .edit-value").value.trim();
-        //personal info
-        if (Info.firstname && Info.firstname.trim() == firstname) firstname = null;
-        if (Info.lastname && Info.lastname.trim() == lastname) lastname = null;
-        if (Info.username && Info.username.trim() == username) username = null;
-        if (Info.birthday && Info.birthday.trim() == birthday) birthday = null;
-        if (Info.nationality && Info.nationality.trim() == nationality) nationality = null;
-        if (Info.gender && Info.gender.trim() == gender) gender = null;
-        //contact info
-        if (Info.email && Info.email.trim() == email) email = null;
-        if (Info.street && Info.street.trim() == street) street = null;
-        if (Info.country && Info.country.trim() == country) country = null;
-        if (Info.province && Info.province.trim() == province) province = null;
-        if (Info.city && Info.city.trim() == city) city = null;
-        //image
-        if (!image) image = null;
-        //password
-        if (password == "" || password != confirm) password = null;
+        if (Info.email && Info.email.trim() == Data.email) Data.email = null;
+        if (Info.street && Info.street.trim() == Data.street) Data.street = null;
+        if (Info.country && Info.country.trim() == Data.country) Data.country = null;
+        if (Info.province && Info.province.trim() == Data.province) Data.province = null;
+        if (Info.city && Info.city.trim() == Data.city) Data.city = null;
 
-        let formData = new FormData();
-        formData.append("firstname", firstname);
-        formData.append("lastname", lastname);
-        formData.append("username", username);
-        formData.append("birthday", birthday);
-        formData.append("nationality", nationality);
-        formData.append("gender", gender);
-        formData.append("email", email);
-        formData.append("street", street);
-        formData.append("country", country);
-        formData.append("province", province);
-        formData.append("city", city);
-        formData.append("image", image);
-        formData.append("password", password);
-        return formData;
+        if (!Data.image) Data.image = null;
+
+        if (Data.password == "" || Data.password != confirm) Data.password = null;
+    },
+    parseData: function(Data) {
+        let Info = Main.User.Info;
+        let emailData = new FormData();
+        if (Data.email != null) {
+            emailData.append("username", Info.username);
+            emailData.append("email", Data.email);
+            Main.Edit.sendEmailData(emailData);
+        }
+
+        // formData.append("firstname", firstname);
+        // formData.append("lastname", lastname);
+        // formData.append("username", username);
+        // formData.append("birthday", birthday);
+        // formData.append("nationality", nationality);
+        // formData.append("gender", gender);
+        // formData.append("email", email);
+        // formData.append("street", street);
+        // formData.append("country", country);
+        // formData.append("province", province);
+        // formData.append("city", city);
+        // formData.append("image", image);
+        // formData.append("password", password);
+        // return formData;
+    },
+    sendEmailData: function(Data) {
+        console.log("email", Array.from(Data));
+        fetch(`${jsConfig.domainUrl}/user/edit/email`, {
+            method: 'POST',
+            body: Data
+        }).then((response) => {
+            return response.json();
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.error(error);
+        });
     },
     sendData: function(formData) {
         //Main.loadStart();
