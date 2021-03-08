@@ -101,18 +101,19 @@ Main.Edit = {
             Main.Edit.sendUsernameData(usernameData);
         }
 
-        let formData = new FormData();
-        formData.append("firstname", Data.firstname);
-        formData.append("lastname", Data.lastname);
-        formData.append("birthday", Data.birthday);
-        formData.append("nationality", Data.nationality);
-        formData.append("gender", Data.gender);
-        formData.append("street", Data.street);
-        formData.append("country", Data.country);
-        formData.append("province", Data.province);
-        formData.append("city", Data.city);
-        formData.append("image", Data.image);
-        Main.Edit.sendData(formData);
+        let otherData = {
+            firstname: Data.firstname,
+            lastname: Data.lastname,
+            birthday: Data.birthday,
+            nationality: Data.nationality,
+            gender: Data.gender,
+            street: Data.street,
+            country: Data.country,
+            province: Data.province,
+            city: Data.city
+        }
+
+        Main.Edit.sendOtherData(otherData);
     },
     sendEmailData: function(Data) {
         console.log("email", Data);
@@ -168,14 +169,19 @@ Main.Edit = {
             console.error(error);
         });
     },
-    sendData: function(formData) {
-        console.log(Array.from(formData));
+    sendFileData: function(Data) {
+        //TODO:
+    },
+    sendOtherData: function(Data) {
+        console.log("other", Data);
         fetch(`${jsConfig.domainUrl}/user/edit`, {
             method: 'POST',
             headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'x-auth': window.localStorage.getItem("e2_chat_token")
             },
-            body: formData
+            body: JSON.stringify(Data)
         }).then((response) => {
             return response.json();
         }).then((response) => {
