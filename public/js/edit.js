@@ -86,10 +86,7 @@ Main.Edit = {
     parseData: function(Data) {
         let Info = Main.User.Info;
         let emailData = new FormData();
-        let token = window.localStorage.getItem("e2_chat_token");
         if (Data.email != null) {
-            emailData.append("x-auth", token);
-            emailData.append("username", Info.username);
             emailData.append("email", Data.email);
             Main.Edit.sendEmailData(emailData);
         }
@@ -110,9 +107,13 @@ Main.Edit = {
         // return formData;
     },
     sendEmailData: function(Data) {
+        const token = window.localStorage.getItem("e2_chat_token");
         console.log("email", Array.from(Data));
         fetch(`${jsConfig.domainUrl}/user/edit/email`, {
             method: 'POST',
+            headers: {
+                'x-auth': token
+            },
             body: Data
         }).then((response) => {
             return response.json();
