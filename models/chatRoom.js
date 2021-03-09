@@ -35,7 +35,7 @@ const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
             else if(chatroom.users[1] != userid && chatroom.unseen_messages_2 > 0) return true;
             else return false;
         });
-        console.log(chatrooms);
+
     return chatrooms.map(chatroom => {
         let from = chatroom.users[0] == userid?chatroom.users[1]: chatroom.users[0];
         if(from == chatroom.users[0]) return { counted: chatroom.unseen_messages_1, from };

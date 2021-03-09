@@ -3,7 +3,8 @@ const { validateEmail, validatePassword, validateUsername } = require('../contro
 const { findUserByUsername, findUserAndUpdate, saveUserObject } = require('../models/user');
 const hash = require('../middleware/hash');
 const { createToken } = require('../middleware/webtoken');
-const { identity } = require('lodash');
+const { uploadImages, getImageUrl } = require('../helpers/firebase-upload');
+const { resizeProfileImage } = require('../image-formatters/resize');
 
 
 
@@ -19,6 +20,8 @@ const editHandler = async(req, res) => {
     return res.status(200).send(response);
 }
 
+
+
 //Addition validation needed 
 const publicUserInfo = async (req, res) => {
     const username = req.params.username;
@@ -29,9 +32,8 @@ const publicUserInfo = async (req, res) => {
 }
 
 const changeEmail = async (req, res) => {
-    req.body.username = req.payload.username;
-    const { email, username } = _.pick(req.body, ['email', 'username']);
-    if(email == null) return res.status(422).send({ err: 'Not valid email!'});
+    const username = req.payload.username;
+    const email = req.body.email;
     
     const validated = validateEmail(email);
     if(validated.error) return res.status(422).send({ err: 'Not valid email!'});
@@ -83,6 +85,17 @@ const changeUsername = async(req, res) => {
     res.status(200).send({msg: 'Username changed succesfully!'});
 }
 
+const changeProfilePicture = async (req, res) => {
+    const username = req.payload.username;
+    const names = await resizeProfileImage(username);
+    await uploadImages(names);
+    const profile_img_100 = (await getImageUrl(names[0]))[0];
+    const profile_img_300 = (await getImageUrl(names[0]))[0];
+    const user = await findUserAndUpdate({ username }, { profile_img_100, profile_img_300});
+    if(user == null) return res.status(422).send({ err: 'User not found'});
+    return res.status(200).send({ profile_img_100, profile_img_300 });
+}
+
 //Schematic approach with simillar functions
 const changeNormalProperty  = async (req, res) => {
     const propertyName = req.params.propname;
@@ -104,4 +117,4 @@ const changeProperty = async (req, property, data) => {
     return { msg: ' Succesfully changed given property!'}
 }
 
-module.exports =  { publicUserInfo, changeEmail, changePassword, editHandler, changeNormalProperty, changeUsername }
+module.exports =  { publicUserInfo, changeEmail, changePassword, editHandler, changeNormalProperty, changeUsername, changeProfilePicture }
