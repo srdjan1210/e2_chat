@@ -160,7 +160,16 @@ Main.Home = {
             });
         }
     },
+    clearProfileData: function() {
+        let fields = document.querySelectorAll(".profile-value");
+        if (fields) {
+            fields.forEach((field, i) => {
+                field.innerHTML = "-";
+            });
+        }
+    },
     clearUserData: function() {
+        Main.Home.clearProfileData();
         Main.Edit.clearEditInputs();
     }
 }

@@ -73,7 +73,7 @@
         <!-- HOME -->
         <div id="home-background"></div>
         <div class="container">
-            <div class="sidebar left expanded">
+            <div class="sidebar left nonhighlight expanded">
                 <button class="btn-expand">
                     <div class="expand-arrow"></div>
                 </button>
@@ -129,11 +129,11 @@
                             <div id="panel">
                                 <div id="profile-image" class="image-container"></div>
                                 <div id="panel-info">
-                                    <div id="panel-username"></div>
+                                    <div id="panel-username" class="profile-value"></div>
                                     <div id="panel-fullname">
-                                        <span id="panel-firstname"></span>
+                                        <span id="panel-firstname" class="profile-value"></span>
                                         <span> </span>
-                                        <span id="panel-lastname"></span>
+                                        <span id="panel-lastname" class="profile-value"></span>
                                     </div>
                                     <div id="panel-line"></div>
                                     <h3>Biography</h3>
@@ -149,15 +149,15 @@
                             <table>
                                 <tr>
                                     <td>Birthday</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>Nationality</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>Gender</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                             </table>
                         </div>
@@ -166,23 +166,23 @@
                             <table>
                                 <tr>
                                     <td>e-mail</td>
-                                    <td id="profile-email">-</td>
+                                    <td id="profile-email" class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>Street Address</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>Country/Region</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>Province/State</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                                 <tr>
                                     <td>City</td>
-                                    <td>-</td>
+                                    <td class="profile-value">-</td>
                                 </tr>
                             </table>
                         </div>
@@ -292,7 +292,7 @@
                     <!-- ABOUT END -->
                 </section>
             </div>
-            <div class="sidebar right expanded">
+            <div class="sidebar right nonhighlight expanded">
                 <button class="btn-expand">
                     <div class="expand-arrow"></div>
                 </button>
@@ -322,6 +322,8 @@
     <script src="js/register.js"></script>
     <script src="js/home.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/chatEvents.js"></script>
+    <script src="js/activeChats.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/post.js"></script>
     <script src="js/edit.js"></script>

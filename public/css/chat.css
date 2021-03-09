@@ -110,21 +110,28 @@ section#home .chat-form {
     display: flex;
     flex-direction: row;
     height: 50px;
+    position: relative;
+    background-color: #24323d;
 }
 
 section#home .chat-new-msg {
-    width: 77%;
+    width: 75%;
     font-size: 14px;
 }
 
 section#home .chat-form .btn-send-msg {
-    width: 23%;
+    width: 16%;
     opacity: 0.75;
 }
 
 section#home .chat-form .btn-send-msg:hover {
     background-color: #1ab188;
     color: #24323d;
+    opacity: 1;
+}
+
+section#home .chat-form .btn-send-msg img {
+    width: 25px;
 }
 
 section#home .btn-chat-close {
@@ -206,4 +213,37 @@ section#home .chat-window .typing-label {
     line-height: 20px;
     padding-left: 5px;
     opacity: 75%;
+}
+
+section#home .chat-form .btn-emoji {
+    position: relative;
+    font-size: 20px;
+    line-height: 50px;
+    background-color: #24323d;
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+section#home .chat-form .btn-emoji:hover {
+    opacity: 1;
+}
+
+section#home .chat-window .emoji-container {
+    position: absolute;
+    box-shadow: 3px 3px 8px 8px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    bottom: 53px;
+    background-color: #24323d;
+    display: none;
+    padding: 4%;
+    font-size: 18px;
+}
+
+section#home .chat-window .emoji-container .emoji {
+    line-height: 26px;
+    padding: 4px;
+    cursor: pointer;
 }

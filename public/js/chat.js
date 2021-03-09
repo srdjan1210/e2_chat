@@ -1,73 +1,12 @@
-Main.ActiveChats = {
-    array: [],
-    updateDOM: function(chatWindow) {
-        let container = document.querySelector("#chat-windows");
-        container.prepend(chatWindow);
-    },
-    add: function(chatWindow) {
-        if (chatWindow) {
-            this.array.push(chatWindow);
-            this.updateDOM(chatWindow);
-            Main.Chat.chatCounter++;
-            this.setPositions();
-        }
-    },
-    remove: function(chatWindow) {
-        if (chatWindow) {
-            let index = this.array.indexOf(chatWindow);
-            this.array.splice(index, 1);
-            chatWindow.remove();
-            Main.Chat.chatCounter--;
-            this.setPositions();
-        }
-    },
-    removeAll: function() {
-        this.array.forEach((chatWindow, i) => {
-            this.remove(chatWindow);
-        });
-        Main.Chat.chatCounter = 0;
-    },
-    setPositions: function() {
-        this.array.forEach((chatWindow, i) => {
-            let offSet = i * (302 + 10) + 10;
-
-            chatWindow.style.right = offSet;
-        });
-    }
-}
-
 Main.Chat = {
     chatCounter: 0,
     newMessagesLoaded: false,
     newMessages: [],
+    emojis: [
+        '😀', '😂', '😛', '😘', '🥰', '😍', '😢', '🙂', '🙁', '☹️',
+        '😕', '😡', '😮', '😭', '😉', '😝', '😈', '🤮', '🖕🏿'
+    ],
     init: function() {},
-    openChatEvent: function(e) {
-        e.preventDefault();
-        if (this.classList.contains("mini-image-wrapper")) {
-            if (this.closest(".sidebar").classList.contains("expanded")) {
-                return;
-            }
-        }
-
-        let chatOpener = this.closest(".chat-opener");
-        let User = Main.getOtherUserInfo(chatOpener.getAttribute("data-id"));
-        if (!(Main.Chat.checkIfChatOpen(User._id)) && Main.Chat.newMessagesLoaded) {
-            if (Main.Chat.chatCounter < jsConfig.maxChatWindows) {
-                Main.Chat.createChat(User);
-            } else {
-                Main.openPopup(`Maximum chat number reached(${jsConfig.maxChatWindows})`);
-            }
-        }
-    },
-    createChat: function(User) {
-        let chatWindow = Main.Chat.createChatWindow(User);
-
-        Main.Chat.joinRoom(chatWindow, User._id);
-
-        Main.ActiveChats.add(chatWindow);
-        Main.Chat.loadMessages(Main.User.Info._id, User._id, 0);
-        Main.Chat.setChatEvents(chatWindow);
-    },
     setChatEvents: function(chatWindow) {
         Main.Chat.setLoadMessagesEvent(chatWindow);
         Main.Chat.setSubmitFormEvent(chatWindow);
@@ -75,6 +14,26 @@ Main.Chat = {
         Main.Chat.setEnterButtonEvent(chatWindow);
         Main.Chat.setHideChatEvent(chatWindow);
         Main.Chat.setTypingEvent(chatWindow);
+        Main.Chat.setOpenEmojisEvent(chatWindow);
+        Main.Chat.setEmojiInsertEvents(chatWindow);
+    },
+    removeChatEvents: function(chatWindow) {
+        Main.Chat.removeEnterButtonEvent(chatWindow);
+        Main.Chat.removeLoadMessagesEvent(chatWindow);
+        Main.Chat.removeHideChatEvent(chatWindow);
+        Main.Chat.removeCloseChatEvent(chatWindow);
+        Main.Chat.removeSubmitFormEvent(chatWindow);
+        Main.Chat.removeTypingEvent(chatWindow);
+        Main.Chat.removeOpenEmojisEvent(chatWindow);
+        Main.Chat.removeEmojiInsertEvents(chatWindow);
+    },
+    createChat: function(User) {
+        let chatWindow = Main.Chat.createChatWindow(User);
+
+        Main.Chat.joinRoom(chatWindow, User._id);
+        Main.ActiveChats.add(chatWindow);
+        Main.Chat.loadMessages(Main.User.Info._id, User._id, 0);
+        Main.Chat.setChatEvents(chatWindow);
     },
     createChatWindow: function(User) {
         let chatWindow = document.createElement("div");
@@ -82,7 +41,7 @@ Main.Chat = {
 
         chatWindow.classList.add("chat-window");
         chatWindow.setAttribute("data-id", User._id);
-        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl);
+        chatWindow.innerHTML = Templates.chatWindow(User.username, User.firstname, User.lastname, imageUrl, Main.Chat.emojis);
         return chatWindow;
     },
     checkIfChatOpen: function(id) {
@@ -97,27 +56,9 @@ Main.Chat = {
         }
         return chatExists;
     },
-    setCloseChatEvent: function(chatWindow) {
-        let closeBtn = chatWindow.querySelector(".btn-chat-close");
-        closeBtn.addEventListener("click", Main.Chat.closeChatEvent);
-    },
-    removeCloseChatEvent: function(chatWindow) {
-        let closeBtn = chatWindow.querySelector(".btn-chat-close");
-        closeBtn.removeEventListener("click", Main.Chat.closeChatEvent);
-    },
-    closeChatEvent: function(e) {
-        Main.Chat.closeChat(this.closest(".chat-window"));
-    },
     closeChat: function(chatWindow) {
-        Main.Chat.removeEnterButtonEvent(chatWindow);
-        Main.Chat.removeLoadMessagesEvent(chatWindow);
-        Main.Chat.removeHideChatEvent(chatWindow);
-        Main.Chat.removeCloseChatEvent(chatWindow);
-        Main.Chat.removeSubmitFormEvent(chatWindow);
-        Main.Chat.removeTypingEvent(chatWindow);
-
+        Main.Chat.removeChatEvents(chatWindow);
         Main.Chat.userTyping(chatWindow.getAttribute("data-id"), false);
-
         Main.ActiveChats.remove(chatWindow);
     },
     closeAllChats: function() {
@@ -140,34 +81,6 @@ Main.Chat = {
         textarea.value = "";
         textarea.classList.remove("typing");
         Main.Chat.userTyping(chatWindow.getAttribute("data-id"), false);
-    },
-    setSubmitFormEvent: function(chatWindow) {
-        let sendBtn = chatWindow.querySelector(".chat-form");
-        sendBtn.addEventListener("submit", Main.Chat.submitFormEvent);
-    },
-    removeSubmitFormEvent: function(chatWindow) {
-        let sendBtn = chatWindow.querySelector(".chat-form");
-        sendBtn.removeEventListener("submit", Main.Chat.submitFormEvent);
-    },
-    submitFormEvent: function(e) {
-        e.preventDefault();
-        let chatWindow = this.closest(".chat-window");
-        Main.Chat.readForm(chatWindow);
-    },
-    setEnterButtonEvent: function(chatWindow) {
-        let textarea = chatWindow.querySelector(".chat-new-msg");
-        textarea.addEventListener("keydown", Main.Chat.enterButtonEvent);
-    },
-    removeEnterButtonEvent: function(chatWindow) {
-        let textarea = chatWindow.querySelector(".chat-new-msg");
-        textarea.removeEventListener("keydown", Main.Chat.enterButtonEvent);
-    },
-    enterButtonEvent: function(e) {
-        if (e.keyCode == 13 && !(e.shiftKey)) {
-            e.preventDefault();
-            let chatWindow = this.closest(".chat-window");
-            Main.Chat.readForm(chatWindow);
-        }
     },
     getChatWindow: function(id) {
         let chatWindows = document.querySelectorAll(".chat-window");
@@ -288,45 +201,6 @@ Main.Chat = {
     chatLoadEnd: function(chat) {
         chat.querySelector(".chat-loader").closest(".chat-block").remove();
     },
-    setLoadMessagesEvent: function(chat) {
-        chat.querySelector(".chat-body-outer").addEventListener("scroll", Main.Chat.loadMessagesEvent);
-    },
-    removeLoadMessagesEvent: function(chat) {
-        chat.querySelector(".chat-body-outer").removeEventListener("scroll", Main.Chat.loadMessagesEvent);
-    },
-    loadMessagesEvent: function(e) {
-        let chat = this.closest(".chat-window");
-        if (this.scrollTop == 0) {
-            let nextN = parseInt(chat.getAttribute("data-msgs")) + 1;
-            Main.Chat.loadMessages(Main.User.Info._id, chat.getAttribute("data-id"), nextN);
-        }
-    },
-    setHideChatEvent: function(chatWindow) {
-        let header = chatWindow.querySelector(".chat-header-info");
-        header.addEventListener("click", Main.Chat.hideChatEvent);
-    },
-    removeHideChatEvent: function(chatWindow) {
-        let header = chatWindow.querySelector(".chat-header-info");
-        header.removeEventListener("click", Main.Chat.hideChatEvent);
-    },
-    hideChatEvent: function(e) {
-        e.preventDefault();
-        let chatWindow = this.closest(".chat-window");
-        let msgNum = Main.Chat.getUnseenMsgNumber(chatWindow.getAttribute("data-id"));
-
-        if (chatWindow.classList.contains("hidden")) {
-            Main.Chat.messageSeen(chatWindow);
-            Main.Chat.updateNotifications(chatWindow.getAttribute("data-id"));
-            let label = chatWindow.querySelector(".new-label");
-            if (label) {
-                label.remove();
-            }
-            let notification = chatWindow.querySelector(".notification-number");
-            notification.classList.remove("active");
-            Main.Chat.displayNewMessagesLabel(chatWindow, msgNum);
-        }
-        chatWindow.classList.toggle("hidden");
-    },
     getDisplayedMsgNumber: function(chat) {
         let messageBlocks = chat.querySelectorAll(".chat-block.message-block");
         if (!messageBlocks) {
@@ -408,25 +282,6 @@ Main.Chat = {
                 }
             });
         });
-    },
-    setTypingEvent: function(chat) {
-        let textarea = chat.querySelector(".chat-new-msg");
-        textarea.addEventListener("input", Main.Chat.typingEvent);
-    },
-    removeTypingEvent: function(chat) {
-        let textarea = chat.querySelector(".chat-new-msg");
-        textarea.removeEventListener("input", Main.Chat.typingEvent);
-    },
-    typingEvent: function(e) {
-        let val = this.value.trim();
-        let userId = this.closest(".chat-window").getAttribute("data-id");
-        if (val == "" && this.classList.contains("typing")) {
-            this.classList.remove("typing");
-            Main.Chat.userTyping(userId, false);
-        } else if (val != "" && !(this.classList.contains("typing"))) {
-            this.classList.add("typing");
-            Main.Chat.userTyping(userId, true);
-        }
     },
     displayTypingLabel: function(chat) {
         let chatForm = chat.querySelector(".chat-form");
