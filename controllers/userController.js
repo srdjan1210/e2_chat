@@ -10,8 +10,6 @@ const { resizeProfileImage } = require('../image-formatters/resize');
 
 const editHandler = async(req, res) => {
     let response = {};
-    console.log(req.body)
-    if(!req.body._id) return res.status(400).send({err : 'User id missing!'});
 
     for(let property of Object.entries(req.body))
         if(property[1] != null && property[0] != '_id' && property[0] != 'password' && property[0] != 'username' && property[0] != 'email'){

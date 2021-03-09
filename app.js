@@ -42,6 +42,10 @@ app.use('/home', homeRouter);
 app.use('/user', userRouter);
 
 
+app.use((error, req, res, next) => {
+    return res.status(500).send('We are sorry! Some error happened!');
+})
+
 
 //Starting server
 http.listen(PORT, () => {
