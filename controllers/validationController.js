@@ -11,7 +11,7 @@ const validateUserData = (user) => {
 
 
 const validateEmail = (email) => {
-    let schema = Joi.object({ email: Joi.string().email().required() });
+    let schema = Joi.object({ email: Joi.string().email() });
     return schema.validate({ email });
 }
 
@@ -21,7 +21,7 @@ const validatePassword = (password) => {
 }
 
 const validateUsername = (username) => {
-    let schema = Joi.object({ username: Joi.string().max(15).required() });
+    let schema = Joi.object({ username: Joi.string().max(15)});
     return schema.validate({ username });
 }
 

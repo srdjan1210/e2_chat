@@ -9,6 +9,7 @@ const { identity } = require('lodash');
 
 const editHandler = async(req, res) => {
     let response = {};
+    console.log(req.body)
     if(!req.body._id) return res.status(400).send({err : 'User id missing!'});
 
     for(let property of Object.entries(req.body))
@@ -28,19 +29,20 @@ const publicUserInfo = async (req, res) => {
 }
 
 const changeEmail = async (req, res) => {
-    if(!req.payload) return res.status(403).send({err: 'Token not provided!'});
     req.body.username = req.payload.username;
     const { email, username } = _.pick(req.body, ['email', 'username']);
-    const validated = validateEmail(email);
+    if(email == null) return res.status(422).send({ err: 'Not valid email!'});
     
+    const validated = validateEmail(email);
     if(validated.error) return res.status(422).send({ err: 'Not valid email!'});
 
     try {
         const user = await findUserAndUpdate({ username }, { email });
         if(user == null)
             return res.status(409).send({ err: 'Could not find specific user!'});
-        res.status(200).send('Email updated succesfully!');
+        res.status(200).send({msg: 'Email updated succesfully!'});
     } catch(err) {
+        console.log(err);
         res.status(422).send({ err: 'Email alredy in use!'});
     }
 }
@@ -60,24 +62,25 @@ const changePassword = async (req, res) => {
     user.password = hashPassword;
     await saveUserObject(user);
 
-    res.status(200).send('Password updated succesfully');
+    res.status(200).send({msg: 'Password updated succesfully'});
 } 
 
 const changeUsername = async(req, res) => {
     const oldUsername = req.payload.username;
-    const { username } = _.pick(req.body, ['username']);
+    const { new_username } = _.pick(req.body, ['new_username']);
     const user = await findUserByUsername({ username: oldUsername });
-    const existingUser = await findUserByUsername({ username });
-    const validUsername = validateUsername(username);
+    const existingUser = await findUserByUsername({ username: new_username });
+    const validatedUsername = validateUsername(new_username);
+
     if(user == null) return res.status(400).send({err: 'User doesnt exists!'})
-    if(validUsername.error) return res.status(400).send({ err: 'Invalid username!'});
+    if(validatedUsername.error) return res.status(400).send({ err: 'Invalid username!'});
     if(existingUser != null) return res.status(400).send({ err: 'User alredy exists!'});
 
-    user.username = username;
+    user.username = new_username;
     await saveUserObject(user);
     const token = await createToken({ _id: user._id, username: user.username });
     res.header('x-auth', token);
-    res.status(200).send('Username changed succesfully!');
+    res.status(200).send({msg: 'Username changed succesfully!'});
 }
 
 //Schematic approach with simillar functions

@@ -28,9 +28,10 @@ const checkIfPasswordDataExists = (req, res, next) => {
     next();
 }
 
-const checkIfUsernameExists = (req, res, next) => {
-    const username = req.body.username;
-    if(!username) return res.status(400).send({err: 'Username missing'});
+const checkIfPropertyExists = (req, res, next) => {
+    const endpoint = req.route.path.split('/')[2];
+    const property = req.body[endpoint];
+    if(!property) return res.status(400).send({err: endpoint + ' missing'});
     next();
 }
 const checkIfEmailExists = (req, res, next) => {
@@ -39,4 +40,4 @@ const checkIfEmailExists = (req, res, next) => {
     next();
 }
 
-module.exports = { checkForEmptyString, checkIfParameterExists, checkForInvalidProperty, checkIfPasswordDataExists }
+module.exports = { checkForEmptyString, checkIfParameterExists, checkForInvalidProperty, checkIfPasswordDataExists, checkIfPropertyExists }
