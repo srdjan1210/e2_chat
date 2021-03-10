@@ -97,7 +97,7 @@ Main.Edit = {
             Main.Edit.sendPasswordData(passwordData);
         }
         if (Data.username != null) {
-            usernameData["new_username"] = Data.username;
+            usernameData["username"] = Data.username;
             Main.Edit.sendUsernameData(usernameData);
         }
 
@@ -116,7 +116,6 @@ Main.Edit = {
         Main.Edit.sendOtherData(otherData);
     },
     sendEmailData: function(Data) {
-        console.log("email", Data);
         fetch(`${jsConfig.domainUrl}/user/edit/email`, {
             method: 'POST',
             headers: {
@@ -134,7 +133,6 @@ Main.Edit = {
         });
     },
     sendPasswordData: function(Data) {
-        console.log("password", Data);
         fetch(`${jsConfig.domainUrl}/user/edit/password`, {
             method: 'POST',
             headers: {
@@ -173,7 +171,6 @@ Main.Edit = {
         //TODO:
     },
     sendOtherData: function(Data) {
-        console.log("other", Data);
         fetch(`${jsConfig.domainUrl}/user/edit`, {
             method: 'POST',
             headers: {

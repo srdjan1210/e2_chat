@@ -38,7 +38,7 @@ Templates = {
             <form action="" class="chat-form">
                 <textarea class="chat-new-msg" placeholder="write message here..."></textarea>
                 <div class="btn-emoji nonhighlight">🙂</div>
-                <button type="submit" class="btn-send-msg">
+                <button type="submit" class="btn-send-msg nonhighlight">
                     <img src="img/send.png"/>
                 </button>
             </form>
