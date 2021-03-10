@@ -67,16 +67,18 @@ const changePassword = async (req, res) => {
 
 const changeUsername = async(req, res) => {
     const oldUsername = req.payload.username;
-    const { new_username } = _.pick(req.body, ['new_username']);
+    const { username } = _.pick(req.body, ['username']);
+    console.log(username);
     const user = await findUserByUsername({ username: oldUsername });
-    const existingUser = await findUserByUsername({ username: new_username });
-    const validatedUsername = validateUsername(new_username);
+    const existingUser = await findUserByUsername({ username });
+    console.log(existingUser);
+    const validatedUsername = validateUsername(username);
 
     if(user == null) return res.status(400).send({err: 'User doesnt exists!'})
     if(validatedUsername.error) return res.status(400).send({ err: 'Invalid username!'});
     if(existingUser != null) return res.status(400).send({ err: 'User alredy exists!'});
 
-    user.username = new_username;
+    user.username = username;
     await saveUserObject(user);
     const token = await createToken({ _id: user._id, username: user.username });
     res.header('x-auth', token);
