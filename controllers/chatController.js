@@ -1,6 +1,7 @@
 const io = require('../app');
 const { findOrCreateChatRoom, findChatroomsThatUseId, filterChatroomsWithNoSeenMessages, saveChatroomObject } = require('../models/chatRoom');
 const { saveMessage, loadMessages, findSingleMessage, findLastSeenMessage, saveMessageObject } = require('../models/message');
+const { escapeltgt } = require('../helpers/stringOperations');
 let connected = [];
 
 const socketExists = (id) => {
@@ -44,9 +45,8 @@ module.exports = (io) => {
             let chatroom = await findOrCreateChatRoom([from , to]);
             chatroom = updateNewMessages(chatroom, from);
             await saveChatroomObject(chatroom);
-            const message = await saveMessage({ msg, from, to, chatid: chatroom._id });
+            const message = await saveMessage({ msg: escapeltgt(msg), from, to, chatid: chatroom._id });
             socket.to(room).emit('new message', { msg, from, id: message._id });
-
             cb('done');
         }); 
 
