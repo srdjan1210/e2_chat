@@ -99,12 +99,13 @@ Main.Chat = {
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
+        let message = Utility.parseMessage(msg);
 
         chatBlock.classList.add("chat-block");
         chatBlock.classList.add("message-block");
         if (messageId) chatBlock.setAttribute("data-id", messageId);
         chatBlock.classList.add("own");
-        chatBlock.innerHTML = Templates.message(msg, false);
+        chatBlock.innerHTML = Templates.message(message, false);
         if (oldMessage == true) {
             chatBody.prepend(chatBlock);
         } else {
@@ -121,11 +122,12 @@ Main.Chat = {
         if (!chatWindow) return;
         let chatBody = chatWindow.querySelector(".chat-body");
         let chatBlock = document.createElement("div");
+        let message = Utility.parseMessage(msg);
 
         chatBlock.classList.add("chat-block");
         chatBlock.classList.add("message-block");
         if (messageId) chatBlock.setAttribute("data-id", messageId);
-        chatBlock.innerHTML = Templates.message(msg, true);
+        chatBlock.innerHTML = Templates.message(message, true);
         if (oldMessage == true) {
             chatBody.prepend(chatBlock);
         } else {

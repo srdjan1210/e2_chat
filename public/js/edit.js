@@ -68,7 +68,7 @@ Main.Edit = {
         let Info = Main.User.Info;
         if (Info.firstname && Info.firstname.trim() == Data.firstname) Data.firstname = null;
         if (Info.lastname && Info.lastname.trim() == Data.lastname) Data.lastname = null;
-        if ((Info.username && Info.username.trim() == Data.username) || (Data.username > 15 && Data.username < 4)) Data.username = null;
+        if ((Info.username && Info.username.trim() == Data.username) || Data.username.length > 15 || Data.username.length < 4) Data.username = null;
         if (Info.birthday && Info.birthday.trim() == Data.birthday) Data.birthday = null;
         if (Info.nationality && Info.nationality.trim() == Data.nationality) Data.nationality = null;
         if (Info.gender && Info.gender.trim() == Data.gender) Data.gender = null;
@@ -81,7 +81,7 @@ Main.Edit = {
 
         if (!Data.image) Data.image = null;
 
-        if (Data.newPassword == "" || Data.newPassword != Data.newPassword || (Data.newPassword > 20 && Data.newPassword < 8)) Data.newPassword = null;
+        if (Data.newPassword == "" || Data.newPassword != Data.newPassword || Data.newPassword.length > 20 || Data.newPassword.length < 8) Data.newPassword = null;
     },
     parseData: function(Data) {
         let emailData = {};
@@ -160,6 +160,9 @@ Main.Edit = {
             },
             body: JSON.stringify(Data)
         }).then((response) => {
+            if (response.status == 200) {
+                window.localStorage.setItem("e2_chat_token", response.headers.get("x-auth"));
+            }
             return response.json();
         }).then((response) => {
             console.log(response);
