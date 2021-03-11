@@ -8,7 +8,7 @@ let jsConfig = {
 }
 
 if (RELEASE) {
-    jsConfig.domainUrl = "https://still-wildwood-26564.herokuapp.com";
+    jsConfig.domainUrl = "https://e2chat.herokuapp.com";
 } else {
     jsConfig.domainUrl = "http://localhost:3000";
 }
