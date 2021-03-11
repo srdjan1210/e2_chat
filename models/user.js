@@ -22,16 +22,43 @@ const UserSchema = mongoose.Schema({
     },
     profile_img_100: String,
     profile_img_300: String,
-    birthday: String,
-    nationality: String,
-    street_adress: String,
-    country: String,
-    province_state: String,
-    city: String,
-    biography: String,
+    birthday: {
+        type: String,
+        default: ''
+    },
+    nationality: {
+        type: String,
+        default: ''
+    },
+    street_adress: {
+        type: String,
+        default: ''
+    },
+    country: {
+        type: String,
+        default: ''
+    },
+    province_state: {
+        type: String,
+        default: ''
+    },
+    city: {
+        type: String,
+        default: ''
+    },
+    biography: {
+        type: String,
+        default: ''
+    },
     created: Date,
-    firstname: String,
-    lastname: String
+    firstname: {
+        type: String,
+        default: ''
+    },
+    lastname: {
+        type: String,
+        default: ''
+    }
 });
 
 const userModel = mongoose.model('User', UserSchema);
@@ -50,20 +77,9 @@ const saveUserToDatabase = async (user) => {
     
 }
 
-const findUserByUsername = async ({ username }) => {
-    const user = await userModel.findOne({ username });
-    return user;
-}
-
-const findUserById = async ({ _id }) => {
-    const result = await userModel.findOne({ _id});
-    return result;
-}
-
-const findChatUsers = async (id) => {
-    const users = await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_img_100 profile_img_300');
-    return users;
-}
+const findUserByUsername = async ({ username }) => await userModel.findOne({ username });
+const findUserById = async ({ _id }) =>  await userModel.findOne({ _id});
+const findChatUsers = async (id) => await userModel.find({_id: { $ne: id}}).select('_id username firstname lastname email last_active_at profile_img_100 profile_img_300');
 
 const setUserActiveTime = async(user) => {
     const result = await userModel.findOne(user);
@@ -71,9 +87,8 @@ const setUserActiveTime = async(user) => {
     await result.save();
 }
 
-const findUserAndUpdate = async (user, update) => {
-    return await userModel.findOneAndUpdate(user, update);
-}
+const findUserAndUpdate = async (user, update) => await userModel.findOneAndUpdate(user, update);
+
 
 const setProperties = async (properties, _id) => {
     const user = await findOne({ _id });

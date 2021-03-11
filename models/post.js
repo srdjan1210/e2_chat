@@ -17,13 +17,9 @@ const createPost = async ({ userid, content, imageUrl }) => {
     return await post.save();
 }
 
-const savePostObject = async (post) => {
-    return await post.save();
-}
+const savePostObject = async (post) => await post.save();
+const findPostsForGivenUser = async (userid) => await postModel.find({ userid });
 
-const findPostsForGivenUser = async (userid) => {
-    return await postModel.find({ userid });
-}
 
 const numOfLikes = async (post) => {
     const post = await postModel.findOne(post);

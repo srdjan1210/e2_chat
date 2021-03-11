@@ -25,9 +25,8 @@ const findOrCreateChatRoom = async (users) => {
     return await newRoom.save();
 }
 
-const findChatroomsThatUseId = async (id) => {
-    return await chatRoomModel.find({users: {$all:[id]}}); 
-}
+const findChatroomsThatUseId = async (id) => await chatRoomModel.find({users: {$all:[id]}}); 
+
 
 const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
         chatrooms = chatrooms.filter(chatroom => {
@@ -43,9 +42,8 @@ const filterChatroomsWithNoSeenMessages = async(chatrooms, userid) => {
     });
 }
 
-const saveChatroomObject = async (chatroom) => {
-    await chatroom.save();
-}
+const saveChatroomObject = async (chatroom) => await chatroom.save();
+
 
 module.exports = { findOrCreateChatRoom, findChatroomsThatUseId, saveChatroomObject,filterChatroomsWithNoSeenMessages }
 
