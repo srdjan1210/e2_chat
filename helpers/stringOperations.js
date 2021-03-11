@@ -6,7 +6,7 @@ const trimUserData = (user) => {
 }
 
 const escapeltgt = (message) => {
-    return message.replace('<','&lt;').replace('>','&gt;');
+    return message.replaceAll('<','&lt;').replaceAll('>','&gt;');
 }
 
 
