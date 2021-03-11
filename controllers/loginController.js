@@ -14,7 +14,7 @@ loginUser = async (req, res) => {
         const token = webtoken.createToken(_.pick(result, '_id', 'username'));
         res.header('x-auth', token).status(200);
         await setUserActiveTime({username: result.username});
-        return res.status(200).send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email',
+        return res.status(200).send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email','gender',
                                                   'birthday', 'nationality', 'street_adress', 'province_state',
                                                   'country', 'city', 'biography', 'profile_img_100', 'profile_img_300']));  
     }

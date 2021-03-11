@@ -30,7 +30,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    street_adress: {
+    street: {
         type: String,
         default: ''
     },
@@ -38,7 +38,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    province_state: {
+    province: {
         type: String,
         default: ''
     },
@@ -56,6 +56,10 @@ const UserSchema = mongoose.Schema({
         default: ''
     },
     lastname: {
+        type: String,
+        default: ''
+    },
+    gender: {
         type: String,
         default: ''
     }
