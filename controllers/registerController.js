@@ -14,7 +14,7 @@ registerUser = async (req, res) => {
     const names = await resizeProfileImage(user.username);
     const validated = validateUserData(_.pick(user, ['email', 'username']));  
     if(validated.error) return res.status(409).send({err: validated.error.details[0].message});
-
+    console.log("izvrsilo 1");
     
     const registered = await checkIfUserExists(user);
 
@@ -22,7 +22,7 @@ registerUser = async (req, res) => {
     await uploadImages(names);
     const profile_img_100 = (await getImageUrl(names[0]))[0];
     const profile_img_300 = (await getImageUrl(names[1]))[0];
-
+    console.log("izvrsilo 2");
     saveUserToDatabase({
         username: user.username,
         password: await hashPassword(user.password),
@@ -34,10 +34,13 @@ registerUser = async (req, res) => {
         profile_img_100,
         profile_img_300
     }).then(saved => {
+        console.log('sacuvalo usera');
         if(saved) return res.status(201).send(_.pick(saved,['_id', 'username', 'email']));
     }).catch(err => {
+        console.log(err);
         return res.status(422).send({err : "Database problem"});
     });
+
 }
 
 
