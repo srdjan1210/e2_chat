@@ -5,17 +5,17 @@ const hash = require('../middleware/hash');
 const { createToken } = require('../middleware/webtoken');
 const { uploadImages, getImageUrl } = require('../helpers/firebase-upload');
 const { resizeProfileImage } = require('../image-formatters/resize');
+const { array } = require('joi');
 
 
 
-const editHandler = async(req, res) => {
-    let response = {};
-
-    for(let property of Object.entries(req.body))
-        if(property[1] != null && property[0] != '_id' && property[0] != 'password' && property[0] != 'username' && property[0] != 'email'){
-            response[property[0]] = await changeProperty(req, property[0], ['_id', property[0]]);
-        }
-    return res.status(200).send(response);
+const editHandler = async (req, res) => {
+    try { 
+        const edited = await editPropertiesOfObject(req.body, req.payload.username);
+        return res.status(200).send(edited);
+    }catch(err) {
+        return res.status(500).send({ err: 'Something went wrong!'})
+    }
 }
 
 
@@ -115,6 +115,22 @@ const changeProperty = async (req, property, data) => {
 
     if(user == null) return { err: 'Could not find specific users!' }
     return { msg: ' Succesfully changed given property!'}
+}
+
+const editPropertiesOfObject = async (properties, objectUsername) => {
+    let user = await findUserByUsername({ username: objectUsername });
+    let response = {};
+    if(user == null) return response;
+
+    for(let property of Object.entries(properties)) {
+        if(property[1] != null && property[0] != '_id' && property[0] != 'password' && property[0] != 'username' && property[0] != 'email') {
+            user[property[0]] = property[1];
+            response[property[0]] = property[1];
+        }
+    }
+
+    await saveUserObject(user);
+    return response;
 }
 
 module.exports =  { publicUserInfo, changeEmail, changePassword, editHandler, changeNormalProperty, changeUsername, changeProfilePicture }
