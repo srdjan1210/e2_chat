@@ -10,7 +10,7 @@ userinfo = async (req, res) => {
     if(user == null)
         return res.status(204).send({ err: "User not found"});
     return res.status(200).send(_.pick(user, ['_id', 'firstname', 'lastname', 'username', 'email','gender',
-                                              'birthday', 'nationality', 'adress', 'province',
+                                              'birthday', 'nationality', 'street', 'province',
                                               'country', 'city', 'biography', 'profile_img_100', 'profile_img_300']))
     
 }

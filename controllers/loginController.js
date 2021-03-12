@@ -15,7 +15,7 @@ loginUser = async (req, res) => {
         res.header('x-auth', token).status(200);
         await setUserActiveTime({username: result.username});
         return res.status(200).send(_.pick(result, ['_id', 'firstname', 'lastname', 'username', 'email','gender',
-                                                  'birthday', 'nationality', 'street_adress', 'province_state',
+                                                  'birthday', 'nationality', 'street', 'province',
                                                   'country', 'city', 'biography', 'profile_img_100', 'profile_img_300']));  
     }
     res.status(403).send({err: "Token not valid"});
