@@ -34,6 +34,7 @@ registerUser = async (req, res) => {
     }).then(saved => {
         if(saved) return res.status(201).send(_.pick(saved,['_id', 'username', 'email']));
     }).catch(err => {
+        console.log(err);
         return res.status(422).send({err : "Database problem"});
     });
 

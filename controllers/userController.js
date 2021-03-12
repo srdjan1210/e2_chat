@@ -68,10 +68,8 @@ const changePassword = async (req, res) => {
 const changeUsername = async(req, res) => {
     const oldUsername = req.payload.username;
     const { username } = _.pick(req.body, ['username']);
-    console.log(username);
     const user = await findUserByUsername({ username: oldUsername });
     const existingUser = await findUserByUsername({ username });
-    console.log(existingUser);
     const validatedUsername = validateUsername(username);
 
     if(user == null) return res.status(400).send({err: 'User doesnt exists!'})

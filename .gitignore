@@ -2,3 +2,5 @@
 .env
 /public/resources/messageimgs
 /public/resources/profileimgs
+/public/uploads/
+/credential.json

@@ -18,7 +18,7 @@ const getImageUrl = async (name) => {
 
 const uploadImages = async (names) => {
     return names.forEach(name => {
-            bucket.upload(path.join(__dirname, `../public/resources/profileimgs/${name}.png`), {
+            bucket.upload(path.join(__dirname, `../public/uploads/imgs/${name}.png`), {
                 destination: `profileimgs/${name}.png`,
                 metadata: {
                     cacheControl: "public, max-age=315360000",

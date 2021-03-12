@@ -12,8 +12,8 @@ const resizeProfileImage = async (username) => {
         height: 300
     });
 
-    await fs.writeFile(path.join(__dirname, `../public/resources/profileimgs/${username}_100.png`), image100);
-    await fs.writeFile(path.join(__dirname, `../public/resources/profileimgs/${username}_300.png`), image300);
+    await fs.writeFile(path.join(__dirname, `../public/uploads/imgs/${username}_100.png`), image100);
+    await fs.writeFile(path.join(__dirname, `../public/uploads/imgs/${username}_300.png`), image300);
 
     return [`${username}_100`, `${username}_300`];
 }
