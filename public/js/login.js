@@ -59,6 +59,7 @@ Main.Login = {
         Main.Home.getUsersInfo();
         Main.Chat.socketInit();
         Main.Edit.setInitialData();
+        console.log(Main.User.Info);
     },
     logOut(e) {
         e.preventDefault();

@@ -21,10 +21,16 @@ Main.Home = {
         } else {
             Info = Main.User.Info;
         }
-        document.getElementById("panel-username").innerHTML = Info.username;
-        document.getElementById("panel-firstname").innerHTML = Info.firstname;
-        document.getElementById("panel-lastname").innerHTML = Info.lastname;
-        document.getElementById("profile-email").innerHTML = Info.email;
+
+        let fields = document.querySelectorAll(".profile-value");
+        if (fields) {
+            fields.forEach(field => {
+                let name = field.getAttribute("data-name");
+                if (Info[name]) {
+                    field.innerHTML = Info[name];
+                }
+            });
+        }
 
         this.displayProfileImage(Info);
     },

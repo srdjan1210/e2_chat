@@ -8,11 +8,14 @@ Main.Edit = {
     },
     setInitialData: function() {
         const Info = Main.User.Info;
-        document.querySelector("#edit-firstname-block .edit-value").value = Info.firstname;
-        document.querySelector("#edit-lastname-block .edit-value").value = Info.lastname;
-        document.querySelector("#edit-username-block .edit-value").value = Info.username;
-
-        document.querySelector("#edit-email-block .edit-value").value = Info.email;
+        let fields = document.querySelectorAll(".edit-value");
+        if (fields) {
+            fields.forEach(field => {
+                if (Info[field.name]) {
+                    field.value = Info[field.name];
+                }
+            });
+        }
     },
     clearEditInputs: function() {
         let edits = document.querySelectorAll("section#edit .edit-block");
@@ -150,7 +153,6 @@ Main.Edit = {
         });
     },
     sendUsernameData: function(Data) {
-        console.log("username", Data);
         fetch(`${jsConfig.domainUrl}/user/edit/username`, {
             method: 'POST',
             headers: {
