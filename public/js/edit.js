@@ -69,19 +69,18 @@ Main.Edit = {
     },
     checkData: function(Data) {
         let Info = Main.User.Info;
-        if (Info.firstname && Info.firstname.trim() == Data.firstname) Data.firstname = null;
-        if (Info.lastname && Info.lastname.trim() == Data.lastname) Data.lastname = null;
+        if (Info.firstname.trim() == Data.firstname) Data.firstname = null;
+        if (Info.lastname.trim() == Data.lastname) Data.lastname = null;
         if ((Info.username && Info.username.trim() == Data.username) || Data.username.length > 15 || Data.username.length < 4) Data.username = null;
-        if (Info.birthday && Info.birthday.trim() == Data.birthday) Data.birthday = null;
-        if (Info.nationality && Info.nationality.trim() == Data.nationality) Data.nationality = null;
-        if (Info.gender && Info.gender.trim() == Data.gender) Data.gender = null;
+        if (Info.birthday.trim() == Data.birthday) Data.birthday = null;
+        if (Info.nationality.trim() == Data.nationality) Data.nationality = null;
+        if (Info.gender.trim() == Data.gender) Data.gender = null;
 
         if ((Info.email && Info.email.trim() == Data.email) || !Utility.checkEmail(Data.email)) Data.email = null;
-        if (Info.street && Info.street.trim() == Data.street) Data.street = null;
-        if (Info.country && Info.country.trim() == Data.country) Data.country = null;
-        if (Info.province && Info.province.trim() == Data.province) Data.province = null;
-        if (Info.city && Info.city.trim() == Data.city) Data.city = null;
-
+        if (Info.street.trim() == Data.street) Data.street = null;
+        if (Info.country.trim() == Data.country) Data.country = null;
+        if (Info.province.trim() == Data.province) Data.province = null;
+        if (Info.city.trim() == Data.city) Data.city = null;
         if (!Data.image) Data.image = null;
 
         if (Data.newPassword == "" || Data.newPassword != Data.newPassword || Data.newPassword.length > 20 || Data.newPassword.length < 8) Data.newPassword = null;
@@ -115,8 +114,22 @@ Main.Edit = {
             province: Data.province,
             city: Data.city
         }
-
         Main.Edit.sendOtherData(otherData);
+    },
+    closeEditField: function(name) {
+        let edits = document.querySelectorAll("section#edit .edit-block");
+        if (edits) {
+            edits.forEach(edit => {
+                let input = edit.querySelector(".edit-value");
+                if (input && input.name == name) {
+                    edit.classList.remove("editing");
+                    input.setAttribute("readonly", "");
+                    if (input.name == "newPassword" || input.name == "confirmPassword") {
+                        input.value = "";
+                    }
+                }
+            });
+        }
     },
     sendEmailData: function(Data) {
         fetch(`${jsConfig.domainUrl}/user/edit/email`, {
@@ -128,9 +141,13 @@ Main.Edit = {
             },
             body: JSON.stringify(Data)
         }).then((response) => {
+            if (response.status == 200) {
+                Main.User.Info.email = Data.email;
+                Main.Edit.closeEditField("email");
+            }
             return response.json();
         }).then((response) => {
-            console.log(response);
+            //console.log(response);
         }).catch((error) => {
             console.error(error);
         });
@@ -145,9 +162,13 @@ Main.Edit = {
             },
             body: JSON.stringify(Data)
         }).then((response) => {
+            if (response.status == 200) {
+                Main.Edit.closeEditField("newPassword");
+                Main.Edit.closeEditField("confirmPassword");
+            }
             return response.json();
         }).then((response) => {
-            console.log(response);
+            //console.log(response);
         }).catch((error) => {
             console.error(error);
         });
@@ -164,10 +185,13 @@ Main.Edit = {
         }).then((response) => {
             if (response.status == 200) {
                 window.localStorage.setItem("e2_chat_token", response.headers.get("x-auth"));
+                Main.User.Info.username = Data.username;
+                Main.Edit.closeEditField("username");
+                Main.Home.displayUser();
             }
             return response.json();
         }).then((response) => {
-            console.log(response);
+            //console.log(response);
         }).catch((error) => {
             console.error(error);
         });
@@ -187,7 +211,13 @@ Main.Edit = {
         }).then((response) => {
             return response.json();
         }).then((response) => {
-            console.log(response);
+            let objArr = Object.entries(response);
+            if (objArr) {
+                objArr.forEach(edit => {
+                    Main.User.Info[edit[0]] = edit[1];
+                    Main.Edit.closeEditField(edit[0]);
+                });
+            }
         }).catch((error) => {
             console.error(error);
         });
