@@ -83,5 +83,10 @@ Templates = {
             });
         }
         return output;
+    },
+    createPost: function() {
+        let output =
+            `<div></div>`;
+        return output;
     }
 }

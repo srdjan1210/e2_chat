@@ -1,4 +1,5 @@
 Main.Chat.socket;
+
 Main.Chat.socketInit = function() {
     Main.Chat.socket = io();
     const id = Main.User.Info._id;

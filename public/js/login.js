@@ -4,6 +4,7 @@ Main.Login = {
         password: ""
     },
     init: function() {
+        Main.Chat.socketInit();
         document.getElementById("log-form").addEventListener("submit", this.formSubmitEvent);
         document.getElementById("btn-logout").addEventListener("click", this.logOut);
         document.getElementById("btn-logout-mini").addEventListener("click", this.logOut);
@@ -54,12 +55,10 @@ Main.Login = {
     },
     logUser() {
         Main.Sections.sectionHandle();
-        document.getElementById("btn-my-profile").href = `#/home/profile/${Main.User.Info.username}`;
         Main.Home.displayUser();
         Main.Home.getUsersInfo();
         Main.Chat.socketInit();
         Main.Edit.setInitialData();
-        console.log(Main.User.Info);
     },
     logOut(e) {
         e.preventDefault();
@@ -71,7 +70,7 @@ Main.Login = {
 
         Main.Home.removeOthers();
         Main.Chat.closeAllChats();
-        Main.Chat.socketDisconnect();
+        //Main.Chat.socketDisconnect();
         Main.Home.clearUserData();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");

@@ -47,6 +47,8 @@ Main.Home = {
         let miniImage = document.getElementById("mini-user-image");
 
         document.getElementById("mini-info").innerHTML = Info.username;
+        document.getElementById("btn-my-profile").href = `#/home/profile/${Info.username}`;
+
         image.style.backgroundImage = `url(${imageUrl})`;
         miniImage.style.backgroundImage = `url(${imageUrl})`;
     },
