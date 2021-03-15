@@ -1,10 +1,7 @@
 const {Storage} = require('@google-cloud/storage');
 const path = require('path')
 const storage = new Storage();
-const bucket = storage.bucket('e2chat.appspot.com')
-
-
-
+const bucket = storage.bucket(process.env.BUCKET);
 
 const getImageUrl = async (name) => {
     const file = bucket.file(`profileimgs/${name}.png`)
@@ -17,15 +14,15 @@ const getImageUrl = async (name) => {
 
 
 const uploadImages = async (names) => {
-    return names.forEach(name => {
-            bucket.upload(path.join(__dirname, `../public/uploads/imgs/${name}.png`), {
-                destination: `profileimgs/${name}.png`,
-                metadata: {
-                    cacheControl: "public, max-age=315360000",
-                    contentType: "image/png"
-                }
-            })
-    });
+    for(let name of names) {
+        await bucket.upload(path.join(__dirname, `../public/uploads/imgs/${name}.png`), {
+            destination: `profileimgs/${name}.png`,
+            metadata: {
+                cacheControl: "public,max-age:10,s-maxage:10",
+                contentType: "image/png"
+            }
+        });
+    }
 }
 
 module.exports = { getImageUrl, uploadImages }
