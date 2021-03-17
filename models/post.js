@@ -7,6 +7,10 @@ const postSchema = mongoose.Schema({
     people_liked: {
         type: [mongoose.Schema.Types.ObjectId],
         default: []
+    },
+    comments: {
+        type: [mongoose.Schema.Types.ObjectId],
+        default: []
     }
 });
 
@@ -19,6 +23,11 @@ const createPost = async ({ userid, content, imageUrl }) => {
 
 const savePostObject = async (post) => await post.save();
 const findPostsForGivenUser = async (userid) => await postModel.find({ userid });
+const findSinglePostById = async (_id, userid) => await postModel.findOne({ _id, userid });
+const findPostsByIds = async (postIds, userid) => await postModel.find({_id: { $in: postIds }, userid});
+const deletePostById = async (_id, userid) => await postModel.findOneAndRemove({ _id, userid });
+const updatePostById = async (_id, userid, update) => await postModel.findOneAndUpdate({ _id, userid}, update);
+
 
 
 const numOfLikes = async (post) => {
@@ -26,4 +35,4 @@ const numOfLikes = async (post) => {
     return post.people_liked.length;
 
 }
-module.exports = { createPost, findPostsForGivenUser }
+module.exports = { createPost, findPostsForGivenUser, findSinglePostById, findPostsByIds, deletePostById ,updatePostById }

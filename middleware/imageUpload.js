@@ -1,13 +1,21 @@
 const path = require('path'); 
 const multer = require('multer'); 
+const { createVerify } = require('crypto');
 
-var storage = multer.diskStorage({ 
+let storage = multer.diskStorage({ 
     destination: path.join(__dirname, '../public/uploads/imgs/'),
     filename: function (req, file, cb) {
       cb(null, (req.body.username || req.payload.username) + '.png');
     }
 });
 
-var upload = multer({ storage }).single('image');
+let postStorage = multer.diskStorage({
+    destination: path.join(__dirname, '../public/uploads/posts'),
+    filename: function (req, file, cb) {
+      cb(null, (req.payload.username) + '.png');
+    }
+});
+let upload = multer({ storage }).single('image');
+let uploadPost = multer({ postStorage }).single('image');
 
-module.exports = { upload };
+module.exports = { upload, uploadPost };

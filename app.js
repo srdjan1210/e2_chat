@@ -10,12 +10,15 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const compression = require('compression');
-require('./controllers/chatController')(io);
+const events = require('events');
+const emitter = new events.EventEmitter();
+require('./controllers/chatController')(io, emitter);
 //Routers
 const registerRouter = require('./routes/registerRouter');
 const loginRouter = require('./routes/loginRouter');
 const homeRouter = require('./routes/homeRouter');
 const userRouter = require('./routes/userRouter');
+const postRouter = require('./routes/postRouter');
 // Constants
 const PORT = process.env.PORT;
 
@@ -34,12 +37,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.set('emitter', emitter);
 //Routes
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
 app.use('/user', userRouter);
+app.use('/post', postRouter);
 
 
 app.use((error, req, res, next) => {

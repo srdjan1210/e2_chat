@@ -32,6 +32,7 @@ registerUser = async (req, res) => {
         profile_img_100,
         profile_img_300
     }).then(saved => {
+        req.app.get('emitter').emit('user registered', saved);
         if(saved) return res.status(201).send(_.pick(saved,['_id', 'username', 'email']));
     }).catch(err => {
         console.log(err);

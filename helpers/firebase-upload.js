@@ -25,4 +25,15 @@ const uploadImages = async (names) => {
     }
 }
 
+const uplaodPostImages = async (names) => {
+    for(let name of names) {
+        await bucket.upload(path.join(__dirname, `../public/uploads/imgs/${name}.png`), {
+            destination: `profileimgs/${name}.png`,
+            metadata: {
+                cacheControl: "public,max-age:10,s-maxage:10",
+                contentType: "image/png"
+            }
+        });
+    }
+}
 module.exports = { getImageUrl, uploadImages }

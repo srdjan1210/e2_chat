@@ -20,7 +20,7 @@ const updateNewMessages = (chatroom, from) => {
 }
 
 
-module.exports = (io) => {
+module.exports = (io, emitter) => {
     io.on('connection', (socket) => {
         socket.on('new user', async (id, cb) => {
             const chatrooms = await findChatroomsThatUseId(id);
@@ -86,7 +86,9 @@ module.exports = (io) => {
             });
 
             socket.broadcast.emit('logout', { userId: disconnectedUser })
-
+        });
+        emitter.on('user registered', (user) => {
+            socket.broadcast.emit('user registered', user);
         });
     });
 
