@@ -31,8 +31,8 @@ const updatePostById = async (_id, userid, update) => await postModel.findOneAnd
 
 
 const numOfLikes = async (post) => {
-    const post = await postModel.findOne(post);
-    return post.people_liked.length;
+    const tempPost = await postModel.findOne(post);
+    return tempPost.people_liked.length;
 
 }
 module.exports = { createPost, findPostsForGivenUser, findSinglePostById, findPostsByIds, deletePostById ,updatePostById }

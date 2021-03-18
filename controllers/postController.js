@@ -26,6 +26,7 @@ const getMultiplePosts = async (req, res) => {
 
 
 const getSinglePost = async (req, res) => {
+    if(!req.payload) return res.status(403).send({ err: 'Token not provided!'});
     const userid = req.payload._id;
     const _id = req.body._id;
     const post = await findSinglePostById(_id, userid);
@@ -50,4 +51,4 @@ const updatePost = async (req, res) => {
 }
 
 
-module.exports = { createPost, getAllPostsForUser, getSinglePost, getMultiplePost, deletePost, updatePost}
+module.exports = { createPost, getAllPostsForUser, getSinglePost, getMultiplePosts, deletePost, updatePost}

@@ -43,7 +43,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
 app.use('/user', userRouter);
-app.use('/post', postRouter);
+app.use('/feed', postRouter);
 
 
 app.use((error, req, res, next) => {
