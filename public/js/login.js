@@ -4,7 +4,6 @@ Main.Login = {
         password: ""
     },
     init: function() {
-        Main.Chat.socketInit();
         document.getElementById("log-form").addEventListener("submit", this.formSubmitEvent);
         document.getElementById("btn-logout").addEventListener("click", this.logOut);
         document.getElementById("btn-logout-mini").addEventListener("click", this.logOut);
@@ -70,7 +69,7 @@ Main.Login = {
 
         Main.Home.removeOthers();
         Main.Chat.closeAllChats();
-        //Main.Chat.socketDisconnect();
+        Main.Chat.socketDisconnect();
         Main.Home.clearUserData();
         window.localStorage.setItem("e2_chat_token", null);
         Main.Sections.sectionHandle("#/login");
